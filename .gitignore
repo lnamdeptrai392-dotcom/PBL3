@@ -1,0 +1,9 @@
+.vs/
+bin/
+obj/
+*.user
+/PBL3/obj
+/PBL3/bin
+
+PBL3/services
+PBL3/services/databaseHelper.cs
