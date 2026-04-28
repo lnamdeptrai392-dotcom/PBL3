@@ -1,0 +1,74 @@
+﻿<UserControl x:Class="PBL3a.UI.AdminC.Windows.Window4"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ScrollViewer>
+        <Grid Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- FILTER CÁCH 1 -->
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Môn học:" Margin="10"/>
+                <ComboBox x:Name="cbbMH" Width="150"
+                          SelectionChanged="cbbMH_SelectionChanged"/>
+
+                <TextBlock Text="Khối:" Margin="10"/>
+                <ComboBox x:Name="cbbKhoi" Width="120"/>
+
+                <TextBlock Text="Tình trạng:" Margin="10"/>
+                <ComboBox x:Name="cbbTTL" Width="150"
+                          SelectionChanged="cbbTTL_SelectedIndexChanged"/>
+
+                <Button Content="View"
+                        Width="120"
+                        Margin="10"
+                        Click="btnView_Click"/>
+            </StackPanel>
+
+            <!-- FILTER CÁCH 2 -->
+            <StackPanel Orientation="Horizontal" Grid.Row="1">
+                <TextBlock Text="Tìm theo:" Margin="10"/>
+                <ComboBox x:Name="cbbSearch"
+                          Width="150"
+                          SelectionChanged="cbbSearch_SelectedIndexChanged"/>
+
+                <TextBox x:Name="txtNhapDuLieu"
+                         Width="200"
+                         Margin="10"
+                         GotFocus="txtNhapDuLieu_Enter"/>
+
+                <Button Content="View"
+                        Width="120"
+                        Margin="10"
+                        Click="btnView2_Click"/>
+            </StackPanel>
+
+            <!-- TABLE -->
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+
+                <DataGrid x:Name="dgvData"
+                          Grid.Column="0"
+                          AutoGenerateColumns="True"
+                          SelectionChanged="dgvData_SelectionChanged"/>
+
+                <StackPanel Grid.Column="1">
+                    <DataGrid x:Name="dgvGV"
+                              Height="120"
+                              AutoGenerateColumns="True"/>
+
+                    <DataGrid x:Name="dgvHS"
+                              Height="300"
+                              AutoGenerateColumns="True"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

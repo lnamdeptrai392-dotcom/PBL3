@@ -1,0 +1,105 @@
+﻿<Window x:Class="PBL3a.UI.AdminTC.QuanLyChungTC"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="QuanLyChungTC"
+        Width="1000"
+        Height="500"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="White">
+
+    <Window.Resources>
+        <Style x:Key="MenuButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#2C4E62"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Height" Value="60"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Cursor" Value="Hand"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#7092BE"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="84"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Row="0"
+                Grid.ColumnSpan="2"
+                Background="#2C4E62">
+
+            <TextBlock Text="Quản Lý Tài Chính"
+                       Foreground="White"
+                       FontSize="34"
+                       FontWeight="SemiBold"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"/>
+        </Border>
+
+        <StackPanel Grid.Row="1"
+                    Grid.Column="0"
+                    Background="#2C4E62">
+
+            <Button x:Name="btnFee"
+                    Content="Học Phí"
+                    Click="btnFee_Click"
+                    Style="{StaticResource MenuButtonStyle}"/>
+
+            <Button x:Name="btnSalary"
+                    Content="Lương Giáo Viên"
+                    Click="btnSalary_Click"
+                    Style="{StaticResource MenuButtonStyle}"/>
+
+            <Button x:Name="btnProfit"
+                    Content="Lợi Nhuận"
+                    Click="btnProfit_Click"
+                    Style="{StaticResource MenuButtonStyle}"/>
+
+            <Button x:Name="btKT"
+                    Content="Khoản Thu"
+                    Click="btKT_Click"
+                    Style="{StaticResource MenuButtonStyle}"/>
+
+            <Button x:Name="btKC"
+                    Content="Khoản Chi"
+                    Click="btKC_Click"
+                    Style="{StaticResource MenuButtonStyle}"/>
+
+            <Button x:Name="btnExit"
+                    Content="Đăng Xuất"
+                    Click="btnExit_Click"
+                    Style="{StaticResource MenuButtonStyle}"/>
+        </StackPanel>
+
+        <ContentControl x:Name="paDesktop"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Background="White"/>
+    </Grid>
+</Window>

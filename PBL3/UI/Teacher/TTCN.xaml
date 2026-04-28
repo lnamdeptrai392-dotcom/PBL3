@@ -1,0 +1,72 @@
+﻿<UserControl x:Class="PBL3a.UI.Teacher.TTCN"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="White">
+
+    <Grid Background="White" Margin="0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="37"/>
+            <ColumnDefinition Width="113"/>
+            <ColumnDefinition Width="290"/>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="137"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="26"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="91"/>
+            <RowDefinition Height="69"/>
+            <RowDefinition Height="72"/>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="72"/>
+            <RowDefinition Height="63"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="7"
+                   Text="THÔNG TIN CÁ NHÂN"
+                   FontSize="32"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"/>
+
+        <TextBlock Grid.Row="1" Grid.Column="1" Text="Họ và tên:" FontSize="16" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbHVT" Grid.Row="1" Grid.Column="2" Height="32" VerticalAlignment="Top"/>
+
+        <TextBlock Grid.Row="2" Grid.Column="1" Text="Giới tính:" FontSize="16" VerticalAlignment="Top"/>
+        <ComboBox x:Name="cbbGT" Grid.Row="2" Grid.Column="2" Height="33" VerticalAlignment="Top">
+            <ComboBoxItem Content="Nam"/>
+            <ComboBoxItem Content="Nữ"/>
+        </ComboBox>
+
+        <TextBlock Grid.Row="3" Grid.Column="1" Text="Ngày sinh:" FontSize="16" VerticalAlignment="Top"/>
+        <DatePicker x:Name="dtNS" Grid.Row="3" Grid.Column="2" Height="32" VerticalAlignment="Top"/>
+
+        <TextBlock Grid.Row="4" Grid.Column="1" Text="SĐT:" FontSize="16" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbSDT" Grid.Row="4" Grid.Column="2" Height="32" VerticalAlignment="Top"/>
+
+        <TextBlock Grid.Row="5" Grid.Column="1" Text="Email:" FontSize="16" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbE" Grid.Row="5" Grid.Column="2" Height="32" VerticalAlignment="Top"/>
+
+        <TextBlock Grid.Row="1" Grid.Column="4" Text="Chuyên môn:" FontSize="16" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbMD" Grid.Row="1" Grid.Column="5" Height="32" VerticalAlignment="Top" IsReadOnly="True"/>
+
+        <TextBlock Grid.Row="2" Grid.Column="4" Text="Mã giảng viên:" FontSize="16" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbMGV" Grid.Row="2" Grid.Column="5" Height="32" VerticalAlignment="Top" IsReadOnly="True"/>
+
+        <Button x:Name="btnUpdate"
+                Grid.Row="6"
+                Grid.Column="2"
+                Content="Cập nhật"
+                Width="117"
+                Height="44"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Background="#5D9CB3"
+                Foreground="White"
+                BorderThickness="0"
+                Click="btnUpdate_Click"/>
+    </Grid>
+</UserControl>

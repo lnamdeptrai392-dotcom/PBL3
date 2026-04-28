@@ -1,0 +1,870 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Github\\.NET\\PBL3\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\login\\loginwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\login\\loginwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\login\\loginwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\login\\loginwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\teacher\\quanlychungt.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\teacher\\quanlychungt.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\teacher\\nhapdiem.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\teacher\\nhapdiem.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\teacher\\nhapdiem.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\teacher\\nhapdiem.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\teacher\\luong.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\teacher\\luong.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\teacher\\luong.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\teacher\\luong.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\teacher\\tkb.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\teacher\\tkb.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\teacher\\tkb.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\teacher\\tkb.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\teacher\\ttcn.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\teacher\\ttcn.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\teacher\\ttcn.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\teacher\\ttcn.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\teacher\\quanlychungt.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\teacher\\quanlychungt.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\student\\studentall.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\student\\studentall.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\student\\studentall.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\student\\studentall.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\student\\studentschedule.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\student\\studentschedule.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\student\\studentschedule.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\student\\studentschedule.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\student\\studentscore.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\student\\studentscore.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\student\\studentscore.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\student\\studentscore.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\student\\studentinfo.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\student\\studentinfo.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\student\\studentinfo.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\student\\studentinfo.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\student\\studentfee.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\student\\studentfee.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\student\\studentfee.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\student\\studentfee.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\admintc\\quanlychungtc.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\admintc\\quanlychungtc.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\admintc\\quanlychungtc.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\admintc\\quanlychungtc.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\admintc\\childform\\khoanthu.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\admintc\\childform\\khoanthu.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\admintc\\childform\\khoanthu.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\admintc\\childform\\khoanthu.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\admintc\\childform\\khoanchi.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\admintc\\childform\\khoanchi.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\admintc\\childform\\khoanchi.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\admintc\\childform\\khoanchi.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\admintc\\but_chform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\admintc\\but_chform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\admintc\\childform\\thietlaphp.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\admintc\\childform\\thietlaphp.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\admintc\\childform\\thietlaphp.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\admintc\\childform\\thietlaphp.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\admintc\\childform\\luonggv.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\admintc\\childform\\luonggv.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\admintc\\childform\\luonggv.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\admintc\\childform\\luonggv.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\admintc\\childform\\lai.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\admintc\\childform\\lai.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\admintc\\childform\\lai.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\admintc\\childform\\lai.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\admintc\\childform\\hocphi.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\admintc\\childform\\hocphi.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\admintc\\childform\\hocphi.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\admintc\\childform\\hocphi.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\admindd\\diemdanh.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\admindd\\diemdanh.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\admindd\\diemdanh.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\admindd\\diemdanh.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\admindd\\adminddwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\admindd\\adminddwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\admindd\\adminddwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\admindd\\adminddwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\adminc\\adminc.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\adminc\\adminc.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\adminc\\windows\\window5.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\adminc\\windows\\window5.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\adminc\\windows\\window5.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\adminc\\windows\\window5.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\adminc\\windows\\window4.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\adminc\\windows\\window4.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\adminc\\windows\\window4.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\adminc\\windows\\window4.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\adminc\\windows\\window2.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\adminc\\windows\\window2.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\adminc\\windows\\window2.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\adminc\\windows\\window2.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\adminc\\adminc.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\adminc\\adminc.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\adminc\\windows\\window1.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\adminc\\windows\\window1.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\ui\\adminc\\windows\\window1.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\ui\\adminc\\windows\\window1.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\properties\\settings.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\properties\\settings.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|c:\\github\\.net\\pbl3\\pbl3\\window1.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{01E29729-8FA4-4542-BCEA-E14EF2C1CA7D}|PBL3\\PBL3.csproj|solutionrelative:pbl3\\window1.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 7,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "TKB.xaml",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\Teacher\\TKB.xaml",
+              "RelativeDocumentMoniker": "PBL3\\UI\\Teacher\\TKB.xaml",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\Teacher\\TKB.xaml",
+              "RelativeToolTip": "PBL3\\UI\\Teacher\\TKB.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-04-28T18:02:38.027Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "QuanLyChungT.xaml.cs",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\Teacher\\QuanLyChungT.xaml.cs",
+              "RelativeDocumentMoniker": "PBL3\\UI\\Teacher\\QuanLyChungT.xaml.cs",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\Teacher\\QuanLyChungT.xaml.cs",
+              "RelativeToolTip": "PBL3\\UI\\Teacher\\QuanLyChungT.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAewAoAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-28T17:59:39.451Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "NhapDiem.xaml.cs",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\Teacher\\NhapDiem.xaml.cs",
+              "RelativeDocumentMoniker": "PBL3\\UI\\Teacher\\NhapDiem.xaml.cs",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\Teacher\\NhapDiem.xaml.cs",
+              "RelativeToolTip": "PBL3\\UI\\Teacher\\NhapDiem.xaml.cs",
+              "ViewState": "AgIAAEsAAAAAAAAAAAAuwE8AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-28T18:09:12.673Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "TTCN.xaml.cs",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\Teacher\\TTCN.xaml.cs",
+              "RelativeDocumentMoniker": "PBL3\\UI\\Teacher\\TTCN.xaml.cs",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\Teacher\\TTCN.xaml.cs",
+              "RelativeToolTip": "PBL3\\UI\\Teacher\\TTCN.xaml.cs",
+              "ViewState": "AgIAAGMAAAAAAAAAAAAuwHYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-28T18:02:11.531Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "TTCN.xaml",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\Teacher\\TTCN.xaml",
+              "RelativeDocumentMoniker": "PBL3\\UI\\Teacher\\TTCN.xaml",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\Teacher\\TTCN.xaml",
+              "RelativeToolTip": "PBL3\\UI\\Teacher\\TTCN.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-04-28T18:00:51.803Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "LoginWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\Login\\LoginWindow.xaml.cs",
+              "RelativeDocumentMoniker": "PBL3\\UI\\Login\\LoginWindow.xaml.cs",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\Login\\LoginWindow.xaml.cs",
+              "RelativeToolTip": "PBL3\\UI\\Login\\LoginWindow.xaml.cs",
+              "ViewState": "AgIAAGIAAAAAAAAAAAAuwHUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-28T12:34:56.872Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "TKB.xaml.cs",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\Teacher\\TKB.xaml.cs",
+              "RelativeDocumentMoniker": "PBL3\\UI\\Teacher\\TKB.xaml.cs",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\Teacher\\TKB.xaml.cs",
+              "RelativeToolTip": "PBL3\\UI\\Teacher\\TKB.xaml.cs",
+              "ViewState": "AgIAAH0AAAAAAAAAAAAuwJAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-28T18:03:35.199Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "QuanLyChungT.xaml",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\Teacher\\QuanLyChungT.xaml",
+              "RelativeDocumentMoniker": "PBL3\\UI\\Teacher\\QuanLyChungT.xaml",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\Teacher\\QuanLyChungT.xaml",
+              "RelativeToolTip": "PBL3\\UI\\Teacher\\QuanLyChungT.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-04-28T17:59:26.222Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "LoginWindow.xaml",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\Login\\LoginWindow.xaml",
+              "RelativeDocumentMoniker": "PBL3\\UI\\Login\\LoginWindow.xaml",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\Login\\LoginWindow.xaml",
+              "RelativeToolTip": "PBL3\\UI\\Login\\LoginWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-04-28T12:34:22.539Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "NhapDiem.xaml",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\Teacher\\NhapDiem.xaml",
+              "RelativeDocumentMoniker": "PBL3\\UI\\Teacher\\NhapDiem.xaml",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\Teacher\\NhapDiem.xaml",
+              "RelativeToolTip": "PBL3\\UI\\Teacher\\NhapDiem.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-04-28T18:04:44.61Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Luong.xaml",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\Teacher\\Luong.xaml",
+              "RelativeDocumentMoniker": "PBL3\\UI\\Teacher\\Luong.xaml",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\Teacher\\Luong.xaml",
+              "RelativeToolTip": "PBL3\\UI\\Teacher\\Luong.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-04-28T18:06:16.452Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Luong.xaml.cs",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\Teacher\\Luong.xaml.cs",
+              "RelativeDocumentMoniker": "PBL3\\UI\\Teacher\\Luong.xaml.cs",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\Teacher\\Luong.xaml.cs",
+              "RelativeToolTip": "PBL3\\UI\\Teacher\\Luong.xaml.cs",
+              "ViewState": "AgIAAEEAAAAAAAAAAAAuwFQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-28T18:06:36.646Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "StudentFee.xaml.cs",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\Student\\StudentFee.xaml.cs",
+              "RelativeDocumentMoniker": "PBL3\\UI\\Student\\StudentFee.xaml.cs",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\Student\\StudentFee.xaml.cs",
+              "RelativeToolTip": "PBL3\\UI\\Student\\StudentFee.xaml.cs",
+              "ViewState": "AgIAACYAAAAAAAAAAAAgwEMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-28T17:41:02.752Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "StudentAll.xaml.cs",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\Student\\StudentAll.xaml.cs",
+              "RelativeDocumentMoniker": "PBL3\\UI\\Student\\StudentAll.xaml.cs",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\Student\\StudentAll.xaml.cs",
+              "RelativeToolTip": "PBL3\\UI\\Student\\StudentAll.xaml.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAgwAwAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-28T17:39:04.477Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "StudentSchedule.xaml",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\Student\\StudentSchedule.xaml",
+              "RelativeDocumentMoniker": "PBL3\\UI\\Student\\StudentSchedule.xaml",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\Student\\StudentSchedule.xaml",
+              "RelativeToolTip": "PBL3\\UI\\Student\\StudentSchedule.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-04-28T17:43:18.858Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "StudentAll.xaml",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\Student\\StudentAll.xaml",
+              "RelativeDocumentMoniker": "PBL3\\UI\\Student\\StudentAll.xaml",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\Student\\StudentAll.xaml",
+              "RelativeToolTip": "PBL3\\UI\\Student\\StudentAll.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-04-28T17:38:53.66Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "StudentINFO.xaml",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\Student\\StudentINFO.xaml",
+              "RelativeDocumentMoniker": "PBL3\\UI\\Student\\StudentINFO.xaml",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\Student\\StudentINFO.xaml",
+              "RelativeToolTip": "PBL3\\UI\\Student\\StudentINFO.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-04-28T17:42:22.823Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "StudentSchedule.xaml.cs",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\Student\\StudentSchedule.xaml.cs",
+              "RelativeDocumentMoniker": "PBL3\\UI\\Student\\StudentSchedule.xaml.cs",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\Student\\StudentSchedule.xaml.cs",
+              "RelativeToolTip": "PBL3\\UI\\Student\\StudentSchedule.xaml.cs",
+              "ViewState": "AgIAAG0AAAAAAAAAAAAcwHEAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-28T17:44:37.11Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "StudentFee.xaml",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\Student\\StudentFee.xaml",
+              "RelativeDocumentMoniker": "PBL3\\UI\\Student\\StudentFee.xaml",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\Student\\StudentFee.xaml",
+              "RelativeToolTip": "PBL3\\UI\\Student\\StudentFee.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-04-28T17:40:51.075Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "StudentINFO.xaml.cs",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\Student\\StudentINFO.xaml.cs",
+              "RelativeDocumentMoniker": "PBL3\\UI\\Student\\StudentINFO.xaml.cs",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\Student\\StudentINFO.xaml.cs",
+              "RelativeToolTip": "PBL3\\UI\\Student\\StudentINFO.xaml.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAIwG8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-28T17:42:37.426Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "StudentScore.xaml",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\Student\\StudentScore.xaml",
+              "RelativeDocumentMoniker": "PBL3\\UI\\Student\\StudentScore.xaml",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\Student\\StudentScore.xaml",
+              "RelativeToolTip": "PBL3\\UI\\Student\\StudentScore.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-04-28T17:46:12.456Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "StudentScore.xaml.cs",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\Student\\StudentScore.xaml.cs",
+              "RelativeDocumentMoniker": "PBL3\\UI\\Student\\StudentScore.xaml.cs",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\Student\\StudentScore.xaml.cs",
+              "RelativeToolTip": "PBL3\\UI\\Student\\StudentScore.xaml.cs",
+              "ViewState": "AgIAAEEAAAAAAAAAAAAuwFQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-28T17:46:40.05Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "QuanLyChungTC.xaml.cs",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminTC\\QuanLyChungTC.xaml.cs",
+              "RelativeDocumentMoniker": "PBL3\\UI\\AdminTC\\QuanLyChungTC.xaml.cs",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminTC\\QuanLyChungTC.xaml.cs",
+              "RelativeToolTip": "PBL3\\UI\\AdminTC\\QuanLyChungTC.xaml.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA0AAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-28T15:48:38.523Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "KhoanThu.xaml.cs",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminTC\\ChildForm\\KhoanThu.xaml.cs",
+              "RelativeDocumentMoniker": "PBL3\\UI\\AdminTC\\ChildForm\\KhoanThu.xaml.cs",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminTC\\ChildForm\\KhoanThu.xaml.cs",
+              "RelativeToolTip": "PBL3\\UI\\AdminTC\\ChildForm\\KhoanThu.xaml.cs",
+              "ViewState": "AgIAAJsAAAAAAAAAAAAuwKYAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-28T17:09:55.996Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "LuongGV.xaml",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminTC\\ChildForm\\LuongGV.xaml",
+              "RelativeDocumentMoniker": "PBL3\\UI\\AdminTC\\ChildForm\\LuongGV.xaml",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminTC\\ChildForm\\LuongGV.xaml",
+              "RelativeToolTip": "PBL3\\UI\\AdminTC\\ChildForm\\LuongGV.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-04-28T17:12:42.768Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "QuanLyChungTC.xaml",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminTC\\QuanLyChungTC.xaml",
+              "RelativeDocumentMoniker": "PBL3\\UI\\AdminTC\\QuanLyChungTC.xaml",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminTC\\QuanLyChungTC.xaml",
+              "RelativeToolTip": "PBL3\\UI\\AdminTC\\QuanLyChungTC.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-04-28T15:48:14.926Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "KhoanThu.xaml",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminTC\\ChildForm\\KhoanThu.xaml",
+              "RelativeDocumentMoniker": "PBL3\\UI\\AdminTC\\ChildForm\\KhoanThu.xaml",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminTC\\ChildForm\\KhoanThu.xaml",
+              "RelativeToolTip": "PBL3\\UI\\AdminTC\\ChildForm\\KhoanThu.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-04-28T17:09:51.297Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "Lai.xaml",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminTC\\ChildForm\\Lai.xaml",
+              "RelativeDocumentMoniker": "PBL3\\UI\\AdminTC\\ChildForm\\Lai.xaml",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminTC\\ChildForm\\Lai.xaml",
+              "RelativeToolTip": "PBL3\\UI\\AdminTC\\ChildForm\\Lai.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-04-28T17:11:20.787Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "KhoanChi.xaml",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminTC\\ChildForm\\KhoanChi.xaml",
+              "RelativeDocumentMoniker": "PBL3\\UI\\AdminTC\\ChildForm\\KhoanChi.xaml",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminTC\\ChildForm\\KhoanChi.xaml",
+              "RelativeToolTip": "PBL3\\UI\\AdminTC\\ChildForm\\KhoanChi.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-04-28T15:51:41.622Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "KhoanChi.xaml.cs",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminTC\\ChildForm\\KhoanChi.xaml.cs",
+              "RelativeDocumentMoniker": "PBL3\\UI\\AdminTC\\ChildForm\\KhoanChi.xaml.cs",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminTC\\ChildForm\\KhoanChi.xaml.cs",
+              "RelativeToolTip": "PBL3\\UI\\AdminTC\\ChildForm\\KhoanChi.xaml.cs",
+              "ViewState": "AgIAAAABAAAAAAAAAAAuwBMBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-28T15:53:52.578Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "Lai.xaml.cs",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminTC\\ChildForm\\Lai.xaml.cs",
+              "RelativeDocumentMoniker": "PBL3\\UI\\AdminTC\\ChildForm\\Lai.xaml.cs",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminTC\\ChildForm\\Lai.xaml.cs",
+              "RelativeToolTip": "PBL3\\UI\\AdminTC\\ChildForm\\Lai.xaml.cs",
+              "ViewState": "AgIAAHwAAAAAAAAAAAAuwI8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-28T17:11:48.557Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "LuongGV.xaml.cs",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminTC\\ChildForm\\LuongGV.xaml.cs",
+              "RelativeDocumentMoniker": "PBL3\\UI\\AdminTC\\ChildForm\\LuongGV.xaml.cs",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminTC\\ChildForm\\LuongGV.xaml.cs",
+              "RelativeToolTip": "PBL3\\UI\\AdminTC\\ChildForm\\LuongGV.xaml.cs",
+              "ViewState": "AgIAAJ0AAAAAAAAAAAAuwK0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-28T17:18:21.366Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "ThietLapHP.xaml",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminTC\\ChildForm\\ThietLapHP.xaml",
+              "RelativeDocumentMoniker": "PBL3\\UI\\AdminTC\\ChildForm\\ThietLapHP.xaml",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminTC\\ChildForm\\ThietLapHP.xaml",
+              "RelativeToolTip": "PBL3\\UI\\AdminTC\\ChildForm\\ThietLapHP.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-04-28T17:19:15.024Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "ThietLapHP.xaml.cs",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminTC\\ChildForm\\ThietLapHP.xaml.cs",
+              "RelativeDocumentMoniker": "PBL3\\UI\\AdminTC\\ChildForm\\ThietLapHP.xaml.cs",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminTC\\ChildForm\\ThietLapHP.xaml.cs",
+              "RelativeToolTip": "PBL3\\UI\\AdminTC\\ChildForm\\ThietLapHP.xaml.cs",
+              "ViewState": "AgIAAJsAAAAAAAAAAAAuwK4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-28T17:20:48.522Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "but_chForm.cs",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminTC\\but_chForm.cs",
+              "RelativeDocumentMoniker": "PBL3\\UI\\AdminTC\\but_chForm.cs",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminTC\\but_chForm.cs",
+              "RelativeToolTip": "PBL3\\UI\\AdminTC\\but_chForm.cs",
+              "ViewState": "AgIAADgAAAAAAAAAAAAswDwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-28T17:23:10.656Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "HocPhi.xaml.cs",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminTC\\ChildForm\\HocPhi.xaml.cs",
+              "RelativeDocumentMoniker": "PBL3\\UI\\AdminTC\\ChildForm\\HocPhi.xaml.cs",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminTC\\ChildForm\\HocPhi.xaml.cs",
+              "RelativeToolTip": "PBL3\\UI\\AdminTC\\ChildForm\\HocPhi.xaml.cs",
+              "ViewState": "AgIAAJ4AAAAAAAAAAAA+wLEAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-28T15:50:27.582Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "HocPhi.xaml",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminTC\\ChildForm\\HocPhi.xaml",
+              "RelativeDocumentMoniker": "PBL3\\UI\\AdminTC\\ChildForm\\HocPhi.xaml",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminTC\\ChildForm\\HocPhi.xaml",
+              "RelativeToolTip": "PBL3\\UI\\AdminTC\\ChildForm\\HocPhi.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-04-28T15:50:17.073Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 40,
+              "Title": "AdminDDWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminDD\\AdminDDWindow.xaml.cs",
+              "RelativeDocumentMoniker": "PBL3\\UI\\AdminDD\\AdminDDWindow.xaml.cs",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminDD\\AdminDDWindow.xaml.cs",
+              "RelativeToolTip": "PBL3\\UI\\AdminDD\\AdminDDWindow.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAIwAwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-28T14:47:57.776Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 39,
+              "Title": "AdminDDWindow.xaml",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminDD\\AdminDDWindow.xaml",
+              "RelativeDocumentMoniker": "PBL3\\UI\\AdminDD\\AdminDDWindow.xaml",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminDD\\AdminDDWindow.xaml",
+              "RelativeToolTip": "PBL3\\UI\\AdminDD\\AdminDDWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-04-28T14:47:42.456Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "DiemDanh.xaml.cs",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminDD\\DiemDanh.xaml.cs",
+              "RelativeDocumentMoniker": "PBL3\\UI\\AdminDD\\DiemDanh.xaml.cs",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminDD\\DiemDanh.xaml.cs",
+              "RelativeToolTip": "PBL3\\UI\\AdminDD\\DiemDanh.xaml.cs",
+              "ViewState": "AgIAAF0AAAAAAAAAAAAgwFEAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-28T14:44:08.055Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "DiemDanh.xaml",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminDD\\DiemDanh.xaml",
+              "RelativeDocumentMoniker": "PBL3\\UI\\AdminDD\\DiemDanh.xaml",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminDD\\DiemDanh.xaml",
+              "RelativeToolTip": "PBL3\\UI\\AdminDD\\DiemDanh.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-04-28T14:19:50.768Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 41,
+              "Title": "AdminC.xaml.cs",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminC\\AdminC.xaml.cs",
+              "RelativeDocumentMoniker": "PBL3\\UI\\AdminC\\AdminC.xaml.cs",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminC\\AdminC.xaml.cs",
+              "RelativeToolTip": "PBL3\\UI\\AdminC\\AdminC.xaml.cs",
+              "ViewState": "AgIAAC8AAAAAAAAAAAAwwDAAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-28T13:41:45.893Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 47,
+              "Title": "Window2.xaml.cs",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminC\\Windows\\Window2.xaml.cs",
+              "RelativeDocumentMoniker": "PBL3\\UI\\AdminC\\Windows\\Window2.xaml.cs",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminC\\Windows\\Window2.xaml.cs",
+              "RelativeToolTip": "PBL3\\UI\\AdminC\\Windows\\Window2.xaml.cs",
+              "ViewState": "AgIAAHwAAAAAAAAAAAAcwIkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-28T14:08:49.729Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 44,
+              "Title": "Window4.xaml.cs",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminC\\Windows\\Window4.xaml.cs",
+              "RelativeDocumentMoniker": "PBL3\\UI\\AdminC\\Windows\\Window4.xaml.cs",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminC\\Windows\\Window4.xaml.cs",
+              "RelativeToolTip": "PBL3\\UI\\AdminC\\Windows\\Window4.xaml.cs",
+              "ViewState": "AgIAAHQAAAAAAAAAAAAcwIEAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-28T14:08:49.704Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 45,
+              "Title": "Window4.xaml",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminC\\Windows\\Window4.xaml",
+              "RelativeDocumentMoniker": "PBL3\\UI\\AdminC\\Windows\\Window4.xaml",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminC\\Windows\\Window4.xaml",
+              "RelativeToolTip": "PBL3\\UI\\AdminC\\Windows\\Window4.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-04-28T14:08:49.714Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 43,
+              "Title": "Window5.xaml",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminC\\Windows\\Window5.xaml",
+              "RelativeDocumentMoniker": "PBL3\\UI\\AdminC\\Windows\\Window5.xaml",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminC\\Windows\\Window5.xaml",
+              "RelativeToolTip": "PBL3\\UI\\AdminC\\Windows\\Window5.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-04-28T14:08:49.687Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 46,
+              "Title": "Window2.xaml",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminC\\Windows\\Window2.xaml",
+              "RelativeDocumentMoniker": "PBL3\\UI\\AdminC\\Windows\\Window2.xaml",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminC\\Windows\\Window2.xaml",
+              "RelativeToolTip": "PBL3\\UI\\AdminC\\Windows\\Window2.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-04-28T14:08:49.737Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 42,
+              "Title": "Window5.xaml.cs",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminC\\Windows\\Window5.xaml.cs",
+              "RelativeDocumentMoniker": "PBL3\\UI\\AdminC\\Windows\\Window5.xaml.cs",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminC\\Windows\\Window5.xaml.cs",
+              "RelativeToolTip": "PBL3\\UI\\AdminC\\Windows\\Window5.xaml.cs",
+              "ViewState": "AgIAAJcAAAAAAAAAAAAcwKQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-28T14:08:49.619Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 51,
+              "Title": "Settings.Designer.cs",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\Properties\\Settings.Designer.cs",
+              "RelativeDocumentMoniker": "PBL3\\Properties\\Settings.Designer.cs",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\Properties\\Settings.Designer.cs",
+              "RelativeToolTip": "PBL3\\Properties\\Settings.Designer.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAIBJwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-28T12:56:42.343Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 49,
+              "Title": "Window1.xaml.cs",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminC\\Windows\\Window1.xaml.cs",
+              "RelativeDocumentMoniker": "PBL3\\UI\\AdminC\\Windows\\Window1.xaml.cs",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminC\\Windows\\Window1.xaml.cs",
+              "RelativeToolTip": "PBL3\\UI\\AdminC\\Windows\\Window1.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAJkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-28T12:51:05.636Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 48,
+              "Title": "AdminC.xaml",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminC\\AdminC.xaml",
+              "RelativeDocumentMoniker": "PBL3\\UI\\AdminC\\AdminC.xaml",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminC\\AdminC.xaml",
+              "RelativeToolTip": "PBL3\\UI\\AdminC\\AdminC.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-04-28T13:26:57.054Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 50,
+              "Title": "Window1.xaml",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminC\\Windows\\Window1.xaml",
+              "RelativeDocumentMoniker": "PBL3\\UI\\AdminC\\Windows\\Window1.xaml",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\UI\\AdminC\\Windows\\Window1.xaml",
+              "RelativeToolTip": "PBL3\\UI\\AdminC\\Windows\\Window1.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-04-28T12:48:33.628Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 52,
+              "Title": "App.xaml",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\App.xaml",
+              "RelativeDocumentMoniker": "PBL3\\App.xaml",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\App.xaml",
+              "RelativeToolTip": "PBL3\\App.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-04-28T12:36:38.725Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 53,
+              "Title": "Window1.xaml",
+              "DocumentMoniker": "C:\\Github\\.NET\\PBL3\\PBL3\\Window1.xaml",
+              "RelativeDocumentMoniker": "PBL3\\Window1.xaml",
+              "ToolTip": "C:\\Github\\.NET\\PBL3\\PBL3\\Window1.xaml",
+              "RelativeToolTip": "PBL3\\Window1.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-04-28T12:22:27.437Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

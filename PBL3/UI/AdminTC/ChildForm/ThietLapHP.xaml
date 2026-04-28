@@ -1,0 +1,121 @@
+﻿<Window x:Class="PBL3a.UI.AdminTC.ThietLapHP"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="ThietLapHP"
+        Width="1069"
+        Height="578"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        Background="White">
+
+    <Grid Margin="30">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="90"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="140"/>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="120"/>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="5"
+                   Text="THIẾT LẬP HỌC PHÍ"
+                   FontSize="30"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"/>
+
+        <TextBlock Grid.Row="1" Grid.Column="0"
+                   Text="Mã Lớp:"
+                   FontSize="16"
+                   VerticalAlignment="Center"/>
+
+        <ComboBox x:Name="cbbMaLop"
+                  Grid.Row="1" Grid.Column="1"
+                  Height="35"
+                  IsEditable="True"
+                  SelectionChanged="cbbMaLop_SelectionChanged"/>
+
+        <TextBlock Grid.Row="1" Grid.Column="2"
+                   Text="Tên Lớp:"
+                   FontSize="16"
+                   VerticalAlignment="Center"
+                   Margin="20,0,0,0"/>
+
+        <TextBox x:Name="tbTL"
+                 Grid.Row="1" Grid.Column="3"
+                 Height="35"
+                 IsReadOnly="True"/>
+
+        <TextBlock Grid.Row="3" Grid.Column="0"
+                   Text="Số tiền / người"
+                   FontSize="16"
+                   VerticalAlignment="Center"/>
+
+        <TextBox x:Name="txtTienTrenNg"
+                 Grid.Row="3" Grid.Column="1"
+                 Height="35"/>
+
+        <TextBlock Grid.Row="3" Grid.Column="2"
+                   Text="Tổng tiền"
+                   FontSize="16"
+                   VerticalAlignment="Center"
+                   Margin="20,0,0,0"/>
+
+        <TextBox x:Name="txtTongT"
+                 Grid.Row="3" Grid.Column="3"
+                 Height="35"
+                 IsReadOnly="True"/>
+
+        <TextBlock Grid.Row="4" Grid.Column="0"
+                   Text="Sĩ số"
+                   FontSize="16"
+                   VerticalAlignment="Center"/>
+
+        <TextBox x:Name="txtSS"
+                 Grid.Row="4" Grid.Column="1"
+                 Height="35"
+                 IsReadOnly="True"/>
+
+        <StackPanel Grid.Row="5" Grid.Column="4"
+                    VerticalAlignment="Bottom"
+                    HorizontalAlignment="Right">
+
+            <Button x:Name="butTT"
+                    Content="Tổng tiền"
+                    Width="150"
+                    Height="45"
+                    Background="#5D9CB3"
+                    Foreground="White"
+                    BorderThickness="0"
+                    Margin="0,0,0,10"
+                    Click="butTT_Click"/>
+
+            <Button x:Name="btLuu"
+                    Content="Lưu"
+                    Width="150"
+                    Height="45"
+                    Background="#5D9CB3"
+                    Foreground="White"
+                    BorderThickness="0"
+                    Margin="0,0,0,10"
+                    Click="btLuu_Click"/>
+
+            <Button x:Name="button1"
+                    Content="Thoát"
+                    Width="150"
+                    Height="45"
+                    Background="#5D9CB3"
+                    Foreground="White"
+                    BorderThickness="0"
+                    Click="button1_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

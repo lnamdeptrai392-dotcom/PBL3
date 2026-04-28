@@ -1,0 +1,75 @@
+﻿<UserControl x:Class="PBL3a.UI.Teacher.NhapDiem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="White">
+
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="76"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="80"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40"/>
+            <ColumnDefinition Width="120"/>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="40"/>
+            <ColumnDefinition Width="120"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- TITLE -->
+        <TextBlock Grid.Row="0"
+                   Grid.ColumnSpan="6"
+                   Text="NHẬP ĐIỂM VÀ NHẬN XÉT"
+                   FontSize="26"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"/>
+
+        <!-- FILTER -->
+        <TextBlock Grid.Row="1"
+                   Grid.Column="1"
+                   Text="Mã lớp học:"
+                   VerticalAlignment="Center"/>
+
+        <ComboBox x:Name="comboBox1"
+                  Grid.Row="1"
+                  Grid.Column="2"
+                  IsEditable="True"
+                  Height="30"
+                  KeyUp="comboBox1_KeyUp"
+                  SelectionChanged="comboBox1_SelectedIndexChanged"/>
+
+        <TextBlock Grid.Row="1"
+                   Grid.Column="4"
+                   Text="Tên lớp:"
+                   VerticalAlignment="Center"/>
+
+        <TextBox x:Name="textBox1"
+                 Grid.Row="1"
+                 Grid.Column="5"
+                 IsReadOnly="True"
+                 Height="30"/>
+
+        <!-- TABLE -->
+        <DataGrid x:Name="dataGridView1"
+                  Grid.Row="2"
+                  Grid.Column="1"
+                  Grid.ColumnSpan="5"
+                  AutoGenerateColumns="True"
+                  CanUserAddRows="False"
+                  Background="White"/>
+
+        <!-- BUTTON -->
+        <Button x:Name="button2"
+                Grid.Row="3"
+                Grid.Column="5"
+                Content="Lưu điểm"
+                Width="120"
+                Height="45"
+                HorizontalAlignment="Right"
+                Click="button2_Click"/>
+    </Grid>
+</UserControl>
