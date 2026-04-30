@@ -2,42 +2,114 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Admin Quản Lý Chung"
-        WindowState="Maximized">
-
+        WindowState="Maximized"
+        Width="1000"
+        Height="500">
+    
+    <Window.Resources>
+        <Style x:Key="MenuButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#CCCCCC"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Padding" Value="10,8"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Left" 
+                                          VerticalAlignment="Center"
+                                          Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#263f60"/>
+                    <Setter Property="Foreground" Value="White"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="272"/>
+            <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Background="#7092BE">
-            <Button x:Name="btnHome" Height="107" Content="HOME"/>
+        <Border Background="#263f60" Grid.Column="0">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <Border Background="#263f60" Height="80">
+                        <TextBlock Text="EduCore"
+                                   FontSize="24"
+                                   FontWeight="Bold"
+                                   Foreground="White"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+                    </Border>
+                    <Expander Header="Quản lý Đào tạo"
+                              Foreground="White" 
+                              FontSize="14"
+                              FontWeight="SemiBold"
+                              BorderThickness="0"
+                              Margin="0,5,0,0">
+                        <StackPanel Margin="20,5,0,5">
+                            <Button x:Name="btnKhoaLop"
+                                    Content="   Xem Lớp học/Khóa học" 
+                                    Style="{StaticResource MenuButtonStyle}"
+                                    Click="btnKhoaLop_Click"/>
+                            <Button x:Name="btnTaoLH"
+                                    Content="   Sắp xếp lịch học" 
+                                    Style="{StaticResource MenuButtonStyle}"
+                                    Click="btnTaoLH_Click"/>
+                            <Button x:Name="btnDiemDanh"
+                                    Content="   Điểm danh"
+                                    Style="{StaticResource MenuButtonStyle}"
+                                    Click="btnDiemDanh_Click"/>
 
-            <Button x:Name="btnDuyetDon"
-                    Height="107"
-                    Content="     Duyệt Đơn"
-                    Click="btnDuyetDon_Click"/>
+                        </StackPanel>
+                    </Expander>
 
-            <Button x:Name="btnKhoaLop"
-                    Height="107"
-                    Content="     Thông Tin Khóa/Lớp"
-                    Click="btnKhoaLop_Click"/>
+                    <Expander Header="Quản lý Nhân sự" 
+                              Foreground="White" 
+                              FontSize="14"
+                              FontWeight="SemiBold"
+                              Margin="0,5,0,0">
+                        <StackPanel Margin="20,5,0,5">
+                            <Button x:Name="btnStudentProfile" Content="   Hồ sơ Học sinh" 
+                                    Style="{StaticResource MenuButtonStyle}"
+                                    Click="btnStudentProfile_Click"
+                                    />
+                            <Button x:Name="btnTeacherProfile" Content="   Hồ sơ Giáo viên" 
+                                    Style="{StaticResource MenuButtonStyle}"
+                                    Click="btnTeacherProfile_Click"
+                                    />
+                            <Button x:Name="btnTaoTK"
+                                    Content="   Cấp tài khoản" 
+                                    Style="{StaticResource MenuButtonStyle}"
+                                    Click="btnTaoTK_Click"/>
+                            <Button x:Name="btnDuyetDon"
+                                    Content="   Duyệt đơn" 
+                                    Style="{StaticResource MenuButtonStyle}"
+                                    Click="btnDuyetDon_Click"/>
+                        </StackPanel>
+                    </Expander>
 
-            <Button x:Name="btnTaoTK"
-                    Height="107"
-                    Content="     Tạo Tài Khoản"
-                    Click="btnTaoTK_Click"/>
-
-            <Button x:Name="btnTaoLH"
-                    Height="107"
-                    Content="     Tạo Thêm Lớp Học"
-                    Click="btnTaoLH_Click"/>
-
-            <Button x:Name="butOut"
-                    Height="107"
-                    Content="     Đăng Xuất"
-                    Click="butOut_Click"/>
-        </StackPanel>
+                    <Button x:Name="butOut"
+                                Content="Đăng Xuất"
+                                Background="#263f60"
+                                Foreground="White" 
+                                FontSize="14"
+                                FontWeight="SemiBold"
+                                Margin="0,5,0,0"
+                                Click="butOut_Click" Height="57" HorizontalAlignment="Left" Width="199"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
 
         <ContentControl x:Name="panelDesktop"
                         Grid.Column="1"/>

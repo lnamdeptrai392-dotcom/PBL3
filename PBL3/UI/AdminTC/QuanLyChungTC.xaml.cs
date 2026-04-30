@@ -16,24 +16,11 @@ namespace PBL3a.UI.AdminTC
 
         private void OpenChild(UserControl child, object sender)
         {
-            ActivateButton(sender);
+            
             paDesktop.Content = child;
         }
 
-        private void ActivateButton(object sender)
-        {
-            if (currentButton != null)
-            {
-                currentButton.Background = new SolidColorBrush(Color.FromRgb(44, 78, 98));
-            }
-
-            currentButton = sender as Button;
-
-            if (currentButton != null)
-            {
-                currentButton.Background = new SolidColorBrush(Color.FromRgb(112, 146, 190));
-            }
-        }
+        
 
         private void btnFee_Click(object sender, RoutedEventArgs e)
         {

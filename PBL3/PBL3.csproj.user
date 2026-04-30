@@ -2,10 +2,7 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
-    <Compile Update="UI\AdminDD\AdminDDWindow.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="UI\AdminDD\DiemDanh.xaml.cs">
+    <Compile Update="UI\AdminC\Windows\DiemDanh.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UI\AdminTC\ChildForm\HocPhi.xaml.cs">

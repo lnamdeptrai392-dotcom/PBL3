@@ -4,78 +4,100 @@
         Title="QuanLyChungT"
         Width="1000"
         Height="500"
-        WindowStartupLocation="CenterScreen"
+        
+        WindowState="Maximized"
         WindowStyle="None"
         ResizeMode="NoResize"
-        Background="#2C4E62">
+        Background="White">
 
     <Grid>
-        <Grid.Resources>
-            <Style TargetType="Button">
-                <Setter Property="Background" Value="#2C4E62"/>
-                <Setter Property="Foreground" Value="White"/>
-                <Setter Property="FontSize" Value="15"/>
-                <Setter Property="BorderThickness" Value="0"/>
-                <Setter Property="Cursor" Value="Hand"/>
-                <Setter Property="Height" Value="55"/>
-                <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                <Setter Property="VerticalContentAlignment" Value="Center"/>
-
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="Button">
-                            <Border Background="{TemplateBinding Background}">
-                                <ContentPresenter HorizontalAlignment="Center"
-                                                  VerticalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-
-                <Style.Triggers>
-                    <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Background" Value="#3E6A83"/>
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
-        </Grid.Resources>
-
-        <Grid.ColumnDefinitions>
+            <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Column="0"
-                    Background="#2C4E62">
+                    Background="#FF263F60">
 
-            <Grid Height="120">
-                <Image Width="103"
-                       Height="91"
-                       Stretch="Fill"
-                       Source="/Resources/2026.png"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"/>
-            </Grid>
+            <Border Background="#263f60" Height="80">
+                <TextBlock Text="EduCore"
+               FontSize="24"
+               FontWeight="Bold"
+               Foreground="White"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"/>
+            </Border>
 
             <Button x:Name="btnInfo"
-                    Content="Thông tin cá nhân"
-                    Click="btnInfo_Click"/>
+                    Content="    Thông tin cá nhân"
+                    Foreground="White" 
+                    FontSize="14"
+                    FontWeight="SemiBold"
+                    BorderThickness="0"
+                    Margin="0,5,0,0"
+                    Click="btnInfo_Click" Background="#FF263F60" HorizontalAlignment="Left"/>
 
             <Button x:Name="btnSchedule"
-                    Content="Thời khóa biểu"
-                    Click="btnSchedule_Click"/>
+                    Content="    Thời khóa biểu"
+                    Foreground="White" 
+                    FontSize="14"
+                    FontWeight="SemiBold"
+                    BorderThickness="0"
+                    Margin="0,5,0,0"
+                    Click="btnSchedule_Click" Background="#FF263F60" HorizontalAlignment="Left"/>
 
-            <Button x:Name="btnScore"
-                    Content="Nhập điểm"
-                    Click="btnScore_Click"/>
+            <Expander Header="Lop hoc cua toi"
+                      Foreground="White" 
+                      Background="#263f60"
+                      FontSize="14"
+                      FontWeight="SemiBold"
+                      BorderThickness="0"
+                      Margin="0,5,0,0">
+                <StackPanel Margin="20,5,0,5">
+                    <Button 
+                            Content="   Lop dang day" 
+                            Background="#263f60"
+                            Foreground="White" 
+                             HorizontalAlignment="Left"/>
+                    <Button x:Name="btnScore"
+                            Content="   Nhap Diem / Nhan Xet" 
+                            Background="#263f60"
+                            Foreground="White" 
+                            Click="btnScore_Click" HorizontalAlignment="Left"/>
+                </StackPanel>
+            </Expander>
 
-            <Button x:Name="btnSalary"
-                    Content="Lương"
-                    Click="btnSalary_Click"/>
+            <Expander Header="Tai chinh ca nhan"
+                      Foreground="White" 
+                      Background="#263f60"
+                      FontSize="14"
+                      FontWeight="SemiBold"
+                      BorderThickness="0"
+                      Margin="0,5,0,0">
+                <StackPanel Margin="20,5,0,5">
+                    <Button x:Name="btnSalary"
+                            Content="   Luong/Thuong" 
+                            Background="#263f60"
+                            Foreground="White" 
+                            Click="btnSalary_Click" HorizontalAlignment="Left"/>
+                    <Button 
+                            Content="   Lich su hoa don" 
+                            Background="#263f60"
+                            Foreground="White" 
+                            HorizontalAlignment="Left"/>
 
+
+                </StackPanel>
+            </Expander>
+            
             <Button x:Name="btnExit"
-                    Content="Đăng xuất"
-                    Click="btnExit_Click"/>
+                    Content="    Đăng xuất"
+                    Foreground="White" 
+                    FontSize="14"
+                    FontWeight="SemiBold"
+                    BorderThickness="0"
+                    Margin="0,5,0,0"
+                    Click="btnExit_Click" Background="#FF263F60" HorizontalAlignment="Left"/>
         </StackPanel>
 
         <ContentControl x:Name="panelMain"

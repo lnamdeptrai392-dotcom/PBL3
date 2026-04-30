@@ -4,7 +4,7 @@
         Title="QuanLyChungTC"
         Width="1000"
         Height="500"
-        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
         WindowStyle="None"
         ResizeMode="NoResize"
         Background="White">
@@ -50,56 +50,51 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Border Grid.Row="0"
-                Grid.ColumnSpan="2"
-                Background="#2C4E62">
-
-            <TextBlock Text="Quản Lý Tài Chính"
-                       Foreground="White"
-                       FontSize="34"
-                       FontWeight="SemiBold"
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Center"/>
-        </Border>
-
-        <StackPanel Grid.Row="1"
+        <StackPanel
                     Grid.Column="0"
-                    Background="#2C4E62">
+                    Background="#FF263F60" Grid.RowSpan="2">
+            <Border Background="#263f60" Height="80">
+                <TextBlock Text="EduCore"
+               FontSize="24"
+               FontWeight="Bold"
+               Foreground="White"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"/>
+            </Border>
 
             <Button x:Name="btnFee"
                     Content="Học Phí"
                     Click="btnFee_Click"
-                    Style="{StaticResource MenuButtonStyle}"/>
+                    Style="{StaticResource MenuButtonStyle}" Background="#FF263F60"/>
 
             <Button x:Name="btnSalary"
                     Content="Lương Giáo Viên"
                     Click="btnSalary_Click"
-                    Style="{StaticResource MenuButtonStyle}"/>
+                    Style="{StaticResource MenuButtonStyle}" Background="#FF263F60"/>
 
             <Button x:Name="btnProfit"
                     Content="Lợi Nhuận"
                     Click="btnProfit_Click"
-                    Style="{StaticResource MenuButtonStyle}"/>
+                    Style="{StaticResource MenuButtonStyle}" Background="#FF263F60"/>
 
             <Button x:Name="btKT"
                     Content="Khoản Thu"
                     Click="btKT_Click"
-                    Style="{StaticResource MenuButtonStyle}"/>
+                    Style="{StaticResource MenuButtonStyle}" Background="#FF263F60"/>
 
             <Button x:Name="btKC"
                     Content="Khoản Chi"
                     Click="btKC_Click"
-                    Style="{StaticResource MenuButtonStyle}"/>
+                    Style="{StaticResource MenuButtonStyle}" Background="#FF263F60"/>
 
             <Button x:Name="btnExit"
                     Content="Đăng Xuất"
                     Click="btnExit_Click"
-                    Style="{StaticResource MenuButtonStyle}"/>
+                    Style="{StaticResource MenuButtonStyle}" Background="#FF263F60"/>
         </StackPanel>
 
         <ContentControl x:Name="paDesktop"
-                        Grid.Row="1"
                         Grid.Column="1"
-                        Background="White"/>
+                        Background="White" Grid.RowSpan="2"/>
     </Grid>
 </Window>

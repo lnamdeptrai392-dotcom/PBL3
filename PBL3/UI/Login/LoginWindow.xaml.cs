@@ -76,9 +76,9 @@ namespace PBL3a.UI.Login
                     next = new PBL3a.UI.AdminC.AdminC();
                     break;
 
-                case "AdminDD":
-                    next = new PBL3a.UI.AdminDD.AdminDDWindow();
-                    break;
+                //case "AdminDD":
+                //    next = new PBL3a.UI.AdminDD.AdminDDWindow();
+                //    break;
 
                 case "AdminTC":
                     next = new PBL3a.UI.AdminTC.QuanLyChungTC();

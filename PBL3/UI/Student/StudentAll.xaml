@@ -4,7 +4,7 @@
         Title="Sinh viên Dashboard"
         Width="1000"
         Height="500"
-        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
         WindowStyle="None"
         ResizeMode="NoResize"
         Background="White">
@@ -46,41 +46,42 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Column="0"
-                    Background="#2C4E62">
+                    Background="#FF263F60">
 
-            <Grid Height="137">
-                <Image Width="102"
-                       Height="99"
-                       Stretch="Fill"
-                       Source="/Resources/2026.png"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"/>
-            </Grid>
+            <Border Background="#263f60" Height="80">
+                <TextBlock Text="EduCore"
+               FontSize="24"
+               FontWeight="Bold"
+               Foreground="White"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"/>
+            </Border>
 
             <Button x:Name="btn_info"
-                    Content="Thông tin cá nhân"
+                    Content="   Thông tin cá nhân"
                     Height="60"
-                    Click="btn_info_Click_1"/>
+                    Click="btn_info_Click_1" Background="#FF263F60" HorizontalAlignment="Left"/>
 
             <Button x:Name="btn_schedule"
-                    Content="Thời khóa biểu"
+                    Content="   Thời khóa biểu"
                     Height="60"
-                    Click="btn_schedule_Click"/>
+                    Click="btn_schedule_Click" Background="#FF263F60" HorizontalAlignment="Left"/>
 
             <Button x:Name="btn_score"
-                    Content="Kết quả học tập"
+                    Content="   Kết quả học tập"
                     Height="60"
-                    Click="btn_score_Click"/>
+                    Click="btn_score_Click" Background="#FF263F60" HorizontalAlignment="Left"/>
 
             <Button x:Name="btn_fee"
-                    Content="Học phí"
+                    Content="   Học phí"
                     Height="60"
-                    Click="btn_fee_Click"/>
+                    
+                    Click="btn_fee_Click" Background="#FF263F60" HorizontalAlignment="Left"/>
 
             <Button x:Name="btn_exit"
-                    Content="Đăng xuất"
+                    Content="   Đăng xuất"
                     Height="60"
-                    Click="btn_exit_Click"/>
+                    Click="btn_exit_Click" Background="#FF263F60" HorizontalAlignment="Left"/>
         </StackPanel>
 
         <ContentControl x:Name="panelChildBox"
