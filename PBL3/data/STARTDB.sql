@@ -37,24 +37,18 @@ CREATE TABLE accountList (
     Id NVARCHAR(20) PRIMARY KEY,
     username NVARCHAR(100) NOT NULL,
     Password NVARCHAR(100) NOT NULL,
+    name NVARCHAR(100) NOT NULL,
+    phone NVARCHAR(20),
+    dateOfBirth DATE,
+    sex NVARCHAR(10),
     Role NVARCHAR(20) NOT NULL,
     status NVARCHAR(30) DEFAULT N'Hoạt động'
 );
 GO
 
-CREATE TABLE studentInfo(
-    studentID NVARCHAR(20) PRIMARY KEY,
-    name NVARCHAR(100) NOT NULL,
-    phone NVARCHAR(20),
-    dateOfBirth DATE,
-    sex NVARCHAR(10),
-    academicYear INT, -- Năm thứ mấy 
-    CONSTRAINT FK_Student_Account FOREIGN KEY (studentID) REFERENCES accountList(Id)
-);
-
 -- Dữ liệu mẫu accountList
 INSERT INTO accountList
-(Id, username, Password, Role)
+(Id, username, Password, name, phone, dateOfBirth, sex, Role)
 VALUES
 -- ================= ADMIN =================
 ('A001','adminC','123456','Admin Chung','0900000001','1990-01-01','Male','AdminC'),
@@ -74,7 +68,16 @@ VALUES
 ('T08', 'T08', '123456', N'Võ Khắc Huy', '0912906114', '1979-06-24', 'Male', 'Teacher'),
 ('T09', 'T09', '123456', N'Ngô Thị Duyên', '0772367295', '1972-03-30', 'Female', 'Teacher'),
 ('T10', 'T10', '123456', N'Bùi Thu Tiên', '0880179521', '1978-08-15', 'Female', 'Teacher'),
-
+('T11', 'T11', '123456', N'Đặng Quỳnh Ngân', '0842418692', '1987-10-01', 'Female', 'Teacher'),
+('T12', 'T12', '123456', N'Phan Kim Châu', '0983126297', '1977-04-03', 'Female', 'Teacher'),
+('T13', 'T13', '123456', N'Tô Thanh Hiếu', '0790064763', '1988-08-18', 'Male', 'Teacher'),
+('T14', 'T14', '123456', N'Hoàng Minh Nga', '0369769700', '1975-11-30', 'Female', 'Teacher'),
+('T15', 'T15', '123456', N'Hoàng Hồng Ngân', '0820159059', '1979-05-25', 'Female', 'Teacher'),
+('T16', 'T16', '123456', N'Lý Ngọc Phong', '0837321883', '1972-10-18', 'Male', 'Teacher'),
+('T17', 'T17', '123456', N'Võ Thanh Nhung', '0918670423', '1976-02-29', 'Female', 'Teacher'),
+('T18', 'T18', '123456', N'Lý Thanh Huy', '0338162234', '1970-09-11', 'Male', 'Teacher'),
+('T19', 'T19', '123456', N'Huỳnh Xuân Nhi', '0851247585', '1981-03-22', 'Female', 'Teacher'),
+('T20', 'T20', '123456', N'Hồ Hải Tâm', '0368121396', '1990-03-10', 'Male', 'Teacher'),
 
 -- GV Văn -> ID: (Vxx)
 ('V01', 'V01', '123456', N'Vũ Đức Cường', '0981644079', '1993-01-06', 'Male', 'Teacher'),
@@ -87,7 +90,16 @@ VALUES
 ('V08', 'V08', '123456', N'Hoàng Kim Yến', '0912270225', '1982-05-01', 'Female', 'Teacher'),
 ('V09', 'V09', '123456', N'Đỗ Đức Đạt', '0376117222', '1993-10-25', 'Male', 'Teacher'),
 ('V10', 'V10', '123456', N'Đoàn Kim Quyên', '0381654350', '1990-11-21', 'Female', 'Teacher'),
-
+('V11', 'V11', '123456', N'Nguyễn Ngọc Hiền', '0973628516', '1971-09-26', 'Female', 'Teacher'),
+('V12', 'V12', '123456', N'Đoàn Quang Thiên', '0908485636', '1983-08-16', 'Male', 'Teacher'),
+('V13', 'V13', '123456', N'Huỳnh Ngọc Sơn', '0845818742', '1974-05-21', 'Male', 'Teacher'),
+('V14', 'V14', '123456', N'Lê Quỳnh Yến', '0938572968', '1974-10-28', 'Female', 'Teacher'),
+('V15', 'V15', '123456', N'Hồ Kiều Huyền', '0340962243', '1979-11-29', 'Female', 'Teacher'),
+('V16', 'V16', '123456', N'Đoàn Thị Hà', '0837972846', '1983-01-01', 'Female', 'Teacher'),
+('V17', 'V17', '123456', N'Đinh Bích Ly', '0830257273', '1981-04-13', 'Female', 'Teacher'),
+('V18', 'V18', '123456', N'Nguyễn Đức Thành', '0839217385', '1977-05-23', 'Male', 'Teacher'),
+('V19', 'V19', '123456', N'Phan Thị An', '0830538612', '1984-01-22', 'Female', 'Teacher'),
+('V20', 'V20', '123456', N'Đoàn Thành Cường', '0830499232', '1994-06-06', 'Male', 'Teacher'),
 
 -- GV Hóa -> ID: (Hxx)
 ('H01', 'H01', '123456', N'Lê Đình Tuấn', '0395186113', '1995-03-18', 'Male', 'Teacher'),
@@ -100,7 +112,16 @@ VALUES
 ('H08', 'H08', '123456', N'Trần Thanh An', '0898491995', '1992-12-30', 'Female', 'Teacher'),
 ('H09', 'H09', '123456', N'Vũ Minh Dung', '0341774422', '1972-06-11', 'Female', 'Teacher'),
 ('H10', 'H10', '123456', N'Nguyễn Khắc Phúc', '0828849685', '1970-07-08', 'Male', 'Teacher'),
-
+('H11', 'H11', '123456', N'Võ Xuân Quỳnh', '0768915472', '1980-09-26', 'Female', 'Teacher'),
+('H12', 'H12', '123456', N'Võ Ngọc Trang', '0379663552', '1993-11-07', 'Female', 'Teacher'),
+('H13', 'H13', '123456', N'Hồ Khắc Lộc', '0818903589', '1984-07-21', 'Male', 'Teacher'),
+('H14', 'H14', '123456', N'Đặng Hữu Huy', '0398252610', '1989-12-14', 'Male', 'Teacher'),
+('H15', 'H15', '123456', N'Đỗ Mỹ Trâm', '0386723048', '1971-02-24', 'Female', 'Teacher'),
+('H16', 'H16', '123456', N'Đoàn Mai Thi', '0944627483', '1994-07-27', 'Female', 'Teacher'),
+('H17', 'H17', '123456', N'Nguyễn Thanh Anh', '0356639925', '1978-06-21', 'Male', 'Teacher'),
+('H18', 'H18', '123456', N'Huỳnh Lan Nga', '0336183412', '1983-06-20', 'Female', 'Teacher'),
+('H19', 'H19', '123456', N'Lý Kiều Uyên', '0361276572', '1993-03-23', 'Female', 'Teacher'),
+('H20', 'H20', '123456', N'Hồ Kim Ly', '0765011181', '1970-06-04', 'Female', 'Teacher'),
 
 -- GV Lý -> ID: (Lxx)
 ('L01', 'L01', '123456', N'Đặng Quốc Bảo', '0372749898', '1992-10-10', 'Male', 'Teacher'),
@@ -113,7 +134,16 @@ VALUES
 ('L08', 'L08', '123456', N'Trần Minh Minh', '0325400546', '1990-08-25', 'Male', 'Teacher'),
 ('L09', 'L09', '123456', N'Lý Thị Nhung', '0365084303', '1980-04-30', 'Female', 'Teacher'),
 ('L10', 'L10', '123456', N'Bùi Thu Hà', '0811032370', '1992-03-23', 'Female', 'Teacher'),
-
+('L11', 'L11', '123456', N'Nguyễn Thu Thu', '0375319524', '1979-10-25', 'Female', 'Teacher'),
+('L12', 'L12', '123456', N'Hoàng Thị Tiên', '0785858871', '1980-08-30', 'Female', 'Teacher'),
+('L13', 'L13', '123456', N'Vũ Đức Lâm', '0326839199', '1972-08-21', 'Male', 'Teacher'),
+('L14', 'L14', '123456', N'Hoàng Thị Dung', '0389563544', '1992-01-09', 'Female', 'Teacher'),
+('L15', 'L15', '123456', N'Ngô Khắc Nam', '0820811493', '1973-12-15', 'Male', 'Teacher'),
+('L16', 'L16', '123456', N'Hoàng Văn Tâm', '0352548097', '1973-01-13', 'Male', 'Teacher'),
+('L17', 'L17', '123456', N'Ngô Hồng Chi', '0705443097', '1970-03-07', 'Female', 'Teacher'),
+('L18', 'L18', '123456', N'Lê Thanh Vy', '0915247885', '1991-10-16', 'Female', 'Teacher'),
+('L19', 'L19', '123456', N'Huỳnh Thành Đạt', '0887124436', '1979-07-20', 'Male', 'Teacher'),
+('L20', 'L20', '123456', N'Đỗ Khắc Lâm', '0909201150', '1982-07-21', 'Male', 'Teacher'),
 
 -- GV Sinh -> ID: (Sxx)
 ('S01', 'S01', '123456', N'Phạm Xuân Châu', '0375022285', '1979-05-21', 'Female', 'Teacher'),
@@ -126,7 +156,16 @@ VALUES
 ('S08', 'S08', '123456', N'Lê Kim Duyên', '0824229034', '1976-04-24', 'Female', 'Teacher'),
 ('S09', 'S09', '123456', N'Võ Thành Sơn', '0989159426', '1983-09-10', 'Male', 'Teacher'),
 ('S10', 'S10', '123456', N'Tô Xuân Băng', '0382660824', '1979-04-03', 'Female', 'Teacher'),
-
+('S11', 'S11', '123456', N'Phan Kim Vân', '0908119776', '1978-11-03', 'Female', 'Teacher'),
+('S12', 'S12', '123456', N'Lý Xuân Lâm', '0822230133', '1987-07-19', 'Male', 'Teacher'),
+('S13', 'S13', '123456', N'Đào Diễm Vân', '0768075335', '1983-05-24', 'Female', 'Teacher'),
+('S14', 'S14', '123456', N'Dương Quỳnh Vân', '0980327830', '1978-01-06', 'Female', 'Teacher'),
+('S15', 'S15', '123456', N'Ngô Đình Tuấn', '0844519253', '1990-01-21', 'Male', 'Teacher'),
+('S16', 'S16', '123456', N'Trần Tuấn Nam', '0821919733', '1972-05-22', 'Male', 'Teacher'),
+('S17', 'S17', '123456', N'Huỳnh Xuân An', '0980532698', '1992-05-24', 'Male', 'Teacher'),
+('S18', 'S18', '123456', N'Huỳnh Khắc Lâm', '0836702074', '1980-09-08', 'Male', 'Teacher'),
+('S19', 'S19', '123456', N'Bùi Hồng Nhi', '0703309133', '1975-06-07', 'Female', 'Teacher'),
+('S20', 'S20', '123456', N'Vũ Bích Ngân', '0889183302', '1984-01-26', 'Female', 'Teacher'),
 
 -- GV Anh -> ID: (NNAxx)
 ('NNA01', 'NNA01', '123456', N'Lê Thúy Châu', '0353842216', '1983-08-29', 'Female', 'Teacher'),
@@ -139,10 +178,60 @@ VALUES
 ('NNA08', 'NNA08', '123456', N'Dương Kim Mai', '0912652196', '1988-02-10', 'Female', 'Teacher'),
 ('NNA09', 'NNA09', '123456', N'Ngô Đình Cường', '0359940925', '1994-04-06', 'Male', 'Teacher'),
 ('NNA10', 'NNA10', '123456', N'Hoàng Kiều An', '0340147332', '1987-11-26', 'Female', 'Teacher'),
+('NNA11', 'NNA11', '123456', N'Vũ Hồng Phong', '0391450583', '1970-07-29', 'Male', 'Teacher'),
+('NNA12', 'NNA12', '123456', N'Nguyễn Xuân Dũng', '0389473900', '1970-05-27', 'Male', 'Teacher'),
+('NNA13', 'NNA13', '123456', N'Võ Trúc Vy', '0356765588', '1987-08-26', 'Female', 'Teacher'),
+('NNA14', 'NNA14', '123456', N'Đỗ Thành Nam', '0327208484', '1979-10-01', 'Male', 'Teacher'),
+('NNA15', 'NNA15', '123456', N'Tô Trúc Yến', '0902561093', '1985-07-20', 'Female', 'Teacher'),
+('NNA16', 'NNA16', '123456', N'Lý Ngọc Vy', '0364448594', '1971-10-16', 'Female', 'Teacher'),
+('NNA17', 'NNA17', '123456', N'Hoàng Văn Tâm', '0766544546', '1972-10-18', 'Male', 'Teacher'),
+('NNA18', 'NNA18', '123456', N'Lý Khắc Vinh', '0811885477', '1991-08-22', 'Male', 'Teacher'),
+('NNA19', 'NNA19', '123456', N'Bùi Văn Trung', '0858074386', '1970-09-06', 'Male', 'Teacher'),
+('NNA20', 'NNA20', '123456', N'Lê Thanh Hiền', '0774894084', '1990-02-07', 'Female', 'Teacher'),
 
+-- GV Nhật -> ID: (NNNxx)
+('NNN01', 'NNN01', '123456', N'Phạm Kiều Đào', '0981476873', '1976-06-24', 'Female', 'Teacher'),
+('NNN02', 'NNN02', '123456', N'Trần Minh Thảo', '0779533089', '1991-05-24', 'Female', 'Teacher'),
+('NNN03', 'NNN03', '123456', N'Trần Ngọc Oanh', '0788082615', '1983-12-30', 'Female', 'Teacher'),
+('NNN04', 'NNN04', '123456', N'Phạm Diễm Hiền', '0904252776', '1993-01-28', 'Female', 'Teacher'),
+('NNN05', 'NNN05', '123456', N'Huỳnh Thanh Hân', '0798520852', '1975-12-18', 'Female', 'Teacher'),
+('NNN06', 'NNN06', '123456', N'Hoàng Hồng Nhung', '0798189555', '1977-07-20', 'Female', 'Teacher'),
+('NNN07', 'NNN07', '123456', N'Lê Mai Ngân', '0336119742', '1995-01-10', 'Female', 'Teacher'),
+('NNN08', 'NNN08', '123456', N'Trần Thu Hương', '0336627198', '1971-10-31', 'Female', 'Teacher'),
+('NNN09', 'NNN09', '123456', N'Tô Minh Thảo', '0832885110', '1982-07-29', 'Female', 'Teacher'),
+('NNN10', 'NNN10', '123456', N'Đào Khắc Tuấn', '0366048563', '1972-12-06', 'Male', 'Teacher'),
+('NNN11', 'NNN11', '123456', N'Tô Kim Ngân', '0368155771', '1984-02-05', 'Female', 'Teacher'),
+('NNN12', 'NNN12', '123456', N'Dương Thành Quân', '0380380947', '1992-09-25', 'Male', 'Teacher'),
+('NNN13', 'NNN13', '123456', N'Hồ Xuân Tú', '0354272242', '1974-08-30', 'Female', 'Teacher'),
+('NNN14', 'NNN14', '123456', N'Huỳnh Quang Bình', '0336531739', '1990-10-27', 'Male', 'Teacher'),
+('NNN15', 'NNN15', '123456', N'Đỗ Quang Long', '0883349263', '1984-07-20', 'Male', 'Teacher'),
+('NNN16', 'NNN16', '123456', N'Đinh Bích Nga', '0937073889', '1992-04-26', 'Female', 'Teacher'),
+('NNN17', 'NNN17', '123456', N'Phan Hồng Yến', '0911441370', '1982-05-10', 'Female', 'Teacher'),
+('NNN18', 'NNN18', '123456', N'Hoàng Quang Thắng', '0760264039', '1974-11-16', 'Male', 'Teacher'),
+('NNN19', 'NNN19', '123456', N'Lý Thanh Duyên', '0848495489', '1995-11-26', 'Female', 'Teacher'),
+('NNN20', 'NNN20', '123456', N'Trần Lan Trang', '0325158466', '1974-11-03', 'Female', 'Teacher'),
 
-
-
+-- GV Trung -> ID: (NNTxx)
+('NNT01', 'NNT01', '123456', N'Lê Xuân Yến', '0396311328', '1985-03-27', 'Female', 'Teacher'),
+('NNT02', 'NNT02', '123456', N'Nguyễn Thị Châu', '0347389124', '1987-08-18', 'Female', 'Teacher'),
+('NNT03', 'NNT03', '123456', N'Đỗ Văn Nam', '0947739278', '1993-05-31', 'Male', 'Teacher'),
+('NNT04', 'NNT04', '123456', N'Đỗ Minh Thảo', '0908476322', '1979-04-08', 'Female', 'Teacher'),
+('NNT05', 'NNT05', '123456', N'Đặng Thái Minh', '0387492280', '1986-02-08', 'Male', 'Teacher'),
+('NNT06', 'NNT06', '123456', N'Phạm Khắc Phúc', '0366884508', '1970-11-21', 'Male', 'Teacher'),
+('NNT07', 'NNT07', '123456', N'Huỳnh Ngọc Nhi', '0909094539', '1993-02-11', 'Female', 'Teacher'),
+('NNT08', 'NNT08', '123456', N'Phạm Kiều Vy', '0945955948', '1992-08-29', 'Female', 'Teacher'),
+('NNT09', 'NNT09', '123456', N'Hoàng Minh Tú', '0845786067', '1971-03-26', 'Female', 'Teacher'),
+('NNT10', 'NNT10', '123456', N'Đặng Hồng Hân', '0884457764', '1987-12-19', 'Female', 'Teacher'),
+('NNT11', 'NNT11', '123456', N'Trần Xuân Tùng', '0949992012', '1987-03-04', 'Male', 'Teacher'),
+('NNT12', 'NNT12', '123456', N'Dương Lan Duyên', '0892377043', '1970-01-22', 'Female', 'Teacher'),
+('NNT13', 'NNT13', '123456', N'Đỗ Thanh Uyên', '0981574927', '1974-12-01', 'Female', 'Teacher'),
+('NNT14', 'NNT14', '123456', N'Hoàng Hồng Nghĩa', '0930716456', '1987-08-26', 'Male', 'Teacher'),
+('NNT15', 'NNT15', '123456', N'Phạm Quang Hoàng', '0798442412', '1985-04-19', 'Male', 'Teacher'),
+('NNT16', 'NNT16', '123456', N'Vũ Ngọc Yến', '0704859930', '1974-05-28', 'Female', 'Teacher'),
+('NNT17', 'NNT17', '123456', N'Hồ Hồng Thu', '0942076967', '1982-12-31', 'Female', 'Teacher'),
+('NNT18', 'NNT18', '123456', N'Hồ Đức Lâm', '0799845585', '1995-08-13', 'Male', 'Teacher'),
+('NNT19', 'NNT19', '123456', N'Hồ Tuấn Phúc', '0937722810', '1985-02-22', 'Male', 'Teacher'),
+('NNT20', 'NNT20', '123456', N'Huỳnh Trúc Hương', '0337873388', '1992-02-28', 'Female', 'Teacher'),
 
 
 
@@ -680,14 +769,10 @@ IF OBJECT_ID('teacherInfo', 'U') IS NOT NULL
     DROP TABLE teacherInfo;
 GO
 CREATE TABLE teacherInfo (
-    teacherID NVARCHAR(20) PRIMARY KEY,
-    name NVARCHAR(100) NOT NULL,
-    phone NVARCHAR(20),
-    email NVARCHAR(100),
-    baseSalary DECIMAL(18,0) DEFAULT 0,    -- Lương cứng (nếu có) cần thiết ko tr
-    salaryPerLesson DECIMAL(18,0) DEFAULT 0, -- Lương trên mỗi tiết dạy/buổi dạy
-    status NVARCHAR(50) DEFAULT N'Đang làm việc',
-    CONSTRAINT FK_Teacher_Account FOREIGN KEY (teacherID) REFERENCES accountList(Id)
+    Id NVARCHAR(20) PRIMARY KEY,
+    subject NVARCHAR(100) NOT NULL,
+    CONSTRAINT FK_teacherInfo_account
+    FOREIGN KEY (Id) REFERENCES accountList(Id)
 );
 GO
 INSERT INTO teacherInfo (Id, subject)
@@ -714,7 +799,15 @@ VALUES
 
 -- ================= TIẾNG ANH =================
 ('NNA01', N'Tiếng Anh'), ('NNA02', N'Tiếng Anh'), ('NNA03', N'Tiếng Anh'), ('NNA04', N'Tiếng Anh'), ('NNA05', N'Tiếng Anh'), ('NNA06', N'Tiếng Anh'), ('NNA07', N'Tiếng Anh'), ('NNA08', N'Tiếng Anh'), ('NNA09', N'Tiếng Anh'), 
-('NNA10', N'Tiếng Anh'), ('NNA11', N'Tiếng Anh'), ('NNA12', N'Tiếng Anh'), ('NNA13', N'Tiếng Anh'), ('NNA14', N'Tiếng Anh'), ('NNA15', N'Tiếng Anh'), ('NNA16', N'Tiếng Anh'), ('NNA17', N'Tiếng Anh'), ('NNA18', N'Tiếng Anh'), ('NNA19', N'Tiếng Anh'), ('NNA20', N'Tiếng Anh');
+('NNA10', N'Tiếng Anh'), ('NNA11', N'Tiếng Anh'), ('NNA12', N'Tiếng Anh'), ('NNA13', N'Tiếng Anh'), ('NNA14', N'Tiếng Anh'), ('NNA15', N'Tiếng Anh'), ('NNA16', N'Tiếng Anh'), ('NNA17', N'Tiếng Anh'), ('NNA18', N'Tiếng Anh'), ('NNA19', N'Tiếng Anh'), ('NNA20', N'Tiếng Anh'),
+
+-- ================= TIẾNG NHẬT =================
+('NNN01', N'Tiếng Nhật'), ('NNN02', N'Tiếng Nhật'), ('NNN03', N'Tiếng Nhật'), ('NNN04', N'Tiếng Nhật'), ('NNN05', N'Tiếng Nhật'), ('NNN06', N'Tiếng Nhật'), ('NNN07', N'Tiếng Nhật'), ('NNN08', N'Tiếng Nhật'), ('NNN09', N'Tiếng Nhật'), ('NNN10', N'Tiếng Nhật'), 
+('NNN11', N'Tiếng Nhật'), ('NNN12', N'Tiếng Nhật'), ('NNN13', N'Tiếng Nhật'), ('NNN14', N'Tiếng Nhật'), ('NNN15', N'Tiếng Nhật'), ('NNN16', N'Tiếng Nhật'), ('NNN17', N'Tiếng Nhật'), ('NNN18', N'Tiếng Nhật'), ('NNN19', N'Tiếng Nhật'), ('NNN20', N'Tiếng Nhật'),
+
+-- ================= TIẾNG TRUNG =================
+('NNT01', N'Tiếng Trung'), ('NNT02', N'Tiếng Trung'), ('NNT03', N'Tiếng Trung'), ('NNT04', N'Tiếng Trung'), ('NNT05', N'Tiếng Trung'), ('NNT06', N'Tiếng Trung'), ('NNT07', N'Tiếng Trung'), ('NNT08', N'Tiếng Trung'), ('NNT09', N'Tiếng Trung'), ('NNT10', N'Tiếng Trung'), 
+('NNT11', N'Tiếng Trung'), ('NNT12', N'Tiếng Trung'), ('NNT13', N'Tiếng Trung'), ('NNT14', N'Tiếng Trung'), ('NNT15', N'Tiếng Trung'), ('NNT16', N'Tiếng Trung'), ('NNT17', N'Tiếng Trung'), ('NNT18', N'Tiếng Trung'), ('NNT19', N'Tiếng Trung'), ('NNT20', N'Tiếng Trung');
 GO
 
 
@@ -730,17 +823,9 @@ CREATE TABLE Class (
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,
     capacity INT NOT NULL,
-    TuitionFee int,
     CONSTRAINT FK_Class_Teacher FOREIGN KEY (teacherID) REFERENCES accountList(Id)
 );
 GO
-
-ALTER TABLE Class ADD TuitionFee DECIMAL(18,0) DEFAULT 0;
-GO
--- Cập nhật giá tiền mẫu cho các lớp
-UPDATE Class SET TuitionFee = 500000;
-
-
 -- Dữ liệu mẫu Class
 INSERT INTO Class (classID, class_name, courseID, teacherID, start_date, end_date, capacity)
 VALUES
@@ -911,7 +996,64 @@ VALUES
 (N'NN01.12.0126', N'Lớp Tiếng Anh 12 K005', 'NN01.12', 'NNA01', '2026-01-01', '2026-06-01', 25),
 (N'NN01.12.0326', N'Lớp Tiếng Anh 12 K006', 'NN01.12', 'NNA02', '2026-03-01', '2026-08-01', 25),
 (N'NN01.12.0426', N'Lớp Tiếng Anh 12 K007', 'NN01.12', 'NNA03', '2026-04-01', '2026-09-01', 30),
-(N'NN01.12.0626', N'Lớp Tiếng Anh 12 K008', 'NN01.12', 'NNA05', '2026-06-01', '2026-11-01', 25);
+(N'NN01.12.0626', N'Lớp Tiếng Anh 12 K008', 'NN01.12', 'NNA05', '2026-06-01', '2026-11-01', 25),
+
+-- ================= TIẾNG NHẬT (NN02 + Tháng/Năm bắt đầu mở lớp) =================
+(N'NN02.N5.0425', N'Lớp Tiếng Nhật N5 K001', 'NN02.N5', 'NNN01', '2025-04-01', '2026-09-01', 25),
+(N'NN02.N5.0825', N'Lớp Tiếng Nhật N5 K002', 'NN02.N5', 'NNN02', '2025-08-01', '2026-01-01', 30),
+(N'NN02.N5.1125', N'Lớp Tiếng Nhật N5 K003', 'NN02.N5', 'NNN03', '2025-11-01', '2026-04-01', 25),
+(N'NN02.N5.1225', N'Lớp Tiếng Nhật N5 K004', 'NN02.N5', 'NNN04', '2025-12-01', '2026-05-01', 30),
+(N'NN02.N5.0126', N'Lớp Tiếng Nhật N5 K005', 'NN02.N5', 'NNN05', '2026-01-01', '2026-06-01', 25),
+(N'NN02.N5.0326', N'Lớp Tiếng Nhật N5 K006', 'NN02.N5', 'NNN06', '2026-03-01', '2026-08-01', 25),
+(N'NN02.N5.0426', N'Lớp Tiếng Nhật N5 K007', 'NN02.N5', 'NNN07', '2026-04-01', '2026-09-01', 30),
+(N'NN02.N5.0626', N'Lớp Tiếng Nhật N5 K008', 'NN02.N5', 'NNN08', '2026-06-01', '2026-11-01', 25),
+
+(N'NN02.N4.0425', N'Lớp Tiếng Nhật N4 K001', 'NN02.N4', 'NNN09', '2025-04-01', '2026-09-01', 25),
+(N'NN02.N4.0825', N'Lớp Tiếng Nhật N4 K002', 'NN02.N4', 'NNN10', '2025-08-01', '2026-01-01', 30),
+(N'NN02.N4.1125', N'Lớp Tiếng Nhật N4 K003', 'NN02.N4', 'NNN11', '2025-11-01', '2026-04-01', 25),
+(N'NN02.N4.1225', N'Lớp Tiếng Nhật N4 K004', 'NN02.N4', 'NNN12', '2025-12-01', '2026-05-01', 30),
+(N'NN02.N4.0126', N'Lớp Tiếng Nhật N4 K005', 'NN02.N4', 'NNN13', '2026-01-01', '2026-06-01', 25),
+(N'NN02.N4.0326', N'Lớp Tiếng Nhật N4 K006', 'NN02.N4', 'NNN14', '2026-03-01', '2026-08-01', 25),
+(N'NN02.N4.0426', N'Lớp Tiếng Nhật N4 K007', 'NN02.N4', 'NNN15', '2026-04-01', '2026-09-01', 30),
+(N'NN02.N4.0626', N'Lớp Tiếng Nhật N4 K008', 'NN02.N4', 'NNN16', '2026-06-01', '2026-11-01', 25),
+
+(N'NN02.N3.0425', N'Lớp Tiếng Nhật N3 K001', 'NN02.N3', 'NNN17', '2025-04-01', '2026-09-01', 25),
+(N'NN02.N3.0825', N'Lớp Tiếng Nhật N3 K002', 'NN02.N3', 'NNN18', '2025-08-01', '2026-01-01', 30),
+(N'NN02.N3.1125', N'Lớp Tiếng Nhật N3 K003', 'NN02.N3', 'NNN19', '2025-11-01', '2026-04-01', 25),
+(N'NN02.N3.1225', N'Lớp Tiếng Nhật N3 K004', 'NN02.N3', 'NNN20', '2025-12-01', '2026-05-01', 30),
+(N'NN02.N3.0126', N'Lớp Tiếng Nhật N3 K005', 'NN02.N3', 'NNN01', '2026-01-01', '2026-06-01', 25),
+(N'NN02.N3.0326', N'Lớp Tiếng Nhật N3 K006', 'NN02.N3', 'NNN02', '2026-03-01', '2026-08-01', 25),
+(N'NN02.N3.0426', N'Lớp Tiếng Nhật N3 K007', 'NN02.N3', 'NNN03', '2026-04-01', '2026-09-01', 30),
+(N'NN02.N3.0626', N'Lớp Tiếng Nhật N3 K008', 'NN02.N3', 'NNN05', '2026-06-01', '2026-11-01', 25),
+
+
+-- ================= TIẾNG TRUNG (NN03 + Tháng/Năm bắt đầu mở lớp) =================
+(N'NN03.H1.0425', N'Lớp Tiếng Trung HSK1 K001', 'NN03.H1', 'NNT01', '2025-04-01', '2026-09-01', 25),
+(N'NN03.H1.0825', N'Lớp Tiếng Trung HSK1 K002', 'NN03.H1', 'NNT02', '2025-08-01', '2026-01-01', 30),
+(N'NN03.H1.1125', N'Lớp Tiếng Trung HSK1 K003', 'NN03.H1', 'NNT03', '2025-11-01', '2026-04-01', 25),
+(N'NN03.H1.1225', N'Lớp Tiếng Trung HSK1 K004', 'NN03.H1', 'NNT04', '2025-12-01', '2026-05-01', 30),
+(N'NN03.H1.0126', N'Lớp Tiếng Trung HSK1 K005', 'NN03.H1', 'NNT05', '2026-01-01', '2026-06-01', 25),
+(N'NN03.H1.0326', N'Lớp Tiếng Trung HSK1 K006', 'NN03.H1', 'NNT06', '2026-03-01', '2026-08-01', 25),
+(N'NN03.H1.0426', N'Lớp Tiếng Trung HSK1 K007', 'NN03.H1', 'NNT07', '2026-04-01', '2026-09-01', 30),
+(N'NN03.H1.0626', N'Lớp Tiếng Trung HSK1 K008', 'NN03.H1', 'NNT08', '2026-06-01', '2026-11-01', 25),
+
+(N'NN03.H2.0425', N'Lớp Tiếng Trung HSK2 K001', 'NN03.H2', 'NNT09', '2025-04-01', '2026-09-01', 25),
+(N'NN03.H2.0825', N'Lớp Tiếng Trung HSK2 K002', 'NN03.H2', 'NNT10', '2025-08-01', '2026-01-01', 30),
+(N'NN03.H2.1125', N'Lớp Tiếng Trung HSK2 K003', 'NN03.H2', 'NNT11', '2025-11-01', '2026-04-01', 25),
+(N'NN03.H2.1225', N'Lớp Tiếng Trung HSK2 K004', 'NN03.H2', 'NNT12', '2025-12-01', '2026-05-01', 30),
+(N'NN03.H2.0126', N'Lớp Tiếng Trung HSK2 K005', 'NN03.H2', 'NNT13', '2026-01-01', '2026-06-01', 25),
+(N'NN03.H2.0326', N'Lớp Tiếng Trung HSK2 K006', 'NN03.H2', 'NNT14', '2026-03-01', '2026-08-01', 25),
+(N'NN03.H2.0426', N'Lớp Tiếng Trung HSK2 K007', 'NN03.H2', 'NNT15', '2026-04-01', '2026-09-01', 30),
+(N'NN03.H2.0626', N'Lớp Tiếng Trung HSK2 K008', 'NN03.H2', 'NNT16', '2026-06-01', '2026-11-01', 25),
+
+(N'NN03.H3.0425', N'Lớp Tiếng Trung HSK3 K001', 'NN03.H3', 'NNT17', '2025-04-01', '2026-09-01', 25),
+(N'NN03.H3.0825', N'Lớp Tiếng Trung HSK3 K002', 'NN03.H3', 'NNT18', '2025-08-01', '2026-01-01', 30),
+(N'NN03.H3.1125', N'Lớp Tiếng Trung HSK3 K003', 'NN03.H3', 'NNT19', '2025-11-01', '2026-04-01', 25),
+(N'NN03.H3.1225', N'Lớp Tiếng Trung HSK3 K004', 'NN03.H3', 'NNT20', '2025-12-01', '2026-05-01', 30),
+(N'NN03.H3.0126', N'Lớp Tiếng Trung HSK3 K005', 'NN03.H3', 'NNT01', '2026-01-01', '2026-06-01', 25),
+(N'NN03.H3.0326', N'Lớp Tiếng Trung HSK3 K006', 'NN03.H3', 'NNT02', '2026-03-01', '2026-08-01', 25),
+(N'NN03.H3.0426', N'Lớp Tiếng Trung HSK3 K007', 'NN03.H3', 'NNT03', '2026-04-01', '2026-09-01', 30),
+(N'NN03.H3.0626', N'Lớp Tiếng Trung HSK3 K008', 'NN03.H3', 'NNT04', '2026-06-01', '2026-11-01', 25);
 GO
 
 
@@ -1289,8 +1431,50 @@ VALUES
 
 --===== Lớp Sinh 11 K003 - S11.1125 (Capacity: 25) =====
 ('10109011', 'S11.1125'), ('10109012', 'S11.1125'), ('10109013', 'S11.1125'), ('10109014', 'S11.1125'), ('10109015', 'S11.1125'),
-('10209011', 'S11.1125'), ('10209012', 'S11.1125'), ('10209013', 'S11.1125'), ('10209014', 'S11.1125'), ('10209015', 'S11.1125');
+('10209011', 'S11.1125'), ('10209012', 'S11.1125'), ('10209013', 'S11.1125'), ('10209014', 'S11.1125'), ('10209015', 'S11.1125'),
+
+
+
+--================ CÁC LỚP NGOẠI NGỮ (Dành cho Cấp 2: Khóa 2011, 2012, 2013) ================
+
+--========== TIẾNG NHẬT N5 ==========
+--===== Lớp Tiếng Nhật N5 K001 - NN02.N5.0425 (Dành cho Khóa 2011 - Lớp 9) =====
+('10111001', 'NN02.N5.0425'), ('10111002', 'NN02.N5.0425'), ('10111003', 'NN02.N5.0425'), ('10111004', 'NN02.N5.0425'), ('10111005', 'NN02.N5.0425'),
+('10211001', 'NN02.N5.0425'), ('10211002', 'NN02.N5.0425'), ('10211003', 'NN02.N5.0425'), ('10211004', 'NN02.N5.0425'), ('10211005', 'NN02.N5.0425'),
+('10111006', 'NN02.N5.0425'), ('10211006', 'NN02.N5.0425'),
+
+--===== Lớp Tiếng Nhật N5 K002 - NN02.N5.0825 (Dành cho Khóa 2012 - Lớp 8) =====
+('10112001', 'NN02.N5.0825'), ('10112002', 'NN02.N5.0825'), ('10112003', 'NN02.N5.0825'), ('10112004', 'NN02.N5.0825'), ('10112005', 'NN02.N5.0825'),
+('10212001', 'NN02.N5.0825'), ('10212002', 'NN02.N5.0825'), ('10212003', 'NN02.N5.0825'), ('10212004', 'NN02.N5.0825'), ('10212005', 'NN02.N5.0825'),
+('10112006', 'NN02.N5.0825'), ('10212006', 'NN02.N5.0825'),
+
+--===== Lớp Tiếng Nhật N5 K003 - NN02.N5.1125 (Dành cho Khóa 2013 - Lớp 7) =====
+('10113001', 'NN02.N5.1125'), ('10113002', 'NN02.N5.1125'), ('10113003', 'NN02.N5.1125'), ('10113004', 'NN02.N5.1125'), ('10113005', 'NN02.N5.1125'),
+('10213001', 'NN02.N5.1125'), ('10213002', 'NN02.N5.1125'), ('10213003', 'NN02.N5.1125'), ('10213004', 'NN02.N5.1125'), ('10213005', 'NN02.N5.1125'),
+('10113006', 'NN02.N5.1125'), ('10213006', 'NN02.N5.1125'),
+
+
+--========== TIẾNG TRUNG HSK1 ==========
+--===== Lớp Tiếng Trung HSK1 K001 - NN03.H1.0425 (Dành cho Khóa 2011 - Lớp 9) =====
+('10111007', 'NN03.H1.0425'), ('10111008', 'NN03.H1.0425'), ('10111009', 'NN03.H1.0425'), ('10111010', 'NN03.H1.0425'), ('10111011', 'NN03.H1.0425'),
+('10211007', 'NN03.H1.0425'), ('10211008', 'NN03.H1.0425'), ('10211009', 'NN03.H1.0425'), ('10211010', 'NN03.H1.0425'), ('10211011', 'NN03.H1.0425'),
+('10111012', 'NN03.H1.0425'), ('10211012', 'NN03.H1.0425'),
+
+--===== Lớp Tiếng Trung HSK1 K002 - NN03.H1.0825 (Dành cho Khóa 2012 - Lớp 8) =====
+('10112007', 'NN03.H1.0825'), ('10112008', 'NN03.H1.0825'), ('10112009', 'NN03.H1.0825'), ('10112010', 'NN03.H1.0825'), ('10112011', 'NN03.H1.0825'),
+('10212007', 'NN03.H1.0825'), ('10212008', 'NN03.H1.0825'), ('10212009', 'NN03.H1.0825'), ('10212010', 'NN03.H1.0825'), ('10212011', 'NN03.H1.0825'),
+('10112012', 'NN03.H1.0825'), ('10212012', 'NN03.H1.0825'),
+
+--===== Lớp Tiếng Trung HSK1 K003 - NN03.H1.1125 (Dành cho Khóa 2013 - Lớp 7) =====
+('10113007', 'NN03.H1.1125'), ('10113008', 'NN03.H1.1125'), ('10113009', 'NN03.H1.1125'), ('10113010', 'NN03.H1.1125'), ('10113011', 'NN03.H1.1125'),
+('10213007', 'NN03.H1.1125'), ('10213008', 'NN03.H1.1125'), ('10213009', 'NN03.H1.1125'), ('10213010', 'NN03.H1.1125'), ('10213011', 'NN03.H1.1125'),
+('10113012', 'NN03.H1.1125'), ('10213012', 'NN03.H1.1125');
 GO
+
+
+
+
+
 
 
 
@@ -1321,30 +1505,31 @@ GO
 
 
 
+
+
+
 -- Tạo bảng HọcPhí
 IF OBJECT_ID('dbo.HocPhi', 'U') IS NOT NULL DROP TABLE dbo.HocPhi;
 GO
 CREATE TABLE HocPhi
 (
-    ReceiptID INT IDENTITY(1,1) PRIMARY KEY, -- Mã biên lai
+    HocPhiID INT IDENTITY(1,1) PRIMARY KEY,
     AccountID NVARCHAR(20) NOT NULL,
     ClassID NVARCHAR(20) NOT NULL,
-    AmountPaid DECIMAL(18,0) NOT NULL,       -- Số tiền thực tế đóng
-    PaymentDate DATETIME DEFAULT GETDATE(),  -- Ngày đóng tiền
-    CoveredFrom DATE NOT NULL,               -- Đóng cho giai đoạn từ ngày...
-    CoveredTo DATE NOT NULL,                 -- ...đến ngày
-    PaymentMethod NVARCHAR(50),              -- Tiền mặt, Chuyển khoản
-    Note NVARCHAR(255),
+    TuitionMonth INT NOT NULL,
+    TuitionYear INT NOT NULL,
+    SoTien DECIMAL(18,0) NOT NULL,
+    TrangThai NVARCHAR(30) NOT NULL DEFAULT N'Chưa đóng',
+    NgayDong DATE NULL,
+    GhiChu NVARCHAR(255) NULL,
     CONSTRAINT FK_HocPhi_Account FOREIGN KEY (AccountID) REFERENCES accountList(Id),
-    CONSTRAINT FK_HocPhi_Class FOREIGN KEY (ClassID) REFERENCES Class(classID)
+    CONSTRAINT FK_HocPhi_Class FOREIGN KEY (ClassID) REFERENCES Class(classID),
+    CONSTRAINT UQ_HocPhi UNIQUE (AccountID, ClassID, TuitionMonth, TuitionYear)
 );
 GO
-
-
-
 -- Dữ liệu mẫu Học phí
 INSERT INTO HocPhi 
-(AccountID, ClassID, SoTien, TrangThai, NgayDong, GhiChu)
+(AccountID, ClassID, TuitionMonth, TuitionYear, SoTien, TrangThai, NgayDong, GhiChu)
 VALUES
 -- ================= Lớp Toán 10 K002 (T10.0825) =================
 ('10110007', 'T10.0825', 3, 2026, 500000, N'Đã đóng', '2026-03-05', N'Đóng đủ'),
@@ -1398,19 +1583,23 @@ GO
 -- Lương GV
 IF OBJECT_ID('dbo.LuongGV', 'U') IS NOT NULL DROP TABLE dbo.LuongGV;
 GO
-CREATE TABLE LuongGV (
-    SalaryID INT IDENTITY(1,1) PRIMARY KEY,
-    teacherID NVARCHAR(20) NOT NULL,
-    Month INT NOT NULL,
-    Year INT NOT NULL,
-    TotalLessons INT DEFAULT 0,      -- Tổng số buổi đã dạy trong tháng (lấy từ Attendance)
-    Allowance DECIMAL(18,0) DEFAULT 0, -- Phụ cấp/Thưởng
-    Deduction DECIMAL(18,0) DEFAULT 0, -- Khoản trừ (đi muộn, phạt...)
-    FinalSalary AS (TotalLessons * (SELECT salaryPerLesson FROM teacherInfo WHERE teacherID = LuongGV.teacherID) 
-                    + Allowance - Deduction), -- Cột tính toán tự động (tùy chọn)
-    PaymentStatus NVARCHAR(50) DEFAULT N'Chưa thanh toán', -- Đã thanh toán, Chờ duyệt
-    PaymentDate DATETIME,
-    CONSTRAINT FK_Luong_Teacher FOREIGN KEY (teacherID) REFERENCES teacherInfo(teacherID)
+CREATE TABLE LuongGV
+(
+    LuongID INT IDENTITY(1,1) PRIMARY KEY,
+    TeacherID NVARCHAR(20) NOT NULL,
+    SalaryMonth INT NOT NULL,
+    SalaryYear INT NOT NULL,
+    SoLopDay INT NOT NULL DEFAULT 0,
+    SoBuoiDay INT NOT NULL DEFAULT 0,
+    LuongCoBan DECIMAL(18,0) NOT NULL DEFAULT 0,
+    Thuong DECIMAL(18,0) NOT NULL DEFAULT 0,
+    Phat DECIMAL(18,0) NOT NULL DEFAULT 0,
+    TongLuong DECIMAL(18,0) NOT NULL DEFAULT 0,
+    TrangThai NVARCHAR(30) NOT NULL DEFAULT N'Chưa thanh toán',
+    NgayThanhToan DATE NULL,
+    GhiChu NVARCHAR(255) NULL,
+    CONSTRAINT FK_LuongGV_Account FOREIGN KEY (TeacherID) REFERENCES accountList(Id),
+    CONSTRAINT UQ_LuongGV UNIQUE (TeacherID, SalaryMonth, SalaryYear)
 );
 GO
 INSERT INTO LuongGV (TeacherID, SalaryMonth, SalaryYear, SoLopDay, SoBuoiDay, LuongCoBan, Thuong, Phat, TongLuong, TrangThai, NgayThanhToan, GhiChu)
@@ -1479,7 +1668,6 @@ GO
 -- ClassSchedule
 IF OBJECT_ID('dbo.ClassSchedule', 'U') IS NOT NULL DROP TABLE dbo.ClassSchedule;
 CREATE TABLE ClassSchedule (
-    ScheduleID INT IDENTITY(1,1) PRIMARY KEY,
     classID NVARCHAR(20) not null ,
     dayOfWeek INT not null,
     startTime TIME not null,
@@ -1610,6 +1798,43 @@ VALUES
 
 
 
+-- ================= TIẾNG NHẬT =================
+('NN02.N5.1225', 1, '18:00:00', '20:00:00'), ('NN02.N5.1225', 4, '18:00:00', '20:00:00'),
+('NN02.N5.0126', 2, '18:00:00', '20:00:00'), ('NN02.N5.0126', 5, '18:00:00', '20:00:00'),
+('NN02.N5.0326', 3, '18:00:00', '20:00:00'), ('NN02.N5.0326', 6, '18:00:00', '20:00:00'),
+('NN02.N5.0426', 1, '20:00:00', '22:00:00'), ('NN02.N5.0426', 4, '20:00:00', '22:00:00'),
+('NN02.N5.0626', 2, '20:00:00', '22:00:00'), ('NN02.N5.0626', 5, '20:00:00', '22:00:00'),
+('NN02.N4.1225', 3, '20:00:00', '22:00:00'), ('NN02.N4.1225', 6, '20:00:00', '22:00:00'),
+('NN02.N4.0126', 1, '17:00:00', '19:00:00'), ('NN02.N4.0126', 4, '17:00:00', '19:00:00'),
+('NN02.N4.0326', 2, '17:00:00', '19:00:00'), ('NN02.N4.0326', 5, '17:00:00', '19:00:00'),
+('NN02.N4.0426', 3, '17:00:00', '19:00:00'), ('NN02.N4.0426', 6, '17:00:00', '19:00:00'),
+('NN02.N4.0626', 1, '19:00:00', '21:00:00'), ('NN02.N4.0626', 4, '19:00:00', '21:00:00'),
+('NN02.N3.1225', 2, '19:00:00', '21:00:00'), ('NN02.N3.1225', 5, '19:00:00', '21:00:00'),
+('NN02.N3.0126', 3, '19:00:00', '21:00:00'), ('NN02.N3.0126', 6, '19:00:00', '21:00:00'),
+('NN02.N3.0326', 1, '18:00:00', '20:00:00'), ('NN02.N3.0326', 4, '18:00:00', '20:00:00'),
+('NN02.N3.0426', 2, '18:00:00', '20:00:00'), ('NN02.N3.0426', 5, '18:00:00', '20:00:00'),
+('NN02.N3.0626', 3, '18:00:00', '20:00:00'), ('NN02.N3.0626', 6, '18:00:00', '20:00:00'),
+
+
+
+-- ================= TIẾNG TRUNG =================
+('NN03.H1.1225', 1, '20:00:00', '22:00:00'), ('NN03.H1.1225', 4, '20:00:00', '22:00:00'),
+('NN03.H1.0126', 2, '20:00:00', '22:00:00'), ('NN03.H1.0126', 5, '20:00:00', '22:00:00'),
+('NN03.H1.0326', 3, '20:00:00', '22:00:00'), ('NN03.H1.0326', 6, '20:00:00', '22:00:00'),
+('NN03.H1.0426', 1, '17:00:00', '19:00:00'), ('NN03.H1.0426', 4, '17:00:00', '19:00:00'),
+('NN03.H1.0626', 2, '17:00:00', '19:00:00'), ('NN03.H1.0626', 5, '17:00:00', '19:00:00'),
+('NN03.H2.1225', 3, '17:00:00', '19:00:00'), ('NN03.H2.1225', 6, '17:00:00', '19:00:00'),
+('NN03.H2.0126', 1, '19:00:00', '21:00:00'), ('NN03.H2.0126', 4, '19:00:00', '21:00:00'),
+('NN03.H2.0326', 2, '19:00:00', '21:00:00'), ('NN03.H2.0326', 5, '19:00:00', '21:00:00'),
+('NN03.H2.0426', 3, '19:00:00', '21:00:00'), ('NN03.H2.0426', 6, '19:00:00', '21:00:00'),
+('NN03.H2.0626', 1, '18:00:00', '20:00:00'), ('NN03.H2.0626', 4, '18:00:00', '20:00:00'),
+('NN03.H3.1225', 2, '18:00:00', '20:00:00'), ('NN03.H3.1225', 5, '18:00:00', '20:00:00'),
+('NN03.H3.0126', 3, '18:00:00', '20:00:00'), ('NN03.H3.0126', 6, '18:00:00', '20:00:00'),
+('NN03.H3.0326', 1, '20:00:00', '22:00:00'), ('NN03.H3.0326', 4, '20:00:00', '22:00:00'),
+('NN03.H3.0426', 2, '20:00:00', '22:00:00'), ('NN03.H3.0426', 5, '20:00:00', '22:00:00'),
+('NN03.H3.0626', 3, '20:00:00', '22:00:00'), ('NN03.H3.0626', 6, '20:00:00', '22:00:00');
+
+
 
 
 -- Tạo bảng Đơn đăng ký (Registration) với Khóa chính kết hợp
@@ -1665,10 +1890,7 @@ CREATE TABLE Diem
     DiemID INT IDENTITY(1,1) PRIMARY KEY,
     AccountID NVARCHAR(20) NOT NULL,
     ClassID NVARCHAR(20) NOT NULL,
-    DiemChuyenCan FLOAT Default 0,
-    DiemGiuaKy FLOAT Default 0,
-    DiemCuoiKy FLOAT Default 0,
-    DiemTongKet AS (DiemChuyenCan * 0.1 + DiemGiuaKy * 0.3 + DiemCuoiKy * 0.6),
+    Diem FLOAT NULL,
     NhanXet NVARCHAR(255) NULL,
 
     CONSTRAINT FK_Diem_Account FOREIGN KEY (AccountID) REFERENCES accountList(Id),
@@ -1685,12 +1907,3 @@ VALUES
 ('10210001', 'V10.0425', 9.0, N'Viết bài rất tốt'),
 ('10110001', 'L10.0425', 8.0, N'Hiểu bài, làm tốt');
 GO
-
--- Câu lệnh này tính số buổi giáo viên đã dạy trong tháng 4 năm 2026
-SELECT COUNT(*) 
-FROM Attendance 
-WHERE AccountID = 'ID_Giao_Vien' 
-  AND MONTH(Date) = 4 AND YEAR(Date) = 2026
-  AND Status = N'Có mặt';
-
-
