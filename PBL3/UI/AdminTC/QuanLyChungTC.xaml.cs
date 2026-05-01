@@ -19,16 +19,15 @@ namespace PBL3a.UI.AdminTC
             
             paDesktop.Content = child;
         }
-       
 
         private void btnDshs_Click(object sender, RoutedEventArgs e)
         {
-
+            //tao mot xaml show danh sach hoc sinh
         }
 
         private void btnDsgv_Click(object sender, RoutedEventArgs e)
         {
-
+            //tao mot xaml show danh sach giao vien
         }
 
         private void btnThuHP_Click(object sender, RoutedEventArgs e)
@@ -49,7 +48,7 @@ namespace PBL3a.UI.AdminTC
 
         private void btnLshd_Click(object sender, RoutedEventArgs e)
         {
-
+            //OpenChild(new LSGD(),sender);
         }
         private void btnProfit_Click(object sender, RoutedEventArgs e)
         {

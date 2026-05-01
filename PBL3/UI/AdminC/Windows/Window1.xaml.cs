@@ -26,7 +26,7 @@ namespace PBL3a.UI.AdminC.Windows
             cbbMH.ItemsSource = new List<string>
             {
                 "Tất cả","Toán học","Vật lý","Hóa học",
-                "Sinh học","Ngữ văn","Tiếng Anh","Tiếng Nhật","Tiếng Trung"
+                "Sinh học","Ngữ văn","Tiếng Anh"
             };
 
             cbbMH.SelectedIndex = 0;
@@ -45,6 +45,7 @@ namespace PBL3a.UI.AdminC.Windows
             if (monHoc == "Hóa học") return "Hóa";
             if (monHoc == "Sinh học") return "Sinh";
             if (monHoc == "Ngữ văn") return "Văn";
+            if (monHoc == "Tiếng Anh") return "Tiếng Anh";
             return monHoc;
         }
 

@@ -23,20 +23,24 @@ namespace PBL3a.UI.AdminC
         private void btnDuyetDon_Click(object sender, RoutedEventArgs e)
         {
             OpenChild(new Window1());
+            //Duyệt đơn
         }
 
         private void btnKhoaLop_Click(object sender, RoutedEventArgs e)
         {
             OpenChild(new Window4());
+            //Xem khóa lớp
         }
         private void btnTaoTK_Click(object sender, RoutedEventArgs e)
         {
             OpenChild(new Window5());
+            //Tạo tài khoản
         }
 
         private void btnTaoLH_Click(object sender, RoutedEventArgs e)
         {  
             OpenChild(new Window2());
+            //Tạo lớp học
         }
 
         private void butOut_Click(object sender, RoutedEventArgs e)

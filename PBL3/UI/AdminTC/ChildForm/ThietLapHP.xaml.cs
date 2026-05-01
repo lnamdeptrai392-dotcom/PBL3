@@ -40,45 +40,50 @@ namespace PBL3a.UI.AdminTC
 
         private void btLuu_Click(object sender, RoutedEventArgs e)
         {
-            if (!decimal.TryParse(txtTienTrenNg.Text, out decimal tienTrenNg))
+            if (!decimal.TryParse(txtTienTrenNg.Text, out decimal tienTrenNg) || tienTrenNg < 0)
             {
-                MessageBox.Show("Số tiền không hợp lệ. Vui lòng kiểm tra lại!");
-                txtTienTrenNg.Focus();
-                return;
-            }
-
-            if (tienTrenNg < 0)
-            {
-                MessageBox.Show("Số tiền không được là số âm!");
+                MessageBox.Show("Số tiền không hợp lệ!");
                 return;
             }
 
             using (SqlConnection conn = db.GetConnection())
             {
                 conn.Open();
+                // Bắt đầu Transaction để bảo vệ dữ liệu
+                SqlTransaction trans = conn.BeginTransaction();
 
-                string query = @"
-                    UPDATE HocPhi 
-                    SET SoTien = @tienTrenNg 
-                    WHERE ClassID = @id 
-                    AND TrangThai = N'Chưa đóng'";
-
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                try
                 {
-                    cmd.Parameters.AddWithValue("@tienTrenNg", tienTrenNg);
-                    cmd.Parameters.AddWithValue("@id", MaLop);
+                    string query = @"
+                UPDATE HocPhi 
+                SET SoTien = @tienTrenNg 
+                WHERE ClassID = @id 
+                AND TrangThai = N'Chưa đóng'";
 
-                    int rowsAffected = cmd.ExecuteNonQuery();
+                    using (SqlCommand cmd = new SqlCommand(query, conn, trans))
+                    {
+                        cmd.Parameters.AddWithValue("@tienTrenNg", tienTrenNg);
+                        cmd.Parameters.AddWithValue("@id", MaLop);
 
-                    if (rowsAffected > 0)
-                    {
-                        MessageBox.Show("Cập nhật học phí thành công!");
-                        Close();
+                        int rowsAffected = cmd.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            trans.Commit(); // Lưu vĩnh viễn nếu thành công
+                            MessageBox.Show($"Đã cập nhật học phí cho {rowsAffected} học sinh!");
+                            Close();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Không tìm thấy học sinh nào cần cập nhật học phí trong lớp này.");
+                            trans.Rollback();
+                        }
                     }
-                    else
-                    {
-                        MessageBox.Show("Không có dữ liệu nào được cập nhật. Vui lòng kiểm tra lại trạng thái lớp.");
-                    }
+                }
+                catch (Exception ex)
+                {
+                    trans.Rollback(); // Hoàn tác nếu có lỗi xảy ra
+                    MessageBox.Show("Lỗi hệ thống: " + ex.Message);
                 }
             }
         }
@@ -107,9 +112,11 @@ namespace PBL3a.UI.AdminTC
 
             MaLop = cbbMaLop.SelectedItem.ToString();
             LoadTenLop(MaLop);
+            int siso = capacity_cl(MaLop);
+            txtSS.Text = siso.ToString();
         }
 
-        public int capapcity_cl(string idlop)
+        public int capacity_cl(string idlop)
         {
             int cap = 0;
 
@@ -141,7 +148,7 @@ namespace PBL3a.UI.AdminTC
 
         public decimal SetHP(decimal hphi)
         {
-            int cap = capapcity_cl(MaLop);
+            int cap = capacity_cl(MaLop);
             txtSS.Text = cap.ToString();
 
             return cap * hphi;
@@ -171,5 +178,7 @@ namespace PBL3a.UI.AdminTC
         {
             Close();
         }
+
+        
     }
 }

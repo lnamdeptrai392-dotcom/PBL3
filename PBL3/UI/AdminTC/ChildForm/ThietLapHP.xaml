@@ -10,83 +10,78 @@
 
     <Grid Margin="30">
         <Grid.RowDefinitions>
-            <RowDefinition Height="90"/>
-            <RowDefinition Height="60"/>
+            <RowDefinition Height="55"/>
+            <RowDefinition Height="95"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="60"/>
             <RowDefinition Height="60"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="140"/>
-            <ColumnDefinition Width="250"/>
-            <ColumnDefinition Width="120"/>
-            <ColumnDefinition Width="250"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="164"/>
+            <ColumnDefinition Width="368"/>
+            <ColumnDefinition Width="224"/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <TextBlock Grid.Row="0" Grid.ColumnSpan="5"
+        <TextBlock
                    Text="THIẾT LẬP HỌC PHÍ"
                    FontSize="30"
                    HorizontalAlignment="Center"
-                   VerticalAlignment="Center"/>
+                   VerticalAlignment="Center" Grid.Column="2" Height="40" Width="292"/>
 
         <TextBlock Grid.Row="1" Grid.Column="0"
                    Text="Mã Lớp:"
                    FontSize="16"
-                   VerticalAlignment="Center"/>
+                   VerticalAlignment="Center" Height="22"/>
 
         <ComboBox x:Name="cbbMaLop"
                   Grid.Row="1" Grid.Column="1"
-                  Height="35"
                   IsEditable="True"
-                  SelectionChanged="cbbMaLop_SelectionChanged"/>
+                  SelectionChanged="cbbMaLop_SelectionChanged" Margin="0,18,0,18"/>
 
         <TextBlock Grid.Row="1" Grid.Column="2"
                    Text="Tên Lớp:"
                    FontSize="16"
-                   VerticalAlignment="Center"
-                   Margin="20,0,0,0"/>
+                   VerticalAlignment="Top"
+                   Margin="184,30,42,0" Height="22" Grid.ColumnSpan="2"/>
 
         <TextBox x:Name="tbTL"
                  Grid.Row="1" Grid.Column="3"
-                 Height="35"
-                 IsReadOnly="True"/>
+                 IsReadOnly="True" Margin="0,18,0,18"/>
 
-        <TextBlock Grid.Row="3" Grid.Column="0"
+        <TextBlock Grid.Row="2" Grid.Column="0"
                    Text="Số tiền / người"
                    FontSize="16"
-                   VerticalAlignment="Center"/>
+                   VerticalAlignment="Center" Height="22"/>
 
         <TextBox x:Name="txtTienTrenNg"
-                 Grid.Row="3" Grid.Column="1"
-                 Height="35"/>
+                 Grid.Row="2" Grid.Column="1" Margin="5,4,363,0" Grid.ColumnSpan="2" />
 
-        <TextBlock Grid.Row="3" Grid.Column="2"
+        <TextBlock Grid.Row="2" Grid.Column="2"
                    Text="Tổng tiền"
                    FontSize="16"
-                   VerticalAlignment="Center"
-                   Margin="20,0,0,0"/>
+                   VerticalAlignment="Top"
+                   Margin="184,0,42,0" Height="22" Grid.ColumnSpan="2"/>
 
         <TextBox x:Name="txtTongT"
-                 Grid.Row="3" Grid.Column="3"
-                 Height="35"
-                 IsReadOnly="True"/>
+                 Grid.Row="1" Grid.Column="3"
+                 IsReadOnly="True" Margin="0,82,0,17" RenderTransformOrigin="-0.097,1.396" Grid.RowSpan="2"/>
 
-        <TextBlock Grid.Row="4" Grid.Column="0"
+        <TextBlock Grid.Row="3" Grid.Column="0"
                    Text="Sĩ số"
                    FontSize="16"
-                   VerticalAlignment="Center"/>
+                   VerticalAlignment="Center" Height="22" Grid.ColumnSpan="2" Margin="32,0,132,0"/>
 
         <TextBox x:Name="txtSS"
-                 Grid.Row="4" Grid.Column="1"
-                 Height="35"
-                 IsReadOnly="True"/>
+                 Grid.Row="3" Grid.Column="1"
+                 IsReadOnly="True" Margin="0,10,0,14"/>
 
-        <StackPanel Grid.Row="5" Grid.Column="4"
+        <StackPanel Grid.Row="5" Grid.Column="3"
                     VerticalAlignment="Bottom"
-                    HorizontalAlignment="Right">
+                    HorizontalAlignment="Right" Height="155" Width="150" Grid.ColumnSpan="2">
 
             <Button x:Name="butTT"
                     Content="Tổng tiền"
@@ -117,5 +112,17 @@
                     BorderThickness="0"
                     Click="button1_Click"/>
         </StackPanel>
+        <DataGrid x:Name="dgHocSinhLop"
+            AutoGenerateColumns="False" 
+            IsReadOnly="True"
+            Background="White"
+            BorderBrush="#5D9CB3" Margin="32,0,124,0" Grid.Row="4" Grid.ColumnSpan="4" Grid.RowSpan="2">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="STT" Binding="{Binding STT}" Width="50"/>
+                <DataGridTextColumn Header="Mã HS" Binding="{Binding MaHS}" Width="100"/>
+                <DataGridTextColumn Header="Họ Tên" Binding="{Binding HoTen}" Width="*"/>
+                <DataGridTextColumn Header="Trạng thái" Binding="{Binding TinhTrang}" Width="120"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>
