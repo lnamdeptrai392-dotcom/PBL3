@@ -19,34 +19,42 @@ namespace PBL3a.UI.AdminTC
             
             paDesktop.Content = child;
         }
+       
 
-        
+        private void btnDshs_Click(object sender, RoutedEventArgs e)
+        {
 
-        private void btnFee_Click(object sender, RoutedEventArgs e)
+        }
+
+        private void btnDsgv_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnThuHP_Click(object sender, RoutedEventArgs e)
         {
             OpenChild(new HocPhi(), sender);
         }
 
-        private void btnSalary_Click(object sender, RoutedEventArgs e)
+        private void btnLuong_Click(object sender, RoutedEventArgs e)
         {
             OpenChild(new LuongGV(), sender);
         }
 
+        private void btnKhac_Click(object sender, RoutedEventArgs e)
+        {
+            OpenChild(new KhoanThu(), sender);
+            //OpenChild(new KhoanChi(), sender);
+        }
+
+        private void btnLshd_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
         private void btnProfit_Click(object sender, RoutedEventArgs e)
         {
             OpenChild(new Lai(), sender);
         }
-
-        private void btKT_Click(object sender, RoutedEventArgs e)
-        {
-            OpenChild(new KhoanThu(), sender);
-        }
-
-        private void btKC_Click(object sender, RoutedEventArgs e)
-        {
-            OpenChild(new KhoanChi(), sender);
-        }
-
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
             var login = new LoginWindow(); // WPF Window
