@@ -11,7 +11,6 @@ namespace PBL3a.UI.AdminTC
     {
         private DatabaseHelper db = new DatabaseHelper();
         private string MaLop;
-
         public ThietLapHP(string m)
         {
             InitializeComponent();
@@ -23,13 +22,10 @@ namespace PBL3a.UI.AdminTC
         public void SetGUI()
         {
             txtMaLop.Text = MaLop;
-
             using (SqlConnection conn = db.GetConnection())
             {
                 conn.Open();
-
                 string query = "SELECT class_name FROM Class WHERE classID = @id";
-
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@id", MaLop);
@@ -44,17 +40,15 @@ namespace PBL3a.UI.AdminTC
         {
             DataView dv = (DataView)dgHocSinhLop.ItemsSource;
             DataTable dt = dv.ToTable();
-
             using (SqlConnection conn = db.GetConnection())
             {
                 conn.Open();
                 SqlTransaction trans = conn.BeginTransaction();
-
                 try
                 {
                     foreach (DataRow row in dt.Rows)
                     {
-                        // Câu lệnh SQL kiểm tra: Nếu có rồi thì Update, chưa có thì Insert
+                        // lenh sql kiem tra: neu thay doi thi update, neu co thi insert
                         string query = @"
                     IF EXISTS (SELECT 1 FROM HocPhi WHERE AccountID = @accID AND ClassID = @classID AND TuitionMonth = @month AND TuitionYear = @year)
                     BEGIN
@@ -76,15 +70,11 @@ namespace PBL3a.UI.AdminTC
                             cmd.Parameters.AddWithValue("@classID", MaLop);
                             cmd.Parameters.AddWithValue("@tien", row["SoTien"]);
                             cmd.Parameters.AddWithValue("@status", row["TrangThai"]);
-                            cmd.Parameters.AddWithValue("@month", 5); // Xíu có thể lấy từ ComboBox tháng/năm
-                            cmd.Parameters.AddWithValue("@year", 2026);
-                            
-
+                            cmd.Parameters.AddWithValue("@month", 5); 
+                            cmd.Parameters.AddWithValue("@year", 2026);                          
                             cmd.ExecuteNonQuery();
                         }
-
                     }
-
                     trans.Commit();
                     MessageBox.Show("Cập nhật thiết lập học phí thành công!", "Thông báo");
                     this.Close();
@@ -96,8 +86,6 @@ namespace PBL3a.UI.AdminTC
                 }
             }
         }
-
-
         private void LoadChiTietHocPhi()
         {
             using (SqlConnection conn = db.GetConnection())
@@ -127,15 +115,12 @@ namespace PBL3a.UI.AdminTC
                 }
             }
         }
-
         public int capacity_cl(string idlop)
         {
             int cap = 0;
-
             using (SqlConnection conn = db.GetConnection())
             {
                 conn.Open();
-
                 string query = "SELECT COUNT(*) FROM JoinClass WHERE classID = @id";
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
@@ -145,15 +130,12 @@ namespace PBL3a.UI.AdminTC
             }
             return cap;
         }
-
         public decimal SetHP(decimal hphi)
         {
             int cap = capacity_cl(MaLop);
             txtSS.Text = cap.ToString();
-
             return cap * hphi;
         }
-
         private void butTT_Click(object sender, RoutedEventArgs e)
         {
             if (decimal.TryParse(txtTienTrenNg.Text, out decimal hphi1))
@@ -174,12 +156,9 @@ namespace PBL3a.UI.AdminTC
                 MessageBox.Show("Vui lòng nhập một con số hợp lệ cho học phí!");
             }
         }
-
         private void button1_Click(object sender, RoutedEventArgs e)
         {
             Close();
-        }
-
-        
+        }        
     }
 }
