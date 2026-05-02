@@ -21,7 +21,7 @@ namespace PBL3a.UI.AdminTC
 
         private void HocPhi_Load(object sender, RoutedEventArgs e)
         {
-            // Tắt tự động tạo cột để tránh bị chồng cột
+            
             dataGridView1.AutoGenerateColumns = false;
             SetupDataGridView();
         }
@@ -33,7 +33,7 @@ namespace PBL3a.UI.AdminTC
             dataGridView1.SelectionUnit = DataGridSelectionUnit.FullRow;
         }
 
-        // Hàm lọc Mã Lớp dựa trên Khối và Môn học
+        
         private void FilterClass()
         {
             if (cbbGrade == null || cbbCourse == null || cbbML == null) return;
@@ -41,7 +41,7 @@ namespace PBL3a.UI.AdminTC
             string selectedGrade = (cbbGrade.SelectedItem as ComboBoxItem)?.Content.ToString();
             string selectedCourseTag = (cbbCourse.SelectedItem as ComboBoxItem)?.Tag?.ToString();
 
-            // Nếu chưa chọn cả 2 thì chưa lọc
+            
             if (string.IsNullOrEmpty(selectedGrade) || string.IsNullOrEmpty(selectedCourseTag)) return;
 
             cbbML.Items.Clear();
@@ -75,7 +75,6 @@ namespace PBL3a.UI.AdminTC
             }
         }
 
-        // Khi chọn Khối hoặc Môn học đều gọi chung hàm FilterClass
         private void Filter_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             FilterClass();
@@ -159,6 +158,6 @@ namespace PBL3a.UI.AdminTC
             LoadHocPhiTheoLop(malop);
         }
 
-        // Các hàm phụ khác bạn giữ nguyên hoặc xóa nếu không dùng
+        
     }
 }

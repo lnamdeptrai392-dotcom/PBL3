@@ -37,10 +37,10 @@
                    FontSize="16"
                    VerticalAlignment="Center" Height="22"/>
 
-        <ComboBox x:Name="cbbMaLop"
-                  Grid.Row="1" Grid.Column="1"
-                  IsEditable="True"
-                  SelectionChanged="cbbMaLop_SelectionChanged" Margin="0,18,0,18"/>
+        <TextBox x:Name="txtMaLop"
+                 Grid.Row="1" Grid.Column="1"
+                 IsReadOnly="True" Margin="0,18,0,18"/>
+        
 
         <TextBlock Grid.Row="1" Grid.Column="2"
                    Text="Tên Lớp:"
@@ -114,14 +114,30 @@
         </StackPanel>
         <DataGrid x:Name="dgHocSinhLop"
             AutoGenerateColumns="False" 
-            IsReadOnly="True"
+            IsReadOnly="False"
             Background="White"
-            BorderBrush="#5D9CB3" Margin="32,0,124,0" Grid.Row="4" Grid.ColumnSpan="4" Grid.RowSpan="2">
+            BorderBrush="#5D9CB3" Margin="32,0,126,0" Grid.Row="4" Grid.ColumnSpan="3" Grid.RowSpan="2">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="STT" Binding="{Binding STT}" Width="50"/>
-                <DataGridTextColumn Header="Mã HS" Binding="{Binding MaHS}" Width="100"/>
+                <DataGridTextColumn Header="Mã HS" Binding="{Binding AccountID}" Width="100"/>
                 <DataGridTextColumn Header="Họ Tên" Binding="{Binding HoTen}" Width="*"/>
-                <DataGridTextColumn Header="Trạng thái" Binding="{Binding TinhTrang}" Width="120"/>
+                <DataGridTemplateColumn Header="Trạng Thái" Width="130">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding TrangThai}" VerticalAlignment="Center" Margin="5,0"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <ComboBox SelectedValue="{Binding TrangThai, UpdateSourceTrigger=PropertyChanged}" 
+                      SelectedValuePath="Content" 
+                      IsDropDownOpen="True">
+                                <ComboBoxItem Content="Chưa đóng"/>
+                                <ComboBoxItem Content="Đã đóng"/>
+                            </ComboBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

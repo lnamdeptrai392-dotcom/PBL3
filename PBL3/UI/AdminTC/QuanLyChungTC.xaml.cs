@@ -7,8 +7,7 @@ namespace PBL3a.UI.AdminTC
 {
     public partial class QuanLyChungTC : Window
     {
-        private Button currentButton;
-
+        
         public QuanLyChungTC()
         {
             InitializeComponent();

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
 using PBL3a.services;
 using System;
+using System.Data;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -16,11 +17,12 @@ namespace PBL3a.UI.AdminTC
             InitializeComponent();
             MaLop = m;
             SetGUI();
+            LoadChiTietHocPhi();
         }
 
         public void SetGUI()
         {
-            cbbMaLop.Text = MaLop;
+            txtMaLop.Text = MaLop;
 
             using (SqlConnection conn = db.GetConnection())
             {
@@ -40,80 +42,90 @@ namespace PBL3a.UI.AdminTC
 
         private void btLuu_Click(object sender, RoutedEventArgs e)
         {
-            if (!decimal.TryParse(txtTienTrenNg.Text, out decimal tienTrenNg) || tienTrenNg < 0)
-            {
-                MessageBox.Show("Số tiền không hợp lệ!");
-                return;
-            }
+            DataView dv = (DataView)dgHocSinhLop.ItemsSource;
+            DataTable dt = dv.ToTable();
 
             using (SqlConnection conn = db.GetConnection())
             {
                 conn.Open();
-                // Bắt đầu Transaction để bảo vệ dữ liệu
                 SqlTransaction trans = conn.BeginTransaction();
 
                 try
                 {
-                    string query = @"
-                UPDATE HocPhi 
-                SET SoTien = @tienTrenNg 
-                WHERE ClassID = @id 
-                AND TrangThai = N'Chưa đóng'";
-
-                    using (SqlCommand cmd = new SqlCommand(query, conn, trans))
+                    foreach (DataRow row in dt.Rows)
                     {
-                        cmd.Parameters.AddWithValue("@tienTrenNg", tienTrenNg);
-                        cmd.Parameters.AddWithValue("@id", MaLop);
+                        // Câu lệnh SQL kiểm tra: Nếu có rồi thì Update, chưa có thì Insert
+                        string query = @"
+                    IF EXISTS (SELECT 1 FROM HocPhi WHERE AccountID = @accID AND ClassID = @classID AND TuitionMonth = @month AND TuitionYear = @year)
+                    BEGIN
+                        UPDATE HocPhi 
+                        SET SoTien = @tien, TrangThai = @status, 
+                            NgayDong = (CASE WHEN @status = N'Đã đóng' THEN GETDATE() ELSE NULL END)
+                        WHERE AccountID = @accID AND ClassID = @classID AND TuitionMonth = @month AND TuitionYear = @year
+                    END
+                    ELSE
+                    BEGIN
+                        INSERT INTO HocPhi (AccountID, ClassID, TuitionMonth, TuitionYear, SoTien, TrangThai, NgayDong)
+                        VALUES (@accID, @classID, @month, @year, @tien, @status, 
+                               (CASE WHEN @status = N'Đã đóng' THEN GETDATE() ELSE NULL END))
+                    END";
 
-                        int rowsAffected = cmd.ExecuteNonQuery();
+                        using (SqlCommand cmd = new SqlCommand(query, conn, trans))
+                        {
+                            cmd.Parameters.AddWithValue("@accID", row["AccountID"]);
+                            cmd.Parameters.AddWithValue("@classID", MaLop);
+                            cmd.Parameters.AddWithValue("@tien", row["SoTien"]);
+                            cmd.Parameters.AddWithValue("@status", row["TrangThai"]);
+                            cmd.Parameters.AddWithValue("@month", 5); // Xíu có thể lấy từ ComboBox tháng/năm
+                            cmd.Parameters.AddWithValue("@year", 2026);
+                            
 
-                        if (rowsAffected > 0)
-                        {
-                            trans.Commit(); // Lưu vĩnh viễn nếu thành công
-                            MessageBox.Show($"Đã cập nhật học phí cho {rowsAffected} học sinh!");
-                            Close();
+                            cmd.ExecuteNonQuery();
                         }
-                        else
-                        {
-                            MessageBox.Show("Không tìm thấy học sinh nào cần cập nhật học phí trong lớp này.");
-                            trans.Rollback();
-                        }
+
                     }
+
+                    trans.Commit();
+                    MessageBox.Show("Cập nhật thiết lập học phí thành công!", "Thông báo");
+                    this.Close();
                 }
                 catch (Exception ex)
                 {
-                    trans.Rollback(); // Hoàn tác nếu có lỗi xảy ra
-                    MessageBox.Show("Lỗi hệ thống: " + ex.Message);
+                    trans.Rollback();
+                    MessageBox.Show("Lỗi khi lưu dữ liệu: " + ex.Message);
                 }
             }
         }
 
-        private void LoadTenLop(string classID)
+
+        private void LoadChiTietHocPhi()
         {
             using (SqlConnection conn = db.GetConnection())
             {
                 conn.Open();
+                // Lấy danh sách từ JoinClass làm gốc, nối với HocPhi để lấy thông tin (nếu có)
+                string query = @"
+            SELECT 
+                ROW_NUMBER() OVER (ORDER BY a.name) AS STT,
+                a.Id AS AccountID, 
+                a.name AS HoTen, 
+                ISNULL(hp.SoTien, @tienMacDinh) AS SoTien, 
+                ISNULL(hp.TrangThai, N'Chưa đóng') AS TrangThai
+            FROM JoinClass jc
+            INNER JOIN accountList a ON jc.AccountID = a.Id
+            LEFT JOIN HocPhi hp ON jc.AccountID = hp.AccountID AND jc.classID = hp.ClassID
+            WHERE jc.classID = @classID";
 
-                string query = "SELECT class_name FROM Class WHERE classID = @classID";
-
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                using (SqlDataAdapter adapter = new SqlDataAdapter(query, conn))
                 {
-                    cmd.Parameters.AddWithValue("@classID", classID);
+                    adapter.SelectCommand.Parameters.AddWithValue("@classID", MaLop);
+                    adapter.SelectCommand.Parameters.AddWithValue("@tienMacDinh", 0); // Hoặc lấy fee_default từ bảng Class
 
-                    object result = cmd.ExecuteScalar();
-                    tbTL.Text = result != null ? result.ToString() : "";
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
+                    dgHocSinhLop.ItemsSource = dt.DefaultView;
                 }
             }
-        }
-
-        private void cbbMaLop_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (cbbMaLop.SelectedItem == null) return;
-
-            MaLop = cbbMaLop.SelectedItem.ToString();
-            LoadTenLop(MaLop);
-            int siso = capacity_cl(MaLop);
-            txtSS.Text = siso.ToString();
         }
 
         public int capacity_cl(string idlop)
@@ -124,25 +136,13 @@ namespace PBL3a.UI.AdminTC
             {
                 conn.Open();
 
-                string query = @"
-                    SELECT COUNT(AccountID) 
-                    FROM HocPhi 
-                    WHERE ClassID = @id 
-                    AND TrangThai = N'Chưa đóng'";
-
+                string query = "SELECT COUNT(*) FROM JoinClass WHERE classID = @id";
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@id", idlop);
-
-                    object result = cmd.ExecuteScalar();
-
-                    if (result != null && result != DBNull.Value)
-                    {
-                        cap = Convert.ToInt32(result);
-                    }
+                    cap = (int)cmd.ExecuteScalar();
                 }
             }
-
             return cap;
         }
 
@@ -164,6 +164,7 @@ namespace PBL3a.UI.AdminTC
                 }
                 else
                 {
+                    LoadChiTietHocPhi();
                     decimal tongTien = SetHP(hphi1);
                     txtTongT.Text = tongTien.ToString("N0") + " VND";
                 }
