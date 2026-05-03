@@ -41,8 +41,7 @@ namespace PBL3a.UI.AdminTC
 
         private void btnKhac_Click(object sender, RoutedEventArgs e)
         {
-            OpenChild(new KhoanThu(), sender);
-            //OpenChild(new KhoanChi(), sender);
+            OpenChild(new KhoanChi(), sender);
         }
 
         private void btnLshd_Click(object sender, RoutedEventArgs e)

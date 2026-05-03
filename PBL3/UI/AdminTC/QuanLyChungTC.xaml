@@ -96,7 +96,7 @@
                 Style="{StaticResource MenuButtonStyle}"
                 Click="btnLuong_Click"/>
                     <Button x:Name="btnKhac"
-                Content="   Khoản thu/chi khác" 
+                Content="   Khoản chi khác" 
                 Style="{StaticResource MenuButtonStyle}"
                 Click="btnKhac_Click"/>
 

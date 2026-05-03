@@ -1124,9 +1124,9 @@ CREATE TABLE LuongGV
 GO
 INSERT INTO LuongGV (TeacherID, SalaryMonth, SalaryYear, SoLopDay, SoBuoiDay, LuongCoBan, Thuong, Phat, TongLuong, TrangThai, NgayThanhToan, GhiChu)
 VALUES 
-('T01', 3, 2026, 3, 20, 8000000, 500000, 0, 8500000, N'Chưa thanh toán', NULL, N'Lương tháng 3'),
-('T02', 4, 2026, 3, 20, 8000000, 500000, 0, 8500000, N'Chưa thanh toán', NULL, N'Lương tháng 4'),
-('T03', 5, 2026, 3, 20, 8000000, 500000, 0, 8500000, N'Chưa thanh toán', NULL, N'Lương tháng 5');
+('T01', 3, 2026, 3, 20, 400000, 500000, 0, 8500000, N'Chưa thanh toán', NULL, N'Lương tháng 3'),
+('T02', 4, 2026, 3, 20, 400000, 500000, 0, 8500000, N'Chưa thanh toán', NULL, N'Lương tháng 4'),
+('T03', 5, 2026, 3, 20, 400000, 500000, 0, 8500000, N'Chưa thanh toán', NULL, N'Lương tháng 5');
 GO
 -- Khoản Thu
 IF OBJECT_ID('dbo.KhoanThu', 'U') IS NOT NULL DROP TABLE dbo.KhoanThu;
@@ -1160,8 +1160,8 @@ GO
 CREATE TABLE KhoanChi
 (
     ChiID INT IDENTITY(1,1) PRIMARY KEY,
-    ChiMonth INT NOT NULL,
-    ChiYear INT NOT NULL,
+    ChiMonth NVARCHAR(2) NOT NULL,
+    ChiYear NVARCHAR(4) NOT NULL,
     LoaiChi NVARCHAR(100) NOT NULL,
     NoiDung NVARCHAR(255) NOT NULL,
     SoTien DECIMAL(18,0) NOT NULL,

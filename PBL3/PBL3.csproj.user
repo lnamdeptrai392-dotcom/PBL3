@@ -11,9 +11,6 @@
     <Compile Update="UI\AdminTC\ChildForm\KhoanChi.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="UI\AdminTC\ChildForm\KhoanThu.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="UI\AdminTC\ChildForm\Lai.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
