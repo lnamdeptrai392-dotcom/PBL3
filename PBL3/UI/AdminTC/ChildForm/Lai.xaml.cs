@@ -17,128 +17,83 @@ namespace PBL3a.UI.AdminTC
             InitializeComponent();
             Loaded += Lai_Load;
         }
-
+        private void Filter_Changed(object sender, SelectionChangedEventArgs e)
+        {
+            LoadLoiNhuan();
+        }
         private void Lai_Load(object sender, RoutedEventArgs e)
         {
             SetupDataGridView();
-            cbbLN.SelectedIndex = 0;
-            date.SelectedDate = DateTime.Now;
+            cbbThang.Text = DateTime.Now.Month.ToString();
+            cbbNam.Text = DateTime.Now.Year.ToString();
+            LoadLoiNhuan();
         }
+        private void LoadLoiNhuan()
+        {
+            if (cbbThang == null || cbbNam == null) return;
+            string thang = (cbbThang.SelectedItem as ComboBoxItem)?.Content.ToString() ?? cbbThang.Text;
+            string nam = (cbbNam.SelectedItem as ComboBoxItem)?.Content.ToString() ?? cbbNam.Text;
+            using (SqlConnection conn = db.GetConnection())
+            {
+                // Sử dụng câu query UNION ở trên
+                string query = @"WITH ThuHocPhi AS (  
+                                SELECT ISNULL(SUM(SoTien), 0) as TongThu    
+                                FROM HocPhi    
+                                WHERE TrangThai = N'Đã đóng' AND TuitionMonth = @month AND TuitionYear = @year),
+                                ChiLuong AS (    
+                                SELECT ISNULL(SUM(TongLuong), 0) as TongLuong 
+                                FROM LuongGV     
+                                WHERE TrangThai = N'Đã thanh toán' AND SalaryMonth = @month AND SalaryYear = @year),
+                                ChiKhac AS (    
+                                SELECT ISNULL(SUM(SoTien), 0) as TongChiKhac     
+                                FROM KhoanChi    
+                                WHERE ChiMonth = @month AND ChiYear = @year)
+                                SELECT     
+                                N'1. Thu học phí' AS DanhMuc, TongThu AS SoTien, N'Thu' AS Loai
+                                FROM ThuHocPhi
+                                UNION ALL
+                                SELECT     
+                                N'2. Chi trả lương' AS DanhMuc, TongLuong, N'Chi'
+                                FROM ChiLuong
+                                UNION ALL
+                                SELECT   
+                                N'3. Khoản chi khác' AS DanhMuc, TongChiKhac, N'Chi'
+                                FROM ChiKhac;";
 
+                SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
+                adapter.SelectCommand.Parameters.AddWithValue("@month", cbbThang.Text);
+                adapter.SelectCommand.Parameters.AddWithValue("@year", cbbNam.Text);
+
+                DataTable dtBaoCao = new DataTable();
+                adapter.Fill(dtBaoCao);
+
+                decimal tongThu = 0;
+                decimal tongChi = 0;
+
+                foreach (DataRow row in dtBaoCao.Rows)
+                {
+                    decimal tien = Convert.ToDecimal(row["SoTien"]);
+                    if (row["Loai"].ToString() == "Thu") tongThu += tien;
+                    else tongChi += tien;
+                }
+
+                DataRow profitRow = dtBaoCao.NewRow();
+                profitRow["DanhMuc"] = "LỢI NHUẬN THUẦN";
+                profitRow["SoTien"] = tongThu - tongChi;
+                profitRow["Loai"] = "KetQua";
+                dtBaoCao.Rows.Add(profitRow);
+
+                dataGridView1.ItemsSource = dtBaoCao.DefaultView;
+                txtLoiNhuan.Text = (tongThu - tongChi).ToString("N0");
+            }
+        }
         private void SetupDataGridView()
         {
-            dataGridView1.AutoGenerateColumns = true;
+            dataGridView1.AutoGenerateColumns = false;
             dataGridView1.IsReadOnly = true;
             dataGridView1.CanUserAddRows = false;
             dataGridView1.SelectionMode = DataGridSelectionMode.Single;
             dataGridView1.SelectionUnit = DataGridSelectionUnit.FullRow;
-        }
-
-        private void btOK_Click(object sender, RoutedEventArgs e)
-        {
-            if (cbbLN.SelectedItem == null)
-            {
-                MessageBox.Show("Vui lòng chọn tùy chọn thời gian để xem");
-                return;
-            }
-
-            DateTime selectedDate = date.SelectedDate ?? DateTime.Now;
-            DateTime today = selectedDate.Date;
-            int month = selectedDate.Month;
-            int year = selectedDate.Year;
-
-            string option = ((ComboBoxItem)cbbLN.SelectedItem).Content.ToString();
-            string query = "";
-
-            using (SqlConnection conn = db.GetConnection())
-            using (SqlCommand cmd = new SqlCommand())
-            {
-                cmd.Connection = conn;
-
-                if (option == "ngày")
-                {
-                    query = @"
-                        SELECT ThuID AS [Mã], LoaiThu AS [Loại], NoiDung, SoTien AS [Số tiền],
-                               NgayThu AS [Ngày], GhiChu, 'Thu' AS [Loại Giao Dịch]
-                        FROM KhoanThu WHERE NgayThu = @date
-                        UNION ALL
-                        SELECT ChiID, LoaiChi, NoiDung, SoTien,
-                               NgayChi, GhiChu, 'Chi'
-                        FROM KhoanChi WHERE NgayChi = @date";
-
-                    cmd.Parameters.Add("@date", SqlDbType.Date).Value = today;
-                }
-                else if (option == "tháng")
-                {
-                    query = @"
-                        SELECT ThuID AS [Mã], LoaiThu AS [Loại], NoiDung, SoTien AS [Số tiền],
-                               NgayThu AS [Ngày], GhiChu, 'Thu' AS [Loại Giao Dịch]
-                        FROM KhoanThu WHERE ThuMonth = @month AND ThuYear = @year
-                        UNION ALL
-                        SELECT ChiID, LoaiChi, NoiDung, SoTien,
-                               NgayChi, GhiChu, 'Chi'
-                        FROM KhoanChi WHERE ChiMonth = @month AND ChiYear = @year";
-
-                    cmd.Parameters.AddWithValue("@month", month);
-                    cmd.Parameters.AddWithValue("@year", year);
-                }
-                else if (option == "năm")
-                {
-                    query = @"
-                        SELECT ThuID AS [Mã], LoaiThu AS [Loại], NoiDung, SoTien AS [Số tiền],
-                               NgayThu AS [Ngày], GhiChu, 'Thu' AS [Loại Giao Dịch]
-                        FROM KhoanThu WHERE ThuYear = @year
-                        UNION ALL
-                        SELECT ChiID, LoaiChi, NoiDung, SoTien,
-                               NgayChi, GhiChu, 'Chi'
-                        FROM KhoanChi WHERE ChiYear = @year";
-
-                    cmd.Parameters.AddWithValue("@year", year);
-                }
-
-                if (string.IsNullOrEmpty(query)) return;
-
-                cmd.CommandText = query;
-
-                try
-                {
-                    conn.Open();
-
-                    using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
-                    {
-                        thuchi = new DataTable();
-                        adapter.Fill(thuchi);
-
-                        dataGridView1.ItemsSource = thuchi.DefaultView;
-                    }
-
-                    TinhTongKhoan();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Lỗi kết nối: " + ex.Message);
-                }
-            }
-        }
-
-        private void TinhTongKhoan()
-        {
-            decimal tong = 0;
-
-            foreach (DataRow row in thuchi.Rows)
-            {
-                if (row["Số tiền"] != DBNull.Value)
-                {
-                    string loai = row["Loại Giao Dịch"].ToString();
-
-                    if (loai == "Thu")
-                        tong += Convert.ToDecimal(row["Số tiền"]);
-                    else if (loai == "Chi")
-                        tong -= Convert.ToDecimal(row["Số tiền"]);
-                }
-            }
-
-            tbT.Text = tong.ToString("N0") + " VNĐ";
         }
     }
 }

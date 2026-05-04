@@ -105,9 +105,9 @@
                  IsReadOnly="True"
                  Background="LightGray"
                  VerticalAlignment="Center"/>
-        <Button x:Name="btnAdd" Click="btnAdd_Click" Grid.Column="2" Content="Them du lieu" HorizontalAlignment="Left" Margin="59,9,0,0" Grid.Row="2" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="43" Width="107"
+        <Button x:Name="btnAdd" Click="btnAdd_Click" Grid.Column="2" Content="Thêm dữ liệu" HorizontalAlignment="Left" Margin="57,0,0,0" Grid.Row="2" VerticalAlignment="Center" Grid.ColumnSpan="2" Height="40" Width="148"
                 Background="#5D9CB3"
                 Foreground="White"
-                FontSize="16"/> 
+                FontSize="16"/>
     </Grid>
 </UserControl>
