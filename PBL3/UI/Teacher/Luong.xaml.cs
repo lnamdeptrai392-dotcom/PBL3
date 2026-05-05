@@ -35,16 +35,8 @@ namespace PBL3a.UI.Teacher
         {
             string query = @"
                 SELECT 
-                    SalaryMonth AS [Tháng],
-                    SalaryYear AS [Năm],
-                    SoLopDay AS [Số lớp dạy],
-                    SoBuoiDay AS [Số buổi dạy],
-                    LuongCoBan AS [Lương cơ bản],
-                    Thuong AS [Thưởng],
-                    TongLuong AS [Tổng lương],
-                    TrangThai AS [Trạng thái],
-                    NgayThanhToan AS [Ngày thanh toán],
-                    GhiChu AS [Ghi chú]
+                    SalaryMonth,  SalaryYear , SoLopDay, SoBuoiDay, LuongCoBan, Thuong, TongLuong, TrangThai, NgayThanhToan, GhiChu
+                    
                 FROM LuongGV
                 WHERE TeacherID = @TeacherID
                 ORDER BY SalaryYear DESC, SalaryMonth DESC";

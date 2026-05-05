@@ -46,7 +46,7 @@
                     Margin="0,5,0,0"
                     Click="btnSchedule_Click" Background="#FF263F60" HorizontalAlignment="Left"/>
 
-            <Expander Header="Lop hoc cua toi"
+            <Expander Header="Lớp học của tôi"
                       Foreground="White" 
                       Background="#263f60"
                       FontSize="14"
@@ -55,19 +55,19 @@
                       Margin="0,5,0,0">
                 <StackPanel Margin="20,5,0,5">
                     <Button 
-                            Content="   Lop dang day" 
+                            Content="   Lớp đang dạy" 
                             Background="#263f60"
                             Foreground="White" 
                              HorizontalAlignment="Left"/>
                     <Button x:Name="btnScore"
-                            Content="   Nhap Diem / Nhan Xet" 
+                            Content="   Nhập điểm/Nhận xét" 
                             Background="#263f60"
                             Foreground="White" 
                             Click="btnScore_Click" HorizontalAlignment="Left"/>
                 </StackPanel>
             </Expander>
 
-            <Expander Header="Tai chinh ca nhan"
+            <Expander Header="Tài chính cá nhân"
                       Foreground="White" 
                       Background="#263f60"
                       FontSize="14"
@@ -76,12 +76,12 @@
                       Margin="0,5,0,0">
                 <StackPanel Margin="20,5,0,5">
                     <Button x:Name="btnSalary"
-                            Content="   Luong/Thuong" 
+                            Content="   Lương/Thưởng" 
                             Background="#263f60"
                             Foreground="White" 
                             Click="btnSalary_Click" HorizontalAlignment="Left"/>
                     <Button 
-                            Content="   Lich su hoa don" 
+                            Content="   Lịch sử hóa đơn" 
                             Background="#263f60"
                             Foreground="White" 
                             HorizontalAlignment="Left"/>
