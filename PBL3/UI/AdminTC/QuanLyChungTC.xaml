@@ -137,6 +137,6 @@
 
         <ContentControl x:Name="paDesktop"
                         Grid.Column="1"
-                        Background="White" Grid.RowSpan="2"/>
+                        Background="White" Grid.RowSpan="2" />
     </Grid>
 </Window>

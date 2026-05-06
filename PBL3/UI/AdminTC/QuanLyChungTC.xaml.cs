@@ -7,15 +7,17 @@ namespace PBL3a.UI.AdminTC
 {
     public partial class QuanLyChungTC : Window
     {
-        
+
         public QuanLyChungTC()
         {
             InitializeComponent();
         }
 
-        private void OpenChild(UserControl child, object sender)
+        private void OpenChild(UserControl child)
         {
-            
+            child.HorizontalAlignment = HorizontalAlignment.Stretch;
+            child.VerticalAlignment = VerticalAlignment.Stretch;
+
             paDesktop.Content = child;
         }
 
@@ -31,17 +33,21 @@ namespace PBL3a.UI.AdminTC
 
         private void btnThuHP_Click(object sender, RoutedEventArgs e)
         {
-            OpenChild(new HocPhi(), sender);
+            HocPhi hocPhi = new HocPhi();
+            OpenChild(hocPhi);
+            
         }
 
         private void btnLuong_Click(object sender, RoutedEventArgs e)
         {
-            OpenChild(new LuongGV(), sender);
+            LuongGV luongGV = new LuongGV();
+            OpenChild(luongGV);
         }
 
         private void btnKhac_Click(object sender, RoutedEventArgs e)
         {
-            OpenChild(new KhoanChi(), sender);
+            KhoanChi khoanChi = new KhoanChi();
+            OpenChild(khoanChi);
         }
 
         private void btnLshd_Click(object sender, RoutedEventArgs e)
@@ -50,13 +56,14 @@ namespace PBL3a.UI.AdminTC
         }
         private void btnProfit_Click(object sender, RoutedEventArgs e)
         {
-            OpenChild(new Lai(), sender);
+            Lai lai = new Lai();
+            OpenChild (lai);
         }
         private void btnExit_Click(object sender, RoutedEventArgs e)
-        {
-            var login = new LoginWindow(); // WPF Window
+        { 
+            LoginWindow login = new LoginWindow();
             login.Show();
-            this.Close();
+            Close();
         }
     }
 }
