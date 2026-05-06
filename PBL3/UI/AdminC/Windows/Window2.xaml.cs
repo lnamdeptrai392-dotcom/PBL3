@@ -38,6 +38,7 @@ namespace PBL3a.UI.AdminC.Windows
             dtTempClasses.Columns.Add("Ngày Bắt Đầu", typeof(DateTime));
             dtTempClasses.Columns.Add("Ngày Kết Thúc", typeof(DateTime));
             dtTempClasses.Columns.Add("Sức Chứa", typeof(int));
+            dtTempClasses.Columns.Add("Khối"); // ✅ FIX
 
             dgvLH.ItemsSource = dtTempClasses.DefaultView;
         }
@@ -109,7 +110,8 @@ namespace PBL3a.UI.AdminC.Windows
                 selectedTeacherId,
                 startDate,
                 endDate,
-                capacity
+                capacity,
+                cbbKhoi.SelectedItem.ToString().Replace("Khối ", "")
             );
 
             MessageBox.Show("Đã tạo lớp tạm");

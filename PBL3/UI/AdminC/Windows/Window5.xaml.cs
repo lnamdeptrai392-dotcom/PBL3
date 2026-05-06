@@ -15,21 +15,26 @@ namespace PBL3a.UI.AdminC.Windows
         public Window5()
         {
             InitializeComponent();
-            Loaded += Window5_Load;
-        }
 
-        private void Window5_Load(object sender, RoutedEventArgs e)
-        {
-            cbbRole.Items.Add("Học sinh");
-            cbbRole.Items.Add("Giáo viên");
+            // ✅ FIX TRIỆT ĐỂ ItemsSource
+            cbbRole.ItemsSource = new string[]
+            {
+                "Học sinh",
+                "Giáo viên"
+            };
             cbbRole.SelectedIndex = 0;
 
+            LoadData();
+        }
+
+        private void LoadData()
+        {
             dtPreview.Columns.Add("Id");
             dtPreview.Columns.Add("username");
             dtPreview.Columns.Add("Password");
             dtPreview.Columns.Add("name");
             dtPreview.Columns.Add("phone");
-            dtPreview.Columns.Add("dateOfBirth");
+            dtPreview.Columns.Add("dateOfBirth", typeof(DateTime));
             dtPreview.Columns.Add("sex");
             dtPreview.Columns.Add("Role");
 
@@ -55,28 +60,20 @@ namespace PBL3a.UI.AdminC.Windows
 
                         if (result != null)
                         {
-                            int stt = int.Parse(result.ToString().Substring(5, 3)) + 1;
-                            string id = prefix + stt.ToString("D3");
-                            return (id, id);
+                            string lastId = result.ToString();
+                            if (lastId.Length >= 8)
+                            {
+                                int stt = int.Parse(lastId.Substring(5, 3)) + 1;
+                                string id = prefix + stt.ToString("D3");
+                                return (id, id);
+                            }
                         }
                         return (prefix + "001", prefix + "001");
                     }
                 }
                 else
                 {
-                    string query = "SELECT TOP 1 Id FROM accountList WHERE Role='Teacher' ORDER BY Id DESC";
-
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
-                    {
-                        var result = cmd.ExecuteScalar();
-
-                        if (result != null)
-                        {
-                            int stt = int.Parse(result.ToString().Substring(1)) + 1;
-                            return ("T" + stt.ToString("D3"), "teacher" + stt);
-                        }
-                        return ("T001", "teacher1");
-                    }
+                    return ("T001", "teacher1");
                 }
             }
         }
@@ -89,7 +86,7 @@ namespace PBL3a.UI.AdminC.Windows
                 return;
             }
 
-            if (!rdoNam.IsChecked.Value && !rdoNu.IsChecked.Value)
+            if (rdoNam.IsChecked != true && rdoNu.IsChecked != true)
             {
                 MessageBox.Show("Chọn giới tính");
                 return;
@@ -97,7 +94,7 @@ namespace PBL3a.UI.AdminC.Windows
 
             var (id, user) = GenerateId(
                 cbbRole.SelectedItem.ToString(),
-                rdoNu.IsChecked.Value,
+                rdoNu.IsChecked == true,
                 dtpDOB.SelectedDate ?? DateTime.Now
             );
 
@@ -109,8 +106,8 @@ namespace PBL3a.UI.AdminC.Windows
                 "123456",
                 txtFullName.Text,
                 txtPhone.Text,
-                (dtpDOB.SelectedDate ?? DateTime.Now).ToString("yyyy-MM-dd"),
-                rdoNam.IsChecked.Value ? "Male" : "Female",
+                dtpDOB.SelectedDate ?? DateTime.Now,
+                rdoNam.IsChecked == true ? "Male" : "Female",
                 cbbRole.SelectedItem.ToString() == "Học sinh" ? "Student" : "Teacher"
             );
         }
@@ -126,7 +123,8 @@ namespace PBL3a.UI.AdminC.Windows
             DataRow row = dtPreview.Rows[0];
 
             string query = @"INSERT INTO accountList 
-                            VALUES (@id,@user,@pass,@name,@phone,@dob,@sex,@role)";
+            (Id, username, Password, name, phone, dateOfBirth, sex, Role)
+            VALUES (@id,@user,@pass,@name,@phone,@dob,@sex,@role)";
 
             using (SqlConnection conn = dbHelper.GetConnection())
             {
@@ -134,20 +132,27 @@ namespace PBL3a.UI.AdminC.Windows
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
-                    cmd.Parameters.AddWithValue("@id", row["Id"]);
-                    cmd.Parameters.AddWithValue("@user", row["username"]);
-                    cmd.Parameters.AddWithValue("@pass", row["Password"]);
-                    cmd.Parameters.AddWithValue("@name", row["name"]);
-                    cmd.Parameters.AddWithValue("@phone", row["phone"]);
-                    cmd.Parameters.AddWithValue("@dob", row["dateOfBirth"]);
-                    cmd.Parameters.AddWithValue("@sex", row["sex"]);
-                    cmd.Parameters.AddWithValue("@role", row["Role"]);
+                    try
+                    {
+                        cmd.Parameters.AddWithValue("@id", row["Id"]);
+                        cmd.Parameters.AddWithValue("@user", row["username"]);
+                        cmd.Parameters.AddWithValue("@pass", row["Password"]);
+                        cmd.Parameters.AddWithValue("@name", row["name"]);
+                        cmd.Parameters.AddWithValue("@phone", row["phone"]);
+                        cmd.Parameters.Add("@dob", SqlDbType.Date).Value = row["dateOfBirth"];
+                        cmd.Parameters.AddWithValue("@sex", row["sex"]);
+                        cmd.Parameters.AddWithValue("@role", row["Role"]);
 
-                    cmd.ExecuteNonQuery();
+                        cmd.ExecuteNonQuery();
+
+                        MessageBox.Show("Đã thêm DB");
+                        dtPreview.Clear();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
                 }
-
-                MessageBox.Show("Đã thêm DB");
-                dtPreview.Clear();
             }
         }
 

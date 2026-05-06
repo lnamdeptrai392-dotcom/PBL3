@@ -1,67 +1,184 @@
 ﻿<UserControl x:Class="PBL3a.UI.AdminC.Windows.Window5"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="#F4F8FB">
+
+    <UserControl.Resources>
+
+        <!-- BUTTON -->
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#1E88E5"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="Padding" Value="12 0"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+
+        <!-- COMBO -->
+        <Style TargetType="ComboBox">
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Padding" Value="8 0"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#90CAF9"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+
+        <!-- TEXTBOX -->
+        <Style TargetType="TextBox">
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="Padding" Value="8 0"/>
+            <Setter Property="BorderBrush" Value="#90CAF9"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+
+        <!-- DATAGRID -->
+        <Style TargetType="DataGrid">
+            <Setter Property="AutoGenerateColumns" Value="False"/>
+            <Setter Property="CanUserAddRows" Value="False"/>
+            <Setter Property="HeadersVisibility" Value="Column"/>
+            <Setter Property="RowHeight" Value="36"/>
+            <Setter Property="ColumnWidth" Value="*"/>
+            <Setter Property="GridLinesVisibility" Value="Horizontal"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="#E3EEF7"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#D0E3F1"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#E3F2FD"/>
+            <Setter Property="Foreground" Value="#0D47A1"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="8"/>
+        </Style>
+
+        <Style TargetType="DataGridCell">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+    </UserControl.Resources>
 
     <ScrollViewer>
-        <StackPanel Margin="30">
+        <Grid Margin="18">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-            <TextBlock Text="Tạo tài khoản"
-                       FontSize="24"
-                       FontWeight="Bold"
-                       Margin="0 0 0 20"/>
+            <!-- FORM -->
+            <Border Background="White"
+                    CornerRadius="14"
+                    Padding="14"
+                    BorderBrush="#D6E6F2"
+                    BorderThickness="1"
+                    Margin="0 0 0 16">
 
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Vai trò:" Width="120"/>
-                <ComboBox x:Name="cbbRole" Width="200"/>
-            </StackPanel>
+                <StackPanel>
 
-            <StackPanel Orientation="Horizontal" Margin="0 10">
-                <TextBlock Text="Họ tên:" Width="120"/>
-                <TextBox x:Name="txtFullName" Width="300"/>
-            </StackPanel>
+                    <TextBlock Text="Tạo tài khoản"
+                               FontSize="18"
+                               FontWeight="Bold"
+                               Foreground="#0D47A1"
+                               Margin="0 0 0 10"/>
 
-            <StackPanel Orientation="Horizontal" Margin="0 10">
-                <TextBlock Text="Ngày sinh:" Width="120"/>
-                <DatePicker x:Name="dtpDOB" Width="200"/>
-            </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0 10">
+                        <TextBlock Text="Vai trò" Width="120" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="cbbRole"/>
+                    </StackPanel>
 
-            <StackPanel Orientation="Horizontal" Margin="0 10">
-                <TextBlock Text="SĐT:" Width="120"/>
-                <TextBox x:Name="txtPhone" Width="300"/>
-            </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0 10">
+                        <TextBlock Text="Họ tên" Width="120"/>
+                        <TextBox x:Name="txtFullName" Width="250"/>
+                    </StackPanel>
 
-            <StackPanel Orientation="Horizontal" Margin="0 10">
-                <TextBlock Text="Giới tính:" Width="120"/>
-                <RadioButton x:Name="rdoNam" Content="Nam" Margin="10 0"/>
-                <RadioButton x:Name="rdoNu" Content="Nữ"/>
-            </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0 10">
+                        <TextBlock Text="Ngày sinh" Width="120"/>
+                        <DatePicker x:Name="dtpDOB" Width="200"/>
+                    </StackPanel>
 
-            <StackPanel Orientation="Horizontal" Margin="0 20">
-                <Button Content="Tạo"
-                        Width="120"
-                        Margin="10"
-                        Click="btnTao_Click"/>
+                    <StackPanel Orientation="Horizontal" Margin="0 10">
+                        <TextBlock Text="SĐT" Width="120"/>
+                        <TextBox x:Name="txtPhone" Width="250"/>
+                    </StackPanel>
 
-                <Button Content="Refresh"
-                        Width="120"
-                        Margin="10"
-                        Click="btnRefresh_Click"/>
-            </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0 10">
+                        <TextBlock Text="Giới tính" Width="120"/>
+                        <RadioButton x:Name="rdoNam" Content="Nam" Margin="10 0"/>
+                        <RadioButton x:Name="rdoNu" Content="Nữ"/>
+                    </StackPanel>
 
-            <DataGrid x:Name="dgvData"
-                      Height="120"
-                      AutoGenerateColumns="True"
-                      Margin="0 10">
-                <DataGridTextColumn Header="ID" Binding="{Binding id}" Width="80"/>
-                
-            </DataGrid>
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Right"
+                                Margin="0 10">
 
-            <Button Content="Thêm vào DB"
-                    Width="200"
-                    HorizontalAlignment="Center"
-                    Margin="10"
-                    Click="btnThemDB_Click"/>
+                        <Button Content="Tạo"
+                                Width="100"
+                                Margin="5"
+                                Click="btnTao_Click"/>
 
-        </StackPanel>
+                        <Button Content="Refresh"
+                                Width="100"
+                                Background="#90A4AE"
+                                Margin="5"
+                                Click="btnRefresh_Click"/>
+                    </StackPanel>
+
+                </StackPanel>
+            </Border>
+
+            <!-- DATAGRID -->
+            <Border Grid.Row="1"
+                    Background="White"
+                    CornerRadius="14"
+                    Padding="14"
+                    BorderBrush="#D6E6F2"
+                    BorderThickness="1">
+
+                <StackPanel>
+
+                    <TextBlock Text="Preview tài khoản"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="#0D47A1"
+                               Margin="0 0 0 10"/>
+
+                    <DataGrid x:Name="dgvData"
+                              Height="180">
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="*"/>
+                            <DataGridTextColumn Header="Username" Binding="{Binding username}" Width="*"/>
+                            <DataGridTextColumn Header="Tên" Binding="{Binding name}" Width="*"/>
+                            <DataGridTextColumn Header="SĐT" Binding="{Binding phone}" Width="*"/>
+                            <DataGridTextColumn Header="Ngày sinh"
+                        Binding="{Binding dateOfBirth, StringFormat=dd/MM/yyyy}"
+                        Width="*"/>
+                            <DataGridTextColumn Header="Giới tính" Binding="{Binding sex}" Width="*"/>
+                            <DataGridTextColumn Header="Role" Binding="{Binding Role}" Width="*"/>
+                        </DataGrid.Columns>
+                        <DataGrid.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                            </Style>
+                        </DataGrid.CellStyle>
+                    </DataGrid>
+
+                    <Button Content="Thêm vào DB"
+                            Width="160"
+                            Margin="10"
+                            HorizontalAlignment="Right"
+                            Click="btnThemDB_Click"/>
+
+                </StackPanel>
+            </Border>
+
+        </Grid>
     </ScrollViewer>
 </UserControl>
