@@ -16,7 +16,48 @@ namespace PBL3a.UI.AdminTC
         public HocPhi()
         {
             InitializeComponent();
-            Loaded += HocPhi_Load;
+            
+        }
+        private void Filter_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cbbGrade == null || cbbCourse == null || cbbML == null) return;
+
+            // Lấy giá trị từ ComboBox
+            string selectedGrade = (cbbGrade.SelectedItem as ComboBoxItem)?.Content?.ToString();
+            string selectedCourseTag = (cbbCourse.SelectedItem as ComboBoxItem)?.Tag?.ToString();
+
+            if (string.IsNullOrEmpty(selectedGrade) || string.IsNullOrEmpty(selectedCourseTag)) return;
+
+            cbbML.Items.Clear();
+            dataGridView1.ItemsSource = null; // Xóa bảng khi đổi bộ lọc
+
+            try
+            {
+                using (SqlConnection conn = db.GetConnection())
+                {
+                    conn.Open();
+                    string query = "SELECT classID FROM Class WHERE grade = @grade AND courseID = @courseID ORDER BY classID";
+
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@grade", selectedGrade);
+                        cmd.Parameters.AddWithValue("@courseID", selectedCourseTag);
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                // Thêm trực tiếp string vào Items
+                                cbbML.Items.Add(reader["classID"].ToString());
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi tải danh sách lớp: " + ex.Message, "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void HocPhi_Load(object sender, RoutedEventArgs e)
@@ -33,77 +74,6 @@ namespace PBL3a.UI.AdminTC
             dataGridView1.SelectionUnit = DataGridSelectionUnit.FullRow;
         }
 
-        
-        private void FilterClass()
-        {
-            if (cbbGrade == null || cbbCourse == null || cbbML == null) return;
-
-            string selectedGrade = (cbbGrade.SelectedItem as ComboBoxItem)?.Content.ToString();
-            string selectedCourseTag = (cbbCourse.SelectedItem as ComboBoxItem)?.Tag?.ToString();
-
-            
-            if (string.IsNullOrEmpty(selectedGrade) || string.IsNullOrEmpty(selectedCourseTag)) return;
-
-            cbbML.Items.Clear();
-            tbTL.Text = ""; // Xóa tên lớp cũ
-
-            try
-            {
-                using (SqlConnection conn = db.GetConnection())
-                {
-                    conn.Open();
-                    // Truy vấn dựa trên cấu trúc database mới (grade và courseID)
-                    string query = "SELECT classID FROM Class WHERE grade = @grade AND courseID = @courseID ORDER BY classID";
-
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@grade", selectedGrade);
-                        cmd.Parameters.AddWithValue("@courseID", selectedCourseTag);
-
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                cbbML.Items.Add(reader["classID"].ToString());
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex) {
-                MessageBox.Show("Lỗi kết nối dữ liệu: " + ex.Message, "Lỗi hệ thống", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private void Filter_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            FilterClass();
-        }
-
-        private void cbbML_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (cbbML.SelectedItem == null) return;
-
-            string classID = cbbML.SelectedItem.ToString();
-            LoadTenLop(classID);
-            LoadHocPhiTheoLop(classID);
-        }
-
-        private void LoadTenLop(string classID)
-        {
-            using (SqlConnection conn = db.GetConnection())
-            {
-                conn.Open();
-                string query = "SELECT class_name FROM Class WHERE classID = @classID";
-                using (SqlCommand cmd = new SqlCommand(query, conn))
-                {
-                    cmd.Parameters.AddWithValue("@classID", classID);
-                    object result = cmd.ExecuteScalar();
-                    tbTL.Text = result != null ? result.ToString() : "";
-                }
-            }
-        }
-
         private void LoadHocPhiTheoLop(string classID)
         {
             try
@@ -111,30 +81,24 @@ namespace PBL3a.UI.AdminTC
                 using (SqlConnection conn = db.GetConnection())
                 {
                     conn.Open();
-                    // INNER JOIN với accountList để lấy tên học sinh
                     string query = @"
-                    SELECT 
-                    a.Id AS [AccountID], 
-                    a.name AS [HoTen], 
-                    
-                    ISNULL(CAST(hp.TuitionMonth AS NVARCHAR), N'--') AS [TuitionMonth], 
-                    
-                    ISNULL(hp.SoTien, 0) AS [SoTien], 
-                    
-                    ISNULL(hp.TrangThai, N'Chưa thiết lập') AS [TrangThai]
-                FROM JoinClass jc
-                INNER JOIN accountList a ON jc.AccountID = a.Id
-                LEFT JOIN HocPhi hp ON jc.AccountID = hp.AccountID AND jc.classID = hp.ClassID
-                WHERE jc.classID = @classID
-                ORDER BY hp.TrangThai DESC, a.name ASC";
+                        SELECT 
+                            a.Id AS [AccountID], 
+                            a.name AS [HoTen], 
+                            ISNULL(CAST(hp.TuitionMonth AS NVARCHAR), N'--') AS [TuitionMonth], 
+                            ISNULL(hp.SoTien, 0) AS [SoTien], 
+                            ISNULL(hp.TrangThai, N'Chưa thiết lập') AS [TrangThai]
+                        FROM JoinClass jc
+                        INNER JOIN accountList a ON jc.AccountID = a.Id
+                        LEFT JOIN HocPhi hp ON jc.AccountID = hp.AccountID AND jc.classID = hp.ClassID
+                        WHERE jc.classID = @classID
+                        ORDER BY hp.TrangThai DESC, a.name ASC";
 
                     using (SqlDataAdapter adapter = new SqlDataAdapter(query, conn))
                     {
                         adapter.SelectCommand.Parameters.AddWithValue("@classID", classID);
                         dtHocPhi = new DataTable();
                         adapter.Fill(dtHocPhi);
-
-                        // Gán ItemsSource cho DataGrid đã định nghĩa sẵn cột trong XAML
                         dataGridView1.ItemsSource = dtHocPhi.DefaultView;
                     }
                 }
@@ -158,6 +122,16 @@ namespace PBL3a.UI.AdminTC
             LoadHocPhiTheoLop(malop);
         }
 
-        
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (cbbML.SelectedItem == null)
+            {
+                MessageBox.Show("Vui lòng chọn mã lớp trước khi xem!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            string classID = cbbML.SelectedItem.ToString();
+            LoadHocPhiTheoLop(classID);
+        }
     }
 }

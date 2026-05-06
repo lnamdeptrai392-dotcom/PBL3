@@ -101,11 +101,12 @@
 
                     <Button x:Name="butOut"
                                 Content="Đăng Xuất"
-                                Background="#263f60"
                                 Foreground="White" 
                                 FontSize="14"
                                 FontWeight="SemiBold"
+                                BorderThickness="0"
                                 Margin="0,5,0,0"
+                                Background="#FF263F60"
                                 Click="butOut_Click" Height="57" HorizontalAlignment="Left" Width="199"/>
                 </StackPanel>
             </ScrollViewer>

@@ -67,10 +67,6 @@ namespace PBL3a.UI.Student
             }
         }
 
-        private void btnExport_Click(object sender, RoutedEventArgs e)
-        {
-            // xuất file excel
-        }
 
         private void btnShowData_Click(object sender, RoutedEventArgs e)
         {
