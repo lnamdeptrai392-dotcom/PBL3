@@ -14,8 +14,8 @@ namespace PBL3a.UI.Student
 
         public StudentFee(string id)
         {
-            InitializeComponent();
             currentID = id;
+            InitializeComponent();
 
             Loaded += StudentFee_Load;
         }
@@ -38,13 +38,12 @@ namespace PBL3a.UI.Student
 
                     string query = @"
                         SELECT 
-                            ClassID AS [Mã lớp học],
-                            TuitionMonth AS [Tháng học], 
-                            TuitionYear AS [Năm học], 
-                            SoTien AS [Số tiền], 
-                            TrangThai AS [Trạng thái], 
-                            NgayDong AS [Ngày đóng], 
-                            GhiChu AS [Ghi chú]
+                            ClassID AS ClassID,
+                            TuitionYear AS TuitionYear, 
+                            TuitionMonth AS TuitionMonth, 
+                            SoTien AS SoTien, 
+                            NgayDong AS NgayDong, 
+                            TrangThai AS TrangThai
                         FROM HocPhi 
                         WHERE AccountID = @id";
 

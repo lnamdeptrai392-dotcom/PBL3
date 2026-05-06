@@ -57,7 +57,20 @@ namespace PBL3a.UI.Student
                                     ? Convert.ToDateTime(reader["dateOfBirth"])
                                     : DateTime.Now;
 
-                                cboGioiTinh.Text = reader["sex"].ToString();
+                                string dbSex = reader["sex"] != DBNull.Value ? reader["sex"].ToString().Trim() : "";
+
+                                if (dbSex.Equals("Male", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    cboGioiTinh.Text = "Nam";
+                                }
+                                else if (dbSex.Equals("Female", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    cboGioiTinh.Text = "Nữ";
+                                }
+                                else
+                                {
+                                    cboGioiTinh.Text = dbSex;
+                                }
                                 txtSDT.Text = reader["phone"].ToString();
 
                                 txtEmail.Text = "Chưa cập nhật";
@@ -88,9 +101,22 @@ namespace PBL3a.UI.Student
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
+                        string dbSex = "";
+                        if (cboGioiTinh.Text.Equals("Nữ", StringComparison.OrdinalIgnoreCase))
+                        {
+                            dbSex = "Female";
+                        }
+                        else if (cboGioiTinh.Text.Equals("Nam", StringComparison.OrdinalIgnoreCase))
+                        {
+                            dbSex = "Male";
+                        }
+                        else
+                        {
+                            dbSex = cboGioiTinh.Text;
+                        }
                         cmd.Parameters.AddWithValue("@name", txtHoTen.Text);
                         cmd.Parameters.AddWithValue("@dob", dtpNgaySinh.SelectedDate ?? DateTime.Now);
-                        cmd.Parameters.AddWithValue("@sex", cboGioiTinh.Text);
+                        cmd.Parameters.AddWithValue("@sex", dbSex);
                         cmd.Parameters.AddWithValue("@phone", txtSDT.Text);
                         cmd.Parameters.AddWithValue("@id", currentID);
 

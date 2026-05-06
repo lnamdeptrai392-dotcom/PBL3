@@ -37,7 +37,7 @@ namespace PBL3a.UI.Teacher
                     a.Id, a.name, a.sex, a.dateOfBirth, a.phone, t.subject
                 FROM accountList a
                 INNER JOIN teacherInfo t ON a.Id = t.Id
-                WHERE a.Id = @TeacherID AND a.Role = 'Teacher'";
+                WHERE a.Id = @TeacherID";
 
             try
             {
@@ -57,7 +57,20 @@ namespace PBL3a.UI.Teacher
                                 tbMGV.Text = reader["Id"] != DBNull.Value ? reader["Id"].ToString() : "";
                                 tbMD.Text = reader["subject"] != DBNull.Value ? reader["subject"].ToString() : "";
                                 tbSDT.Text = reader["phone"] != DBNull.Value ? reader["phone"].ToString() : "";
-                                cbbGT.Text = reader["sex"] != DBNull.Value ? reader["sex"].ToString() : "";
+                                string dbSex = reader["sex"] != DBNull.Value ? reader["sex"].ToString().Trim() : "";
+
+                                if (dbSex.Equals("Male", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    cbbGT.Text = "Nam";
+                                }
+                                else if (dbSex.Equals("Female", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    cbbGT.Text = "Nữ";
+                                }
+                                else
+                                {
+                                    cbbGT.Text = dbSex;
+                                }
 
                                 if (reader["dateOfBirth"] != DBNull.Value)
                                 {
@@ -95,9 +108,22 @@ namespace PBL3a.UI.Teacher
 
                     using (SqlCommand cmd = new SqlCommand(query, con))
                     {
+                        string dbSex = "";
+                        if (cbbGT.Text.Equals("Nữ", StringComparison.OrdinalIgnoreCase))
+                        {
+                            dbSex = "Female";
+                        }
+                        else if (cbbGT.Text.Equals("Nam", StringComparison.OrdinalIgnoreCase))
+                        {
+                            dbSex = "Male";
+                        }
+                        else
+                        {
+                            dbSex = cbbGT.Text;
+                        }
                         cmd.Parameters.AddWithValue("@name", tbHVT.Text);
                         cmd.Parameters.AddWithValue("@dob", dtNS.SelectedDate ?? DateTime.Now);
-                        cmd.Parameters.AddWithValue("@sex", cbbGT.Text);
+                        cmd.Parameters.AddWithValue("@sex", dbSex);
                         cmd.Parameters.AddWithValue("@phone", tbSDT.Text);
                         cmd.Parameters.AddWithValue("@id", currentTeacherID);
 

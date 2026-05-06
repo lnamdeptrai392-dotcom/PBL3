@@ -36,7 +36,7 @@ namespace PBL3a.UI.Teacher
 
             string query = @"SELECT classID 
                              FROM Class 
-                             WHERE teacherID = @id";
+                             WHERE teacherID = @id AND status = N'Đang mở'";
 
             using (SqlConnection conn = db.GetConnection())
             using (SqlCommand cmd = new SqlCommand(query, conn))
@@ -136,6 +136,7 @@ namespace PBL3a.UI.Teacher
                 return;
             }
 
+            dataGridView1.CommitEdit(DataGridEditingUnit.Row, true);
             string classId = comboBox1.SelectedItem.ToString();
 
             using (SqlConnection conn = db.GetConnection())
@@ -155,7 +156,11 @@ namespace PBL3a.UI.Teacher
 
                         if (!string.IsNullOrWhiteSpace(diemText))
                         {
-                            double diem = Convert.ToDouble(diemText);
+                            string safeDiemText = diemText.Replace(",", ".");
+                            if (!double.TryParse(safeDiemText, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out double diem))
+                            {
+                                throw new Exception($"Điểm '{diemText}' của học sinh {accountId} không đúng định dạng số!");
+                            }
                             if (diem < 0 || diem > 10)
                                 throw new Exception("Điểm phải từ 0-10");
 

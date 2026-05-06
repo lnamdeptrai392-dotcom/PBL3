@@ -14,8 +14,8 @@ namespace PBL3a.UI.Teacher
 
         public Luong(string teacherId)
         {
-            InitializeComponent();
             currentTeacherID = teacherId;
+            InitializeComponent();
 
             Loaded += Luong_Load;
         }
@@ -35,8 +35,17 @@ namespace PBL3a.UI.Teacher
         {
             string query = @"
                 SELECT 
-                    SalaryMonth,  SalaryYear , SoLopDay, SoBuoiDay, LuongCoBan, Thuong, TongLuong, TrangThai, NgayThanhToan, GhiChu
-                    
+                    SalaryMonth, 
+                    SalaryYear, 
+                    SoLopDay, 
+                    SoBuoiDay, 
+                    LuongCoBan, 
+                    Thuong, 
+                    Phat, 
+                    TongLuong, 
+                    NgayThanhToan, 
+                    TrangThai AS TrangT, 
+                    GhiChu  
                 FROM LuongGV
                 WHERE TeacherID = @TeacherID
                 ORDER BY SalaryYear DESC, SalaryMonth DESC";

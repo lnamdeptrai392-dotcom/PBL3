@@ -32,8 +32,11 @@
 
             <ComboBox x:Name="cboSemester"
                       Width="158"
-                      Height="30"
-                      SelectionChanged="cboSemester_SelectedIndexChanged"/>
+                      Height="30" 
+                      SelectionChanged="cboSemester_SelectedIndexChanged" RenderTransformOrigin="9.036,21.97">
+                <ComboBoxItem Content="Học kì hiện tại" IsSelected="True"/>
+                <ComboBoxItem Content="Tất cả" />
+            </ComboBox>
 
             <Button x:Name="btnShowData"
                     Content="Dữ liệu"
@@ -59,6 +62,15 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        
+        <Button x:Name="btnExport"
+                Grid.Row="3"
+                Grid.Column="1"
+                Content="Xuất"
+                Width="94"
+                Height="29"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Click="btnExport_Click"/>
+
     </Grid>
 </UserControl>

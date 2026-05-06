@@ -141,7 +141,7 @@ namespace PBL3a.UI.Student
                 SELECT 
                     c.class_name, 
                     cs.dayOfWeek, 
-                    CAST(cs.startTime AS VARCHAR(5)) AS startTime,
+                    CONVERT(VARCHAR(5), cs.startTime, 108) AS startTime,
                     c.start_date, 
                     c.end_date
                 FROM JoinClass jc
@@ -164,7 +164,7 @@ namespace PBL3a.UI.Student
                             while (reader.Read())
                             {
                                 string clsName = reader["class_name"].ToString();
-                                int dayOfW = Convert.ToInt32(reader["dayOfWeek"]);
+                                int dayOfW = Convert.ToInt32(reader["dayOfWeek"]) + 1;
                                 string time = reader["startTime"].ToString();
                                 DateTime start = Convert.ToDateTime(reader["start_date"]);
                                 DateTime end = Convert.ToDateTime(reader["end_date"]);

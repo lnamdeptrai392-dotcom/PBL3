@@ -14,8 +14,8 @@ namespace PBL3a.UI.Teacher
 
         public TKB(string teacherId)
         {
-            InitializeComponent();
             currentTeacherID = teacherId;
+            InitializeComponent();
 
             Loaded += TKB_Load;
         }
@@ -36,7 +36,7 @@ namespace PBL3a.UI.Teacher
             string query = @"
                 SELECT classID, class_name
                 FROM Class
-                WHERE teacherID = @TeacherID
+                WHERE teacherID = @TeacherID AND status = N'Đang mở'
                 ORDER BY classID";
 
             try
@@ -65,7 +65,7 @@ namespace PBL3a.UI.Teacher
                             }
 
                             comboBox1.ItemsSource = dt.DefaultView;
-                            comboBox1.DisplayMemberPath = "classID";
+                            comboBox1.DisplayMemberPath = "class_name";
                             comboBox1.SelectedValuePath = "classID";
 
                             if (comboBox1.SelectedItem != null)
@@ -99,8 +99,7 @@ namespace PBL3a.UI.Teacher
 
         private void LoadScheduleByClass(string classID)
         {
-            string query = @"
-                SELECT
+            string query = @"SELECT 
                     CASE dayOfWeek
                         WHEN 1 THEN N'Thứ 2'
                         WHEN 2 THEN N'Thứ 3'
@@ -112,8 +111,9 @@ namespace PBL3a.UI.Teacher
                     END AS [Ngày học],
                     CONVERT(VARCHAR(5), startTime, 108) AS [Giờ bắt đầu],
                     CONVERT(VARCHAR(5), endTime, 108) AS [Giờ kết thúc]
-                FROM ClassSchedule
-                WHERE classID = @ClassID
+                FROM ClassSchedule cs
+                join Class c on cs.classID = c.classID
+                WHERE c.classID = @ClassID AND c.status = N'Đang mở'
                 ORDER BY dayOfWeek, startTime";
 
             try
