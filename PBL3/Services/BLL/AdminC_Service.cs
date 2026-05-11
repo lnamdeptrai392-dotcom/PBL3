@@ -248,17 +248,14 @@ namespace PBL3a.services.BLL
             else if (subject == "Sinh học") keyword = "Sinh";
             else if (subject == "Ngữ văn") keyword = "Văn";
 
+            // SỬA LỖI Ở ĐÂY: Lấy thẳng cột grade (khối) trong database thay vì cắt chuỗi
+            // Ép kiểu CAST sang NVARCHAR để WPF dễ đọc chuỗi
             string query = @"
-SELECT DISTINCT 
-    CASE 
-        WHEN c.courseID LIKE 'NN01%' THEN SUBSTRING(c.courseID, 6, 2) 
-        WHEN c.courseID LIKE 'NN02%' THEN SUBSTRING(c.courseID, 6, 2) 
-        WHEN c.courseID LIKE 'NN03%' THEN REPLACE(SUBSTRING(c.courseID, 6, 2), 'H', 'HSK') 
-        ELSE SUBSTRING(c.courseID, 2, 2) 
-    END AS Khoi 
-FROM Class c
-INNER JOIN teacherInfo ti ON c.teacherID = ti.Id
-WHERE ti.subject = @subject AND c.class_name LIKE '%' + @keyword + '%'";
+                SELECT DISTINCT 
+                CAST(c.grade AS NVARCHAR) AS Khoi 
+                FROM Class c
+                INNER JOIN teacherInfo ti ON c.teacherID = ti.Id
+                WHERE ti.subject = @subject AND c.class_name LIKE '%' + @keyword + '%'";
 
             using (SqlConnection conn = dbHelper.GetConnection())
             {

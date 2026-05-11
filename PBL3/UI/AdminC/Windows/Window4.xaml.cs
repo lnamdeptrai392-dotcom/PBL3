@@ -54,9 +54,12 @@ namespace PBL3a.UI.AdminC.Windows
                 return;
             }
 
+            // cbbMH và cbbTTL đang bind từ mảng string[] nên dùng SelectedItem.ToString() vẫn đúng
             string mon = GetKeyword(cbbMH.SelectedItem.ToString());
-            string khoi = cbbKhoi.SelectedItem.ToString();
             string ttl = cbbTTL.SelectedItem.ToString();
+
+            // SỬA LỖI Ở ĐÂY: Dùng SelectedValue thay vì SelectedItem.ToString()
+            string khoi = cbbKhoi.SelectedValue.ToString();
 
             dgvData.ItemsSource =
                 adminService.GetClassesByFilter(mon, khoi, ttl).DefaultView;
@@ -103,8 +106,16 @@ namespace PBL3a.UI.AdminC.Windows
 
             string mon = GetKeyword(cbbMH.SelectedItem.ToString());
 
-            cbbKhoi.ItemsSource =
-                adminService.GetBlocksBySubject(mon).DefaultView;
+            cbbKhoi.ItemsSource = adminService.GetBlocksBySubject(mon).DefaultView;
+
+            cbbKhoi.DisplayMemberPath = "Khoi";
+            cbbKhoi.SelectedValuePath = "Khoi";
+
+            // Tự động chọn giá trị đầu tiên để tránh Combobox bị trống
+            if (cbbKhoi.Items.Count > 0)
+            {
+                cbbKhoi.SelectedIndex = 0;
+            }
         }
 
         private void cbbTTL_SelectedIndexChanged(object sender, SelectionChangedEventArgs e)
