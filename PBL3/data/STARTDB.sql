@@ -189,49 +189,7 @@ VALUES
 ('NNA19', 'NNA19', '123456', N'Bùi Văn Trung', '0858074386', '1970-09-06', 'Male', 'Teacher'),
 ('NNA20', 'NNA20', '123456', N'Lê Thanh Hiền', '0774894084', '1990-02-07', 'Female', 'Teacher'),
 
--- GV Nhật -> ID: (NNNxx)
-('NNN01', 'NNN01', '123456', N'Phạm Kiều Đào', '0981476873', '1976-06-24', 'Female', 'Teacher'),
-('NNN02', 'NNN02', '123456', N'Trần Minh Thảo', '0779533089', '1991-05-24', 'Female', 'Teacher'),
-('NNN03', 'NNN03', '123456', N'Trần Ngọc Oanh', '0788082615', '1983-12-30', 'Female', 'Teacher'),
-('NNN04', 'NNN04', '123456', N'Phạm Diễm Hiền', '0904252776', '1993-01-28', 'Female', 'Teacher'),
-('NNN05', 'NNN05', '123456', N'Huỳnh Thanh Hân', '0798520852', '1975-12-18', 'Female', 'Teacher'),
-('NNN06', 'NNN06', '123456', N'Hoàng Hồng Nhung', '0798189555', '1977-07-20', 'Female', 'Teacher'),
-('NNN07', 'NNN07', '123456', N'Lê Mai Ngân', '0336119742', '1995-01-10', 'Female', 'Teacher'),
-('NNN08', 'NNN08', '123456', N'Trần Thu Hương', '0336627198', '1971-10-31', 'Female', 'Teacher'),
-('NNN09', 'NNN09', '123456', N'Tô Minh Thảo', '0832885110', '1982-07-29', 'Female', 'Teacher'),
-('NNN10', 'NNN10', '123456', N'Đào Khắc Tuấn', '0366048563', '1972-12-06', 'Male', 'Teacher'),
-('NNN11', 'NNN11', '123456', N'Tô Kim Ngân', '0368155771', '1984-02-05', 'Female', 'Teacher'),
-('NNN12', 'NNN12', '123456', N'Dương Thành Quân', '0380380947', '1992-09-25', 'Male', 'Teacher'),
-('NNN13', 'NNN13', '123456', N'Hồ Xuân Tú', '0354272242', '1974-08-30', 'Female', 'Teacher'),
-('NNN14', 'NNN14', '123456', N'Huỳnh Quang Bình', '0336531739', '1990-10-27', 'Male', 'Teacher'),
-('NNN15', 'NNN15', '123456', N'Đỗ Quang Long', '0883349263', '1984-07-20', 'Male', 'Teacher'),
-('NNN16', 'NNN16', '123456', N'Đinh Bích Nga', '0937073889', '1992-04-26', 'Female', 'Teacher'),
-('NNN17', 'NNN17', '123456', N'Phan Hồng Yến', '0911441370', '1982-05-10', 'Female', 'Teacher'),
-('NNN18', 'NNN18', '123456', N'Hoàng Quang Thắng', '0760264039', '1974-11-16', 'Male', 'Teacher'),
-('NNN19', 'NNN19', '123456', N'Lý Thanh Duyên', '0848495489', '1995-11-26', 'Female', 'Teacher'),
-('NNN20', 'NNN20', '123456', N'Trần Lan Trang', '0325158466', '1974-11-03', 'Female', 'Teacher'),
 
--- GV Trung -> ID: (NNTxx)
-('NNT01', 'NNT01', '123456', N'Lê Xuân Yến', '0396311328', '1985-03-27', 'Female', 'Teacher'),
-('NNT02', 'NNT02', '123456', N'Nguyễn Thị Châu', '0347389124', '1987-08-18', 'Female', 'Teacher'),
-('NNT03', 'NNT03', '123456', N'Đỗ Văn Nam', '0947739278', '1993-05-31', 'Male', 'Teacher'),
-('NNT04', 'NNT04', '123456', N'Đỗ Minh Thảo', '0908476322', '1979-04-08', 'Female', 'Teacher'),
-('NNT05', 'NNT05', '123456', N'Đặng Thái Minh', '0387492280', '1986-02-08', 'Male', 'Teacher'),
-('NNT06', 'NNT06', '123456', N'Phạm Khắc Phúc', '0366884508', '1970-11-21', 'Male', 'Teacher'),
-('NNT07', 'NNT07', '123456', N'Huỳnh Ngọc Nhi', '0909094539', '1993-02-11', 'Female', 'Teacher'),
-('NNT08', 'NNT08', '123456', N'Phạm Kiều Vy', '0945955948', '1992-08-29', 'Female', 'Teacher'),
-('NNT09', 'NNT09', '123456', N'Hoàng Minh Tú', '0845786067', '1971-03-26', 'Female', 'Teacher'),
-('NNT10', 'NNT10', '123456', N'Đặng Hồng Hân', '0884457764', '1987-12-19', 'Female', 'Teacher'),
-('NNT11', 'NNT11', '123456', N'Trần Xuân Tùng', '0949992012', '1987-03-04', 'Male', 'Teacher'),
-('NNT12', 'NNT12', '123456', N'Dương Lan Duyên', '0892377043', '1970-01-22', 'Female', 'Teacher'),
-('NNT13', 'NNT13', '123456', N'Đỗ Thanh Uyên', '0981574927', '1974-12-01', 'Female', 'Teacher'),
-('NNT14', 'NNT14', '123456', N'Hoàng Hồng Nghĩa', '0930716456', '1987-08-26', 'Male', 'Teacher'),
-('NNT15', 'NNT15', '123456', N'Phạm Quang Hoàng', '0798442412', '1985-04-19', 'Male', 'Teacher'),
-('NNT16', 'NNT16', '123456', N'Vũ Ngọc Yến', '0704859930', '1974-05-28', 'Female', 'Teacher'),
-('NNT17', 'NNT17', '123456', N'Hồ Hồng Thu', '0942076967', '1982-12-31', 'Female', 'Teacher'),
-('NNT18', 'NNT18', '123456', N'Hồ Đức Lâm', '0799845585', '1995-08-13', 'Male', 'Teacher'),
-('NNT19', 'NNT19', '123456', N'Hồ Tuấn Phúc', '0937722810', '1985-02-22', 'Male', 'Teacher'),
-('NNT20', 'NNT20', '123456', N'Huỳnh Trúc Hương', '0337873388', '1992-02-28', 'Female', 'Teacher'),
 
 
 
@@ -811,8 +769,8 @@ GO
 CREATE TABLE Class (
     classID NVARCHAR(20) PRIMARY KEY,
     class_name NVARCHAR(100) NOT NULL,
-    courseID NVARCHAR(20) NOT NULL,     -- MAT, LIT, ENG, PHY, CHE, BIO
-    grade INT NOT NULL,                -- 10, 11, 12
+    courseID NVARCHAR(20) NOT NULL,
+    grade INT NOT NULL,
     teacherID NVARCHAR(20) NOT NULL,
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,
@@ -1247,24 +1205,52 @@ CREATE TABLE Registration
 );
 GO
 
--- Dữ liệu mẫu bảng Đơn đăng ký phân loại theo từng Khóa năm sinh
+-- Dữ liệu mẫu bảng Đơn đăng ký phân loại theo từng Khối
 INSERT INTO Registration (AccountID, ClassID, RegistrationDate, Status, Note)
 VALUES
--- KHỐI 10
-('10110001', 'MAT10.01', '2026-03-20', N'Đã duyệt', N'Đăng ký Toán 10'),
-('10110002', 'MAT10.01', '2026-03-21', N'Chờ duyệt', N'Đăng ký học bù'),
-('10110017', 'PHY10.01', '2026-03-25', N'Đã duyệt', N'Đăng ký Lý 10'),
+-- ================= KHỐI 10 (10 Đơn) =================
+-- ĐƠN ĐỂ TEST LỖI (Học sinh 10110001 đã có trong lớp MAT10.01)
+('10110001', 'MAT10.01', '2026-03-20', N'Chờ duyệt', N'Đăng ký vào lớp Toán 10'), 
 
--- KHỐI 11
-('10109001', 'MAT11.01', '2026-03-20', N'Đã duyệt', N'Đăng ký Toán 11'),
-('10109009', 'ENG11.01', '2026-03-22', N'Đã duyệt', N'Đăng ký Anh 11'),
-('10109015', 'ENG11.04', '2026-04-01', N'Chờ duyệt', N'Đăng ký lớp lấy gốc'),
+-- CÁC ĐƠN HỢP LỆ (Học sinh chưa có trong lớp)
+('10111001', 'MAT10.02', '2026-03-21', N'Chờ duyệt', N'Đăng ký vào lớp Toán 10'),
+('10111002', 'LIT10.01', '2026-03-21', N'Chờ duyệt', N'Đăng ký vào lớp Văn 10'),
+('10111003', 'ENG10.01', '2026-03-22', N'Chờ duyệt', N'Đăng ký vào lớp Anh 10'),
+('10111004', 'PHY10.02', '2026-03-22', N'Chờ duyệt', N'Đăng ký vào lớp Lý 10'),
+('10111005', 'CHE10.03', '2026-03-23', N'Chờ duyệt', N'Đăng ký vào lớp Hóa 10'),
+('10211001', 'BIO10.01', '2026-03-23', N'Chờ duyệt', N'Đăng ký vào lớp Sinh 10'),
+('10211002', 'MAT10.04', '2026-03-24', N'Chờ duyệt', N'Đăng ký vào lớp Toán 10'),
+('10211003', 'LIT10.03', '2026-03-24', N'Chờ duyệt', N'Đăng ký vào lớp Văn 10'),
+('10211004', 'ENG10.02', '2026-03-25', N'Chờ duyệt', N'Đăng ký vào lớp Anh 10'),
 
--- KHỐI 12
-('10209011', 'MAT12.01', '2026-03-20', N'Đã duyệt', N'Đăng ký ôn thi ĐH'),
-('10209019', 'BIO12.01', '2026-03-23', N'Đã duyệt', N'Đăng ký Sinh 12'),
-('10209025', 'BIO12.04', '2026-04-05', N'Chờ duyệt', N'Đăng ký lớp nâng cao');
-GO
+
+-- ================= KHỐI 11 (10 Đơn) =================
+-- ĐƠN ĐỂ TEST LỖI (Học sinh 10109001 đã có trong lớp MAT11.01)
+('10109001', 'MAT11.01', '2026-03-25', N'Chờ duyệt', N'Đăng ký vào lớp Toán 11'), 
+
+-- CÁC ĐƠN HỢP LỆ (Học sinh chưa có trong lớp)
+('10210001', 'MAT11.02', '2026-03-26', N'Chờ duyệt', N'Đăng ký vào lớp Toán 11'),
+('10210002', 'LIT11.01', '2026-03-26', N'Chờ duyệt', N'Đăng ký vào lớp Văn 11'),
+('10210003', 'ENG11.03', '2026-03-27', N'Chờ duyệt', N'Đăng ký vào lớp Anh 11'),
+('10210004', 'PHY11.02', '2026-03-27', N'Chờ duyệt', N'Đăng ký vào lớp Lý 11'),
+('10210005', 'CHE11.01', '2026-03-28', N'Chờ duyệt', N'Đăng ký vào lớp Hóa 11'),
+('10210006', 'BIO11.04', '2026-03-28', N'Chờ duyệt', N'Đăng ký vào lớp Sinh 11'),
+('10210007', 'MAT11.04', '2026-03-29', N'Chờ duyệt', N'Đăng ký vào lớp Toán 11'),
+('10210008', 'LIT11.03', '2026-03-29', N'Chờ duyệt', N'Đăng ký vào lớp Văn 11'),
+('10210009', 'ENG11.02', '2026-03-30', N'Chờ duyệt', N'Đăng ký vào lớp Anh 11'),
+
+
+-- ================= KHỐI 12 (10 Đơn - Tất cả đều hợp lệ) =================
+('10109020', 'MAT12.01', '2026-03-30', N'Chờ duyệt', N'Đăng ký vào lớp Toán 12'),
+('10109021', 'LIT12.02', '2026-03-31', N'Chờ duyệt', N'Đăng ký vào lớp Văn 12'),
+('10109022', 'ENG12.03', '2026-03-31', N'Chờ duyệt', N'Đăng ký vào lớp Anh 12'),
+('10109023', 'PHY12.04', '2026-04-01', N'Chờ duyệt', N'Đăng ký vào lớp Lý 12'),
+('10109024', 'CHE12.01', '2026-04-01', N'Chờ duyệt', N'Đăng ký vào lớp Hóa 12'),
+('10109025', 'BIO12.02', '2026-04-02', N'Chờ duyệt', N'Đăng ký vào lớp Sinh 12'),
+('10109026', 'MAT12.03', '2026-04-02', N'Chờ duyệt', N'Đăng ký vào lớp Toán 12'),
+('10109027', 'LIT12.01', '2026-04-03', N'Chờ duyệt', N'Đăng ký vào lớp Văn 12'),
+('10109028', 'ENG12.01', '2026-04-03', N'Chờ duyệt', N'Đăng ký vào lớp Anh 12'),
+('10109029', 'PHY12.01', '2026-04-04', N'Chờ duyệt', N'Đăng ký vào lớp Lý 12');
 GO
 
 
