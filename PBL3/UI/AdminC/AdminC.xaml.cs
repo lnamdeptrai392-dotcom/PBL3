@@ -45,9 +45,24 @@ namespace PBL3a.UI.AdminC
 
         private void butOut_Click(object sender, RoutedEventArgs e)
         {
-            LoginWindow login = new LoginWindow();
-            login.Show();
-            Close();
+            MessageBoxResult result = MessageBox.Show(
+                "Bạn có chắc chắn muốn đăng xuất không?",
+                "Xác nhận",
+            MessageBoxButton.YesNo,
+            MessageBoxImage.Question);
+
+            // Chỉ thực hiện đăng xuất nếu người dùng chọn Yes
+            if (result == MessageBoxResult.Yes)
+            {
+                LoginWindow login = new LoginWindow();
+                login.Show();
+
+                Window parentWindow = Window.GetWindow(this);
+                if (parentWindow != null)
+                {
+                    parentWindow.Close();
+                }
+            }
         }
         private void btnDiemDanh_Click(object sender, RoutedEventArgs e)
         {
@@ -56,7 +71,7 @@ namespace PBL3a.UI.AdminC
 
         private void btnStudentProfile_Click(object sender, RoutedEventArgs e)
         {
-            //mo ra  ho so hoc sinh, xem danh sach hoc sinh
+            //OpenChild(new Window3());
         }
 
         private void btnTeacherProfile_Click(object sender, RoutedEventArgs e)

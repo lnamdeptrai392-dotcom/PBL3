@@ -5,6 +5,12 @@
     <Compile Update="UI\AdminC\Windows\DiemDanh.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UI\AdminC\Windows\Window3.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\AdminC\Windows\Window6.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UI\AdminTC\ChildForm\HocPhi.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
