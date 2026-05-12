@@ -38,7 +38,8 @@ namespace PBL3a.UI.AdminC.Windows
             dtTempClasses.Columns.Add("Ngày Bắt Đầu", typeof(DateTime));
             dtTempClasses.Columns.Add("Ngày Kết Thúc", typeof(DateTime));
             dtTempClasses.Columns.Add("Sức Chứa", typeof(int));
-            dtTempClasses.Columns.Add("Khối"); // ✅ FIX
+            dtTempClasses.Columns.Add("Khối");
+            dtTempClasses.Columns.Add("Học Phí", typeof(decimal));
 
             dgvLH.ItemsSource = dtTempClasses.DefaultView;
         }
@@ -67,6 +68,13 @@ namespace PBL3a.UI.AdminC.Windows
 
         private void btnOK_Click(object sender, RoutedEventArgs e)
         {
+            decimal hocPhi = 0;
+            if (!decimal.TryParse(txtHocPhi.Text, out hocPhi))
+            {
+                MessageBox.Show("Vui lòng nhập học phí hợp lệ!");
+                return;
+            }
+
             if (cbbMH.SelectedItem == null)
             {
                 MessageBox.Show("Chọn môn học");
@@ -111,7 +119,8 @@ namespace PBL3a.UI.AdminC.Windows
                 startDate,
                 endDate,
                 capacity,
-                cbbKhoi.SelectedItem.ToString().Replace("Khối ", "")
+                cbbKhoi.SelectedItem.ToString().Replace("Khối ", ""),
+                hocPhi
             );
 
             MessageBox.Show("Đã tạo lớp tạm");

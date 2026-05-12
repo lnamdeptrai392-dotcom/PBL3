@@ -505,66 +505,43 @@ namespace PBL3a.services.BLL
             return dt;
         }
 
-        // Sinh tự động Mã Lớp (classID), Mã Khóa Học (courseID) và Tên Lớp (class_name)
+        private string GetSubjectCode(string subjectName)
+        {
+            if (subjectName.Contains("Toán")) return "MAT";
+            if (subjectName.Contains("Văn")) return "LIT";
+            if (subjectName.Contains("Hóa")) return "CHE";
+            if (subjectName.Contains("Lý")) return "PHY";
+            if (subjectName.Contains("Sinh")) return "BIO";
+            if (subjectName.Contains("Anh")) return "ENG";
+            return "SUB";
+        }
+
+        // 2. Sửa lại logic sinh Mã Lớp (MAT10.01) và Tên Lớp (Toán 10 - Nhóm 01)
         public void GenerateClassIdentifiers(string subject, string khoi, DateTime startDate, out string courseId, out string classId, out string className)
         {
-            string subjectCode = "";
-            string subjectName = "";
-
-            // Mapping môn học sang mã ký tự (dựa trên STARTDB.sql)
-            if (subject.Contains("Toán")) { subjectCode = "T"; subjectName = "Toán"; }
-            else if (subject.Contains("Văn")) { subjectCode = "V"; subjectName = "Văn"; }
-            else if (subject.Contains("Hóa")) { subjectCode = "H"; subjectName = "Hóa"; }
-            else if (subject.Contains("Lý")) { subjectCode = "L"; subjectName = "Lý"; }
-            else if (subject.Contains("Sinh")) { subjectCode = "S"; subjectName = "Sinh"; }
-            else if (subject.Contains("Tiếng Anh")) { subjectCode = "NN01."; subjectName = "Tiếng Anh"; }
-
-            // Lấy số khối (Ví dụ: "Khối 10" -> "10")
+            string subjectCode = GetSubjectCode(subject);
             string gradeNumber = khoi.Replace("Khối ", "").Trim();
 
-            // 1. Tạo courseID (VD: T10, NN01.10)
-            courseId = subjectCode + gradeNumber;
+            // courseID theo format trong DB của bạn (ví dụ: MAT, LIT, ENG)
+            courseId = subjectCode;
 
-            // 2. Tạo classID (VD: T10.0426 - Tháng/Năm mở lớp)
-            string monthYear = startDate.ToString("MMyy");
-            classId = $"{courseId}.{monthYear}";
+            // Tiền tố để tìm lớp tiếp theo (ví dụ: MAT10.)
+            string prefix = $"{subjectCode}{gradeNumber}.";
 
-            // Xử lý nếu trùng classID (mở 2 lớp cùng 1 tháng)
-            int suffix = 1;
-            string originalClassId = classId;
             using (SqlConnection conn = dbHelper.GetConnection())
             {
                 conn.Open();
-                while (true)
-                {
-                    SqlCommand cmdCheck = new SqlCommand("SELECT COUNT(*) FROM Class WHERE classID = @classId", conn);
-                    cmdCheck.Parameters.AddWithValue("@classId", classId);
-                    int count = (int)cmdCheck.ExecuteScalar();
-                    if (count == 0) break; // Không trùng
+                // Đếm xem đã có bao nhiêu lớp thuộc môn này, khối này
+                string query = "SELECT COUNT(*) FROM Class WHERE classID LIKE @prefix + '%'";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@prefix", prefix);
+                int count = (int)cmd.ExecuteScalar();
 
-                    // Nếu trùng, thêm hậu tố .1, .2
-                    classId = $"{originalClassId}.{suffix}";
-                    suffix++;
-                }
+                int nextIndex = count + 1;
+                string suffix = nextIndex.ToString("D2"); // 01, 02...
 
-                // 3. Tạo Tên Lớp (VD: Lớp Toán 10 K009)
-                // Tìm số K cao nhất hiện tại của courseID này
-                string queryK = "SELECT TOP 1 class_name FROM Class WHERE courseID = @courseId ORDER BY class_name DESC";
-                SqlCommand cmdK = new SqlCommand(queryK, conn);
-                cmdK.Parameters.AddWithValue("@courseId", courseId);
-                object result = cmdK.ExecuteScalar();
-
-                int nextK = 1;
-                if (result != null)
-                {
-                    string lastName = result.ToString();
-                    int kIndex = lastName.LastIndexOf('K');
-                    if (kIndex != -1 && int.TryParse(lastName.Substring(kIndex + 1), out int currentK))
-                    {
-                        nextK = currentK + 1;
-                    }
-                }
-                className = $"Lớp {subjectName} {gradeNumber} K{nextK:D3}";
+                classId = $"{prefix}{suffix}"; // MAT10.01
+                className = $"{subject.Replace(" Học", "")} {gradeNumber} - Nhóm {suffix}"; // Toán 10 - Nhóm 01
             }
         }
 
@@ -578,8 +555,9 @@ namespace PBL3a.services.BLL
                 {
                     try
                     {
-                        string insertClass = @"INSERT INTO Class (classID, class_name, courseID, teacherID, start_date, end_date, capacity) 
-                                       VALUES (@classID, @class_name, @courseID, @teacherID, @start_date, @end_date, @capacity)";
+                        // Thêm fee_default và grade vào câu lệnh SQL
+                        string insertClass = @"INSERT INTO Class (classID, class_name, courseID, teacherID, start_date, end_date, capacity, grade, fee_default) 
+                                       VALUES (@classID, @class_name, @courseID, @teacherID, @start_date, @end_date, @capacity, @grade, @fee)";
 
                         foreach (DataRow row in dtClasses.Rows)
                         {
@@ -592,6 +570,9 @@ namespace PBL3a.services.BLL
                                 cmd.Parameters.AddWithValue("@start_date", row["Ngày Bắt Đầu"]);
                                 cmd.Parameters.AddWithValue("@end_date", row["Ngày Kết Thúc"]);
                                 cmd.Parameters.AddWithValue("@capacity", row["Sức Chứa"]);
+                                cmd.Parameters.AddWithValue("@grade", row["Khối"]);
+                                cmd.Parameters.AddWithValue("@fee", row["Học Phí"]); // Lấy từ DataTable
+
                                 cmd.ExecuteNonQuery();
                             }
                         }

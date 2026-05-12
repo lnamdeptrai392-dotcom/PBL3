@@ -109,6 +109,11 @@
                         <TextBox x:Name="txtSL" Width="100" VerticalAlignment="Center"/>
                     </StackPanel>
 
+                    <StackPanel Orientation="Horizontal" Margin="0 0 20 10" VerticalAlignment="Center">
+                        <TextBlock Text="Học phí:" VerticalAlignment="Center" FontWeight="SemiBold" Margin="0 0 8 0"/>
+                        <TextBox x:Name="txtHocPhi" Width="130" Text="0" VerticalAlignment="Center"/>
+                    </StackPanel>
+
                     <StackPanel Orientation="Horizontal" Margin="0 0 0 10" VerticalAlignment="Center">
                         <TextBlock Text="Ngày mở:" VerticalAlignment="Center" FontWeight="SemiBold" Margin="0 0 8 0"/>
                         <DatePicker x:Name="dtpNgayMo" Width="140" VerticalAlignment="Center"/>
@@ -152,16 +157,15 @@
                     <TextBlock Text="Danh Sách Lớp Học Chuẩn Bị Tạo" FontWeight="Bold" Foreground="#0D47A1" Margin="0 0 0 8"/>
                     <DataGrid x:Name="dgvLH" AutoGenerateColumns="False" MinHeight="150">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Mã Lớp" Binding="{Binding [Mã Lớp]}"/>
-                            <DataGridTextColumn Header="Tên Lớp" Binding="{Binding [Tên Lớp]}"/>
-                            <DataGridTextColumn Header="Mã Khóa Học" Binding="{Binding [Mã Khóa Học]}"/>
-                            <DataGridTextColumn Header="Mã GV" Binding="{Binding [Mã GV]}"/>
-
-                            <DataGridTextColumn Header="Ngày Bắt Đầu" Binding="{Binding [Ngày Bắt Đầu], StringFormat=dd/MM/yyyy}"/>
-                            <DataGridTextColumn Header="Ngày Kết Thúc" Binding="{Binding [Ngày Kết Thúc], StringFormat=dd/MM/yyyy}"/>
-
-                            <DataGridTextColumn Header="Sức Chứa" Binding="{Binding [Sức Chứa]}"/>
-                            <DataGridTextColumn Header="Khối" Binding="{Binding [Khối]}"/>
+                            <DataGridTextColumn Header="Mã Lớp" Binding="{Binding [Mã Lớp]}" Width="100"/>
+                            <DataGridTextColumn Header="Tên Lớp" Binding="{Binding [Tên Lớp]}" Width="150"/>
+                            <DataGridTextColumn Header="Khối" Binding="{Binding [Khối]}" Width="70"/>
+                            <DataGridTextColumn Header="Mã Khóa Học" Binding="{Binding [Mã Khóa Học]}" Width="100"/>
+                            <DataGridTextColumn Header="Mã GV" Binding="{Binding [Mã GV]}" Width="80"/>
+                            <DataGridTextColumn Header="Ngày Bắt Đầu" Binding="{Binding [Ngày Bắt Đầu], StringFormat=dd/MM/yyyy}" Width="110"/>
+                            <DataGridTextColumn Header="Ngày Kết Thúc" Binding="{Binding [Ngày Kết Thúc], StringFormat=dd/MM/yyyy}" Width="110"/>
+                            <DataGridTextColumn Header="Sức Chứa" Binding="{Binding [Sức Chứa]}" Width="80"/>
+                            <DataGridTextColumn Header="Học Phí" Binding="{Binding [Học Phí], StringFormat={}{0:N0}}" Width="110"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </StackPanel>
