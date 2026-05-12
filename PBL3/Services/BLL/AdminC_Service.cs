@@ -248,8 +248,6 @@ namespace PBL3a.services.BLL
             else if (subject == "Sinh học") keyword = "Sinh";
             else if (subject == "Ngữ văn") keyword = "Văn";
 
-            // SỬA LỖI Ở ĐÂY: Lấy thẳng cột grade (khối) trong database thay vì cắt chuỗi
-            // Ép kiểu CAST sang NVARCHAR để WPF dễ đọc chuỗi
             string query = @"
                 SELECT DISTINCT 
                 CAST(c.grade AS NVARCHAR) AS Khoi 
@@ -282,22 +280,22 @@ namespace PBL3a.services.BLL
             else if (subject == "Ngữ văn") keyword = "Văn";
 
             string query = @"
-        SELECT 
-            c.classID AS [Mã Lớp], 
-            c.class_name AS [Tên Lớp], 
-            c.start_date AS [Ngày Bắt Đầu], 
-            c.end_date AS [Ngày Kết Thúc], 
-            c.capacity AS [Sức Chứa],
-            CASE 
+                SELECT 
+                   c.classID AS [Mã Lớp], 
+                   c.class_name AS [Tên Lớp], 
+                   c.start_date AS [Ngày Bắt Đầu], 
+                   c.end_date AS [Ngày Kết Thúc], 
+                   c.capacity AS [Sức Chứa],
+                CASE 
                 WHEN c.start_date > GETDATE() THEN N'Sắp mở'
                 WHEN c.start_date <= GETDATE() AND c.end_date >= GETDATE() THEN N'Đang học'
                 ELSE N'Đã kết thúc'
-            END AS [Tình Trạng]
-        FROM Class c
-        INNER JOIN teacherInfo ti ON c.teacherID = ti.Id
-        WHERE ti.subject = @subject 
-          AND c.class_name LIKE '%' + @khoi + '%'
-          AND c.class_name LIKE '%' + @keyword + '%'
+                END AS [Tình Trạng]
+                FROM Class c
+                INNER JOIN teacherInfo ti ON c.teacherID = ti.Id
+                WHERE ti.subject = @subject 
+                AND c.class_name LIKE '%' + @khoi + '%'
+                AND c.class_name LIKE '%' + @keyword + '%'
           AND (
                 (@status = N'Sắp mở' AND c.start_date > GETDATE()) OR
                 (@status = N'Đang học' AND c.start_date <= GETDATE() AND c.end_date >= GETDATE()) OR
@@ -399,7 +397,6 @@ namespace PBL3a.services.BLL
         {
             DataTable dt = new DataTable();
 
-            // Khung truy vấn cơ bản (giống hệt cách 1 để dgvData_CellClick vẫn chạy đúng)
             string query = @"
         SELECT DISTINCT
             c.classID AS [Mã Lớp], 
@@ -414,7 +411,7 @@ namespace PBL3a.services.BLL
             END AS [Tình Trạng]
         FROM Class c ";
 
-            // Dựa vào tiêu chí để JOIN thêm bảng nếu cần thiết
+            // Dựa vào tiêu chí để JOIN thêm bảng
             if (searchType == "Mã Học Sinh" || searchType == "Tên Học Sinh")
             {
                 query += " INNER JOIN JoinClass jc ON c.classID = jc.classID ";
@@ -427,7 +424,7 @@ namespace PBL3a.services.BLL
 
             query += " WHERE 1=1 ";
 
-            // Phân loại điều kiện tìm kiếm
+            // điều kiện tìm kiếm
             if (searchType == "Mã Lớp Học")
                 query += " AND c.classID = @keyword";
             else if (searchType == "Tên Lớp Học")
@@ -454,7 +451,6 @@ namespace PBL3a.services.BLL
         // Lấy danh sách giáo viên theo môn học
         public DataTable GetTeachersBySubjectForm2(string subject)
         {
-            // Chuyển đổi tên môn học (nếu cần) để khớp với DB
             string dbSubject = subject;
             if (subject == "Toán Học") dbSubject = "Toán";
             else if (subject == "Văn Học") dbSubject = "Văn";
@@ -562,7 +558,6 @@ namespace PBL3a.services.BLL
                 if (result != null)
                 {
                     string lastName = result.ToString();
-                    // Cắt lấy số K (Giả sử định dạng chuẩn là ... K001)
                     int kIndex = lastName.LastIndexOf('K');
                     if (kIndex != -1 && int.TryParse(lastName.Substring(kIndex + 1), out int currentK))
                     {

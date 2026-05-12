@@ -20,7 +20,7 @@ namespace PBL3a.UI.AdminC.Windows
         {
             cbbMH.ItemsSource = new string[]
             {
-                "Toán học","Vật lý","Hóa học","Sinh học","Ngữ văn","Tiếng Anh","Tiếng Nhật","Tiếng Trung"
+                "Toán học","Vật lý","Hóa học","Sinh học","Ngữ văn","Tiếng Anh"
             };
 
             cbbTTL.ItemsSource = new string[]

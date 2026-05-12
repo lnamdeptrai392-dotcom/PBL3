@@ -63,7 +63,7 @@
                                     Style="{StaticResource MenuButtonStyle}"
                                     Click="btnKhoaLop_Click"/>
                             <Button x:Name="btnTaoLH"
-                                    Content="   Sắp xếp lịch học" 
+                                    Content="   Tạo lớp học" 
                                     Style="{StaticResource MenuButtonStyle}"
                                     Click="btnTaoLH_Click"/>
                             <Button x:Name="btnDiemDanh"
