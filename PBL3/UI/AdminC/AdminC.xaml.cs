@@ -67,7 +67,7 @@ namespace PBL3a.UI.AdminC
         }
         private void btnDiemDanh_Click(object sender, RoutedEventArgs e)
         {
-            OpenChild(new DiemDanh());
+            OpenChild(new Attendance());
         }
 
         private void btnStudentProfile_Click(object sender, RoutedEventArgs e)

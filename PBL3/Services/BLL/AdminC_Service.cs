@@ -1,8 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Data;
+﻿using DocumentFormat.OpenXml.VariantTypes;
+using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.Data.SqlClient;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Text;
+using System.Windows;
 
 namespace PBL3a.services.BLL
 {
@@ -35,6 +38,7 @@ namespace PBL3a.services.BLL
             }
             return dt;
         }
+        
 
         // 2. Tải thông tin học sinh
         public DataTable GetStudentInfo(string accountId)
@@ -58,6 +62,87 @@ namespace PBL3a.services.BLL
                 da.Fill(dt);
             }
             return dt;
+        }
+        public DataTable getAttendanceInfo(string classID, string date)
+        {
+            DataTable dt = new DataTable();
+            // Xóa 'AND' thừa và dùng tham số đúng
+            string query = @"
+        SELECT 
+            s.Id AS StudentID, 
+            s.name AS StudentName, 
+            ISNULL(a.Status, N'Chưa điểm danh') AS TrangThai, 
+            ISNULL(a.Note, '') AS Note
+        FROM accountList s
+        INNER JOIN JoinClass jc ON s.Id = jc.AccountID
+        LEFT JOIN Attendance a ON s.Id = a.AccountID 
+            AND a.ClassID = jc.classID 
+            AND a.AttendanceDate = @date
+        WHERE jc.classID = @classID";
+
+            try
+            {
+                using (SqlConnection conn = dbHelper.GetConnection())
+                {
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    // Chuyển đổi chuỗi ngày từ ComboBox (dd/MM/yyyy) sang định dạng SQL (yyyy-MM-dd)
+                    DateTime selectedDate = DateTime.ParseExact(date, "dd/MM/yyyy", null);
+
+                    cmd.Parameters.AddWithValue("@classID", classID);
+                    cmd.Parameters.AddWithValue("@date", selectedDate);
+
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    da.Fill(dt);
+                    dt.Columns["TrangThai"].ReadOnly = false;
+                    if (dt.Columns.Contains("Note")) dt.Columns["Note"].ReadOnly = false;
+                }
+            }
+            catch (Exception ex) { MessageBox.Show("Lỗi load danh sách: " + ex.Message); }
+            
+            return dt;
+        }
+        public DataTable GetActiveClassNow()
+        {
+            DataTable dt = new DataTable();
+            // Phải có classID và class_name để ComboBox Binding
+            string query = @"SELECT 
+                        c.classID,
+                        cs.dayOfWeek,
+                        c.class_name, 
+                        CASE cs.dayOfWeek
+                            WHEN 1 THEN N'Thứ 2' WHEN 2 THEN N'Thứ 3'
+                            WHEN 3 THEN N'Thứ 4' WHEN 4 THEN N'Thứ 5'
+                            WHEN 5 THEN N'Thứ 6' WHEN 6 THEN N'Thứ 7'
+                            WHEN 7 THEN N'Chủ nhật'
+                        END AS [NgayHoc],
+                        CONVERT(VARCHAR(5), cs.startTime, 108) AS [GioBatDau],
+                        CONVERT(VARCHAR(5), cs.endTime, 108) AS [GioKetThuc]
+                    FROM ClassSchedule cs
+                    JOIN Class c ON cs.classID = c.classID
+                    WHERE c.status = N'Đang mở'";
+            using (SqlConnection conn = dbHelper.GetConnection())
+            {
+                SqlDataAdapter da = new SqlDataAdapter(query, conn);
+                da.Fill(dt);
+            }
+            return dt;
+        }
+        public DataRow GetClassDuration(string classID)
+        {
+            // Giả sử bảng Class có cột startDate và endDate
+            string query = @"SELECT 
+                start_date AS [startDate], 
+                end_date AS [endDate]
+                FROM Class WHERE classID = @id";
+            DataTable dt = new DataTable();
+            using (SqlConnection conn = dbHelper.GetConnection())
+            {
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@id", classID);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(dt);
+            }
+            return dt.Rows.Count > 0 ? dt.Rows[0] : null;
         }
 
         // 3. Tải thông tin lớp học
@@ -223,7 +308,7 @@ namespace PBL3a.services.BLL
             }
             return dtClasses;
         }
-
+        
         public DataTable GetSubjects()
         {
             DataTable dt = new DataTable();
