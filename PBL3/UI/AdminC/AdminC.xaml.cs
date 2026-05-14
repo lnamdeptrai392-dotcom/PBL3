@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using PBL3.UI.AdminC.Windows;
 using PBL3a.UI.AdminC.Windows;
 using PBL3a.UI.AdminDD;
 using PBL3a.UI.Login;
@@ -71,12 +72,12 @@ namespace PBL3a.UI.AdminC
 
         private void btnStudentProfile_Click(object sender, RoutedEventArgs e)
         {
-            //OpenChild(new Window3());
+            OpenChild(new HoSoHocSinh());
         }
 
         private void btnTeacherProfile_Click(object sender, RoutedEventArgs e)
         {
-            //mo ra xem ho so giao vien
+            OpenChild(new HoSoGiaoVien());
         }
     }
 }

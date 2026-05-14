@@ -1,12 +1,240 @@
-﻿<Window x:Class="PBL3.UI.AdminC.Windows.Window3"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PBL3.UI.AdminC.Windows"
-        mc:Ignorable="d"
-        Title="Window3" Height="450" Width="800">
-    <Grid>
-        
+﻿<UserControl x:Class="PBL3.UI.AdminC.Windows.HoSoHocSinh"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="700" d:DesignWidth="1100"
+             Background="#F4F8FB">
+
+    <UserControl.Resources>
+        <Style TargetType="Label">
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="#333333"/>
+            <Setter Property="Margin" Value="0,0,0,2"/>
+            <Setter Property="FontSize" Value="13"/>
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="Padding" Value="8,0"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#90CAF9"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="0,0,0,12"/>
+        </Style>
+
+        <Style TargetType="ComboBox">
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="Padding" Value="8,0"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#90CAF9"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="0,0,0,12"/>
+        </Style>
+
+        <Style TargetType="DatePicker">
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#90CAF9"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="0,0,0,12"/>
+        </Style>
+
+        <Style TargetType="Button" x:Key="BtnPrimary">
+            <Setter Property="Background" Value="#1E88E5"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="Padding" Value="15,0"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="10">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#1565C0"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="Button" BasedOn="{StaticResource BtnPrimary}" x:Key="BtnDanger">
+            <Setter Property="Background" Value="#EF5350"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#C62828"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="Button" BasedOn="{StaticResource BtnPrimary}" x:Key="BtnSecondary">
+            <Setter Property="Background" Value="#78909C"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#546E7A"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="DataGrid">
+            <Setter Property="AutoGenerateColumns" Value="False"/>
+            <Setter Property="CanUserAddRows" Value="False"/>
+            <Setter Property="CanUserResizeRows" Value="False"/>
+            <Setter Property="HeadersVisibility" Value="Column"/>
+            <Setter Property="RowHeight" Value="36"/>
+            <Setter Property="ColumnHeaderHeight" Value="38"/>
+            <Setter Property="GridLinesVisibility" Value="Horizontal"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="#E3EEF7"/>
+            <Setter Property="VerticalGridLinesBrush" Value="#E3EEF7"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#D0E3F1"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="SelectionMode" Value="Single"/>
+            <Setter Property="SelectionUnit" Value="FullRow"/>
+            <Setter Property="RowBackground" Value="White"/>
+            <Setter Property="AlternatingRowBackground" Value="#F9FCFF"/>
+        </Style>
+
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#E3F2FD"/>
+            <Setter Property="Foreground" Value="#0D47A1"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="8"/>
+        </Style>
+
+        <Style TargetType="DataGridCell">
+            <Setter Property="Padding" Value="8 0"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+
+        <Style x:Key="LeftAlignStyle" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="5,0,0,0"/>
+        </Style>
+
+    </UserControl.Resources>
+
+    <Grid Margin="18">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1.2*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0" 
+                Background="White" 
+                CornerRadius="14" 
+                Padding="14" 
+                BorderBrush="#D6E6F2" 
+                BorderThickness="1" 
+                Margin="0,0,12,0">
+
+            <DockPanel>
+                <Grid DockPanel.Dock="Top" Margin="0,0,0,15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Danh sách học sinh" 
+                               FontSize="18" 
+                               FontWeight="Bold" 
+                               Foreground="#0D47A1" 
+                               VerticalAlignment="Center"/>
+
+                    <StackPanel Grid.Column="1" Orientation="Horizontal">
+                        <TextBox x:Name="txtSearch" Width="220" Margin="0,0,8,0" Padding="8,0" />
+                        <Button Content="Tìm kiếm" Style="{StaticResource BtnPrimary}" Click="BtnSearch_Click" Margin="0" Width="90"/>
+                    </StackPanel>
+                </Grid>
+
+                <DataGrid x:Name="dgvHocSinh" 
+                          IsReadOnly="True" 
+                          SelectionChanged="DgHocSinh_SelectionChanged">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Mã HS" Binding="{Binding MaHS}" Width="110"/>
+                        <DataGridTextColumn Header="Họ Tên" Binding="{Binding HoTen}" Width="200" ElementStyle="{StaticResource LeftAlignStyle}"/>
+                        <DataGridTextColumn Header="Ngày Sinh" Binding="{Binding NgaySinh, StringFormat=dd/MM/yyyy}" Width="100"/>
+                        <DataGridTextColumn Header="Giới Tính" Binding="{Binding GioiTinh}" Width="80"/>
+                        <DataGridTextColumn Header="Lớp" Binding="{Binding Lop}" Width="150"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DockPanel>
+        </Border>
+
+        <Border Grid.Column="1" 
+                Background="White" 
+                CornerRadius="14" 
+                Padding="16" 
+                BorderBrush="#D6E6F2" 
+                BorderThickness="1" 
+                Margin="0">
+
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <TextBlock Text="Thông Tin Hồ Sơ" 
+                               FontSize="18" 
+                               FontWeight="Bold" 
+                               Foreground="#0D47A1" 
+                               Margin="0,0,0,15" 
+                               HorizontalAlignment="Center"/>
+
+                    <Label Content="Mã học sinh (*)"/>
+                    <TextBox x:Name="txtMaHS" />
+
+                    <Label Content="Họ và tên (*)"/>
+                    <TextBox x:Name="txtHoTen" />
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" Margin="0,0,6,0">
+                            <Label Content="Ngày sinh"/>
+                            <DatePicker x:Name="dpNgaySinh" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Margin="6,0,0,0">
+                            <Label Content="Giới tính"/>
+                            <ComboBox x:Name="cmbGioiTinh">
+                                <ComboBoxItem Content="Nam"/>
+                                <ComboBoxItem Content="Nữ"/>
+                            </ComboBox>
+                        </StackPanel>
+                    </Grid>
+
+                    <Label Content="Số điện thoại (*)"/>
+                    <TextBox x:Name="txtSDT" />
+
+                    <Label Content="Lớp học (*)"/>
+                    <ComboBox x:Name="cmbLop" DisplayMemberPath="TenLop" SelectedValuePath="MaLop" />
+
+                    <WrapPanel HorizontalAlignment="Center" Margin="0,15,0,0">
+                        <Button Content="Thêm mới" Style="{StaticResource BtnPrimary}" Width="95" Click="BtnAdd_Click"/>
+                        <Button Content="Cập nhật" Style="{StaticResource BtnPrimary}" Width="95" Click="BtnEdit_Click"/>
+                        <Button Content="Xóa" Style="{StaticResource BtnDanger}" Width="95" Click="BtnDelete_Click"/>
+                        <Button Content="Làm mới" Style="{StaticResource BtnSecondary}" Width="95" Click="BtnRefresh_Click"/>
+                    </WrapPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
     </Grid>
-</Window>
+</UserControl>

@@ -6,7 +6,7 @@ namespace PBL3a.services
     {
         //thay the sau server=...; thay thanh server cua ban
         private string connectionString =
-        "Server=.\\SQLEXPRESS;Database=PBL3aDB;Trusted_Connection=True;TrustServerCertificate=True;";
+        "Server=NQTRUONGDUY19;Database=PBL3aDB;Trusted_Connection=True;TrustServerCertificate=True;";
 
         public SqlConnection GetConnection()
         {
