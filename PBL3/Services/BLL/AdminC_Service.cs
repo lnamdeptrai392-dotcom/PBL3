@@ -1,11 +1,9 @@
-﻿using DocumentFormat.OpenXml.VariantTypes;
-using DocumentFormat.OpenXml.Wordprocessing;
-using Microsoft.Data.SqlClient;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Text;
-using System.Windows;
+using System.Data;
+using Microsoft.Data.SqlClient;
+using System.Windows; // Thêm thư viện này để dùng MessageBox trong hàm của Phương Uyên
 
 namespace PBL3a.services.BLL
 {
@@ -37,7 +35,6 @@ namespace PBL3a.services.BLL
             }
             return dt;
         }
-        
 
         // 2. Tải thông tin học sinh
         public DataTable GetStudentInfo(string accountId)
@@ -62,10 +59,13 @@ namespace PBL3a.services.BLL
             }
             return dt;
         }
+
+        // =========================================================================
+        // CÁC HÀM MỚI DO PHƯƠNG UYÊN THÊM VÀO
+        // =========================================================================
         public DataTable getAttendanceInfo(string classID, string date)
         {
             DataTable dt = new DataTable();
-            // Xóa 'AND' thừa và dùng tham số đúng
             string query = @"
         SELECT 
             s.Id AS StudentID, 
@@ -97,13 +97,13 @@ namespace PBL3a.services.BLL
                 }
             }
             catch (Exception ex) { MessageBox.Show("Lỗi load danh sách: " + ex.Message); }
-            
+
             return dt;
         }
+
         public DataTable GetActiveClassNow()
         {
             DataTable dt = new DataTable();
-            // Phải có classID và class_name để ComboBox Binding
             string query = @"SELECT 
                         c.classID,
                         cs.dayOfWeek,
@@ -126,9 +126,9 @@ namespace PBL3a.services.BLL
             }
             return dt;
         }
+
         public DataRow GetClassDuration(string classID)
         {
-            // Giả sử bảng Class có cột startDate và endDate
             string query = @"SELECT 
                 start_date AS [startDate], 
                 end_date AS [endDate]
@@ -143,6 +143,7 @@ namespace PBL3a.services.BLL
             }
             return dt.Rows.Count > 0 ? dt.Rows[0] : null;
         }
+        // =========================================================================
 
         // 3. Tải thông tin lớp học
         public DataTable GetClassInfo(string classId)
@@ -307,7 +308,7 @@ namespace PBL3a.services.BLL
             }
             return dtClasses;
         }
-        
+
         public DataTable GetSubjects()
         {
             DataTable dt = new DataTable();
@@ -349,7 +350,6 @@ namespace PBL3a.services.BLL
             }
             return dt;
         }
-
 
         // 9. Lọc danh sách Lớp
         public DataTable GetClassesByFilter(string subject, string khoi, string status)
@@ -721,7 +721,6 @@ namespace PBL3a.services.BLL
             return dt;
         }
 
-
         // 15. Thêm trực tiếp một học sinh vào lớp (Không qua form đăng ký)
         public void AddStudentToClass(string studentId, string classId)
         {
@@ -750,10 +749,5 @@ namespace PBL3a.services.BLL
                 }
             }
         }
-
-
-
-
-
     }
 }
