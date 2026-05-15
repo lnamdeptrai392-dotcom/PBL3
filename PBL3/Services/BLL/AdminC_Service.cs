@@ -1,18 +1,15 @@
-﻿using DocumentFormat.OpenXml.VariantTypes;
-using DocumentFormat.OpenXml.Wordprocessing;
-using Microsoft.Data.SqlClient;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Text;
-using System.Windows;
+using System.Data;
+using Microsoft.Data.SqlClient;
+using System.Windows; // Thêm thư viện này để dùng MessageBox trong hàm của Phương Uyên
 
 namespace PBL3a.services.BLL
 {
     public class AdminC_Service
     {
         private DatabaseHelper dbHelper = new DatabaseHelper();
-
 
         // 1. Tải danh sách đơn chờ duyệt
         public DataTable GetPendingRegistrations()
@@ -38,7 +35,6 @@ namespace PBL3a.services.BLL
             }
             return dt;
         }
-        
 
         // 2. Tải thông tin học sinh
         public DataTable GetStudentInfo(string accountId)
@@ -63,10 +59,13 @@ namespace PBL3a.services.BLL
             }
             return dt;
         }
+
+        // =========================================================================
+        // CÁC HÀM MỚI DO PHƯƠNG UYÊN THÊM VÀO
+        // =========================================================================
         public DataTable getAttendanceInfo(string classID, string date)
         {
             DataTable dt = new DataTable();
-            // Xóa 'AND' thừa và dùng tham số đúng
             string query = @"
         SELECT 
             s.Id AS StudentID, 
@@ -98,13 +97,13 @@ namespace PBL3a.services.BLL
                 }
             }
             catch (Exception ex) { MessageBox.Show("Lỗi load danh sách: " + ex.Message); }
-            
+
             return dt;
         }
+
         public DataTable GetActiveClassNow()
         {
             DataTable dt = new DataTable();
-            // Phải có classID và class_name để ComboBox Binding
             string query = @"SELECT 
                         c.classID,
                         cs.dayOfWeek,
@@ -127,9 +126,9 @@ namespace PBL3a.services.BLL
             }
             return dt;
         }
+
         public DataRow GetClassDuration(string classID)
         {
-            // Giả sử bảng Class có cột startDate và endDate
             string query = @"SELECT 
                 start_date AS [startDate], 
                 end_date AS [endDate]
@@ -144,6 +143,7 @@ namespace PBL3a.services.BLL
             }
             return dt.Rows.Count > 0 ? dt.Rows[0] : null;
         }
+        // =========================================================================
 
         // 3. Tải thông tin lớp học
         public DataTable GetClassInfo(string classId)
@@ -308,7 +308,7 @@ namespace PBL3a.services.BLL
             }
             return dtClasses;
         }
-        
+
         public DataTable GetSubjects()
         {
             DataTable dt = new DataTable();
@@ -350,7 +350,6 @@ namespace PBL3a.services.BLL
             }
             return dt;
         }
-
 
         // 9. Lọc danh sách Lớp
         public DataTable GetClassesByFilter(string subject, string khoi, string status)
@@ -672,10 +671,83 @@ namespace PBL3a.services.BLL
             }
         }
 
+        // 14. Lấy danh sách học sinh theo độ tuổi trong cbb
+        public DataTable GetStudentBirthYears()
+        {
+            DataTable dt = new DataTable();
+            // Lấy ra các năm sinh không trùng lặp, sắp xếp giảm dần (ví dụ: 2013, 2012, 2009...)
+            string query = @"
+                SELECT DISTINCT YEAR(dateOfBirth) AS namSinh
+                FROM accountList 
+                WHERE Role = 'Student' AND dateOfBirth IS NOT NULL
+                ORDER BY NamSinh DESC";
 
+            using (SqlConnection conn = dbHelper.GetConnection())
+            {
+                SqlDataAdapter da = new SqlDataAdapter(query, conn);
+                da.Fill(dt);
+            }
+            return dt;
+        }
 
+        // Lấy học sinh theo Năm Sinh được truyền vào và CHƯA CÓ trong lớp
+        public DataTable GetAvailableStudentsForClassByYear(string classId, int namSinh)
+        {
+            DataTable dt = new DataTable();
+            string query = @"
+                SELECT 
+                    a.Id AS [Mã Học Sinh], 
+                    a.name AS [Tên Học Sinh], 
+                    a.dateOfBirth AS [Ngày Sinh], 
+                    a.sex AS [Giới Tính], 
+                    a.phone AS [SĐT]
+                FROM accountList a
+                WHERE a.Role = 'Student' 
+                AND YEAR(a.dateOfBirth) = @namSinh
+                AND NOT EXISTS (
+                    SELECT 1 
+                    FROM JoinClass jc
+                    WHERE jc.AccountID = a.Id AND jc.classID = @classId
+                )";
 
+            using (SqlConnection conn = dbHelper.GetConnection())
+            {
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@classId", classId);
+                cmd.Parameters.AddWithValue("@namSinh", namSinh);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(dt);
+            }
+            return dt;
+        }
 
+        // 15. Thêm trực tiếp một học sinh vào lớp (Không qua form đăng ký)
+        public void AddStudentToClass(string studentId, string classId)
+        {
+            string query = "INSERT INTO JoinClass (AccountID, classID) VALUES (@accountId, @classId)";
 
+            using (SqlConnection conn = dbHelper.GetConnection())
+            {
+                conn.Open();
+                try
+                {
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@accountId", studentId);
+                        cmd.Parameters.AddWithValue("@classId", classId);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                catch (SqlException sqlEx)
+                {
+                    // Mã lỗi 2627 là vi phạm khóa chính/khóa phụ (Đã tồn tại dữ liệu)
+                    if (sqlEx.Number == 2627)
+                    {
+                        throw new Exception($"Học sinh {studentId} đã tồn tại trong lớp {classId}!");
+                    }
+                    throw new Exception("Lỗi CSDL: " + sqlEx.Message);
+                }
+            }
+        }
     }
 }
