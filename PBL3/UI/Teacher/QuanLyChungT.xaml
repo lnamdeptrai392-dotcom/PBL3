@@ -11,12 +11,19 @@
         Background="White">
 
     <Grid>
-            <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+
+            <RowDefinition Height="Auto"/>
+
+        </Grid.RowDefinitions>
 
         <StackPanel Grid.Column="0"
+                    Grid.Row="0"
                     Background="#FF263F60">
 
             <Border Background="#263f60" Height="80">
@@ -33,9 +40,9 @@
                     Foreground="White" 
                     FontSize="14"
                     FontWeight="SemiBold"
-                    BorderThickness="0"
+                    BorderThickness="0" Height="44"
                     Margin="0,5,0,0"
-                    Click="btnInfo_Click" Background="#FF263F60" HorizontalAlignment="Left"/>
+                    Click="btnInfo_Click" Background="#FF263F60" HorizontalAlignment="Left" Width="220"/>
 
             <Button x:Name="btnSchedule"
                     Content="    Thời khóa biểu"
@@ -43,62 +50,37 @@
                     FontSize="14"
                     FontWeight="SemiBold"
                     BorderThickness="0"
-                    Margin="0,5,0,0"
-                    Click="btnSchedule_Click" Background="#FF263F60" HorizontalAlignment="Left"/>
-
-            <Expander Header="Lớp học của tôi"
-                      Foreground="White" 
-                      Background="#263f60"
-                      FontSize="14"
-                      FontWeight="SemiBold"
-                      BorderThickness="0"
-                      Margin="0,5,0,0">
-                <StackPanel Margin="20,5,0,5">
-                    <Button 
-                            Content="   Lớp đang dạy" 
-                            Background="#263f60"
-                            Foreground="White" 
-                             HorizontalAlignment="Left"/>
-                    <Button x:Name="btnScore"
-                            Content="   Nhập điểm/Nhận xét" 
-                            Background="#263f60"
-                            Foreground="White" 
-                            Click="btnScore_Click" HorizontalAlignment="Left"/>
-                </StackPanel>
-            </Expander>
-
-            <Expander Header="Tài chính cá nhân"
-                      Foreground="White" 
-                      Background="#263f60"
-                      FontSize="14"
-                      FontWeight="SemiBold"
-                      BorderThickness="0"
-                      Margin="0,5,0,0">
-                <StackPanel Margin="20,5,0,5">
-                    <Button x:Name="btnSalary"
-                            Content="   Lương/Thưởng" 
-                            Background="#263f60"
-                            Foreground="White" 
-                            Click="btnSalary_Click" HorizontalAlignment="Left"/>
-                    <Button 
-                            Content="   Lịch sử hóa đơn" 
-                            Background="#263f60"
-                            Foreground="White" 
-                            HorizontalAlignment="Left"/>
+                    Margin="0,5,0,0" Height="44"
+                    Click="btnSchedule_Click" Background="#FF263F60" HorizontalAlignment="Left" Width="195"/>
 
 
-                </StackPanel>
-            </Expander>
-            
-            <Button x:Name="btnExit"
-                    Content="    Đăng xuất"
+            <Button x:Name="btnScore"
+                    Content="    Quản lý điểm" 
                     Foreground="White" 
                     FontSize="14"
                     FontWeight="SemiBold"
                     BorderThickness="0"
                     Margin="0,5,0,0"
-                    Click="btnExit_Click" Background="#FF263F60" HorizontalAlignment="Left"/>
+                    Click="btnScore_Click" Background="#FF263F60" HorizontalAlignment="Left" Height="44" Width="185"/>
+
+            <Button x:Name="btnSalary"
+                    Content="    Tài chính cá nhân" 
+                    Foreground="White" 
+                    FontSize="14"
+                    FontWeight="SemiBold"
+                    BorderThickness="0"
+                    Margin="0,5,0,0"
+                    Click="btnSalary_Click" Background="#FF263F60" HorizontalAlignment="Left" Height="44" Width="218"/>
+
+
         </StackPanel>
+        <Button x:Name="btnExit" Grid.Column="0" Grid.Row="1"
+                Content="Đăng xuất" Height="60"
+                Foreground="#FFCF7A7A" 
+                FontSize="15"
+                FontWeight="SemiBold"
+                BorderThickness="0"
+                Click="btnExit_Click" Background="#FF263F60"/>
 
         <ContentControl x:Name="panelMain"
                         Grid.Column="1"

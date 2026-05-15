@@ -1,65 +1,85 @@
 ﻿<UserControl x:Class="PBL3a.UI.Teacher.TKB"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             Background="White">
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             Background="#F4F7F9" Height="405" Width="732">
 
-    <Grid Background="White">
+    <Grid Margin="20">
         <Grid.RowDefinitions>
-            <RowDefinition Height="76"/>
-            <RowDefinition Height="53"/>
+            <RowDefinition Height="Auto"/>
+            <!-- Title -->
+            <RowDefinition Height="Auto"/>
+            <!-- Filter Section -->
             <RowDefinition Height="*"/>
+            <!-- Schedule Table -->
         </Grid.RowDefinitions>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="41"/>
-            <ColumnDefinition Width="109"/>
-            <ColumnDefinition Width="275"/>
-            <ColumnDefinition Width="43"/>
-            <ColumnDefinition Width="110"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+        <!-- TITLE -->
+        <TextBlock Text="LỊCH DẠY CHI TIẾT" 
+                   FontSize="26" FontWeight="Bold" Foreground="#2C3E50"
+                   Margin="10,0,0,20"/>
 
-        <!-- Title -->
-        <TextBlock Grid.Row="0"
-                   Grid.Column="0"
-                   Grid.ColumnSpan="6"
-                   Text="THỜI KHÓA BIỂU"
-                   FontSize="28"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"/>
+        <!-- FILTER SECTION -->
+        <Border Grid.Row="1" Background="White" CornerRadius="8" Padding="15" Margin="0,0,0,15">
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Margin="0,0,30,0">
+                    <TextBlock Text="Mã lớp học" Foreground="#7F8C8D" Margin="0,0,0,5"/>
+                    <ComboBox x:Name="comboBox1" Width="200" Height="35"
+                              SelectionChanged="comboBox1_SelectedIndexChanged"
+                              VerticalContentAlignment="Center"/>
+                </StackPanel>
 
-        <!-- Combo -->
-        <TextBlock Grid.Row="1" Grid.Column="1"
-                   Text="Mã lớp học:"
-                   VerticalAlignment="Center"
-                   FontSize="14"/>
+                <StackPanel>
+                    <TextBlock Text="Tên lớp học" Foreground="#7F8C8D" Margin="0,0,0,5"/>
+                    <TextBox x:Name="textBox1" Width="300" Height="35"
+                             IsReadOnly="True" Background="#F5F7FA" 
+                             Padding="10,7" BorderBrush="#DCDFE6"
+                             VerticalContentAlignment="Center"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
 
-        <ComboBox x:Name="comboBox1"
-                  Grid.Row="1"
-                  Grid.Column="2"
-                  Height="30"
-                  SelectionChanged="comboBox1_SelectedIndexChanged"/>
+        <!-- SCHEDULE TABLE CARD -->
+        <Border Grid.Row="2" Background="White" CornerRadius="10" Padding="15">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="15" Direction="-90" RenderingBias="Quality" ShadowDepth="2" Opacity="0.05"/>
+            </Border.Effect>
 
-        <TextBlock Grid.Row="1"
-                   Grid.Column="4"
-                   Text="Tên lớp:"
-                   VerticalAlignment="Center"
-                   FontSize="14"/>
+            <DataGrid x:Name="dataGridView1"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True"
+                      CanUserAddRows="False"
+                      Background="Transparent"
+                      BorderThickness="0"
+                      GridLinesVisibility="Horizontal"
+                      HorizontalGridLinesBrush="#F0F0F0"
+                      RowHeight="40">
+                <DataGrid.Columns>
+                    <!-- Tùy chỉnh các cột theo Database của Xíu -->
+                    <DataGridTextColumn Header="Thứ" Binding="{Binding Thu}" Width="100"/>
+                    <DataGridTextColumn Header="Ca dạy" Binding="{Binding Ca}" Width="120"/>
+                    <DataGridTextColumn Header="Phòng học" Binding="{Binding Phong}" Width="120"/>
+                    <DataGridTextColumn Header="Thời gian" Binding="{Binding ThoiGian}" Width="*"/>
+                    <DataGridTextColumn Header="Trạng thái" Binding="{Binding TrangThai}" Width="150">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="FontWeight" Value="SemiBold"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
 
-        <TextBox x:Name="textBox1"
-                 Grid.Row="1"
-                 Grid.Column="5"
-                 Height="30"
-                 IsReadOnly="True"/>
-
-        <!-- Data -->
-        <DataGrid x:Name="dataGridView1"
-                  Grid.Row="2"
-                  Grid.Column="1"
-                  Grid.ColumnSpan="5"
-                  AutoGenerateColumns="True"
-                  IsReadOnly="True"
-                  CanUserAddRows="False"
-                  Background="White"/>
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="FontWeight" Value="Bold"/>
+                        <Setter Property="Padding" Value="10,10"/>
+                        <Setter Property="Foreground" Value="#34495E"/>
+                        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                        <Setter Property="BorderBrush" Value="#DCDFE6"/>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+            </DataGrid>
+        </Border>
     </Grid>
 </UserControl>
