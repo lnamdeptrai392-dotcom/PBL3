@@ -37,8 +37,8 @@
                     </DataGrid.ColumnHeaderStyle>
 
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Mã HS" Binding="{Binding StudentID}" Width="100"/>
-                        <DataGridTextColumn Header="Họ và Tên" Binding="{Binding StudentName}" Width="150"/>
+                        <DataGridTextColumn Header="Mã HS" Binding="{Binding StudentID}" Width="100" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Họ và Tên" Binding="{Binding StudentName}" Width="150" IsReadOnly="True"/>
                         <DataGridTemplateColumn Header="Trạng Thái" Width="150">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
@@ -48,7 +48,7 @@
                             <DataGridTemplateColumn.CellEditingTemplate>
                                 <DataTemplate>
                                     <ComboBox SelectedValue="{Binding TrangThai, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
-  SelectedValuePath="Content" IsDropDownOpen="True">
+                                              SelectedValuePath="Content" IsDropDownOpen="True">
                                         <ComboBoxItem Content="Có mặt"/>
                                         <ComboBoxItem Content="Đi muộn"/>
                                         <ComboBoxItem Content="Vắng có phép"/>
@@ -109,6 +109,7 @@
         <TextBlock
             FontSize="20"
             FontWeight="Bold"
+            IsHitTestVisible="False"
             Foreground="#FF263F60"
                            Margin="28,29,202,374"><Run Language="vi-vn" Text="Quản lý Điểm danh"/><LineBreak/><Run Language="vi-vn"/></TextBlock>
     </Grid>
