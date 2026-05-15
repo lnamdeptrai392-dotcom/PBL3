@@ -101,7 +101,7 @@ namespace PBL3a.services.BLL
         }
 
         // 4. Cập nhật học sinh
-        public bool EditHocSinh(string ma, string ten, DateTime? ns, string gt, string sdt, string maLop)
+        public bool EditHocSinh(string ma, string ten, DateTime? ns, string gt, string sdt)
         {
             using (SqlConnection conn = dbHelper.GetConnection())
             {
@@ -110,7 +110,7 @@ namespace PBL3a.services.BLL
                 {
                     try
                     {
-                        // Cập nhật accountList
+                        // Chỉ cập nhật thông tin cá nhân trong accountList
                         string queryAcc = "UPDATE accountList SET name=@ten, dateOfBirth=@ns, sex=@gt, phone=@sdt WHERE Id=@ma AND Role='Student'";
                         using (SqlCommand cmdAcc = new SqlCommand(queryAcc, conn, trans))
                         {
@@ -122,25 +122,6 @@ namespace PBL3a.services.BLL
                             cmdAcc.ExecuteNonQuery();
                         }
 
-                        // Cập nhật lớp học (Xóa lớp cũ, insert lớp mới)
-                        string delJoin = "DELETE FROM JoinClass WHERE AccountID=@ma";
-                        using (SqlCommand cmdDel = new SqlCommand(delJoin, conn, trans))
-                        {
-                            cmdDel.Parameters.AddWithValue("@ma", ma);
-                            cmdDel.ExecuteNonQuery();
-                        }
-
-                        if (!string.IsNullOrEmpty(maLop))
-                        {
-                            string insJoin = "INSERT INTO JoinClass (AccountID, classID) VALUES (@ma, @maLop)";
-                            using (SqlCommand cmdIns = new SqlCommand(insJoin, conn, trans))
-                            {
-                                cmdIns.Parameters.AddWithValue("@ma", ma);
-                                cmdIns.Parameters.AddWithValue("@maLop", maLop);
-                                cmdIns.ExecuteNonQuery();
-                            }
-                        }
-
                         trans.Commit();
                         return true;
                     }
@@ -153,35 +134,28 @@ namespace PBL3a.services.BLL
             }
         }
 
-        // 5. Xóa học sinh
-        public bool DeleteHocSinh(string ma)
+        public DataTable GetLichSuHocTap(string maHS)
         {
+            string query = @"
+                 SELECT 
+                     c.classID AS MaLop, 
+                     c.class_name AS TenLop, 
+                     c.start_date AS NgayMoLop 
+                 FROM JoinClass jc
+                 JOIN Class c ON jc.classID = c.classID
+                 WHERE jc.AccountID = @maHS";
+
+            DataTable dt = new DataTable();
             using (SqlConnection conn = dbHelper.GetConnection())
             {
-                conn.Open();
-                using (SqlTransaction trans = conn.BeginTransaction())
-                {
-                    try
-                    {
-                        // Xóa các khóa ngoại trước
-                        new SqlCommand("DELETE FROM JoinClass WHERE AccountID='" + ma + "'", conn, trans).ExecuteNonQuery();
-                        new SqlCommand("DELETE FROM Registration WHERE AccountID='" + ma + "'", conn, trans).ExecuteNonQuery();
-
-                        // Sau đó xóa tài khoản
-                        SqlCommand cmd = new SqlCommand("DELETE FROM accountList WHERE Id=@ma AND Role='Student'", conn, trans);
-                        cmd.Parameters.AddWithValue("@ma", ma);
-                        cmd.ExecuteNonQuery();
-
-                        trans.Commit();
-                        return true;
-                    }
-                    catch
-                    {
-                        trans.Rollback();
-                        return false;
-                    }
-                }
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@maHS", maHS);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(dt);
             }
+            return dt;
         }
+
+
     }
 }

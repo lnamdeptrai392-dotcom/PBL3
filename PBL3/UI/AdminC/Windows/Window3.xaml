@@ -125,18 +125,22 @@
             <Setter Property="BorderThickness" Value="0"/>
         </Style>
 
+        <Style x:Key="CenterAlignStyle" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
         <Style x:Key="LeftAlignStyle" TargetType="TextBlock">
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="Margin" Value="5,0,0,0"/>
+            <Setter Property="Margin" Value="40,0,0,0"/>
         </Style>
-
     </UserControl.Resources>
 
     <Grid Margin="18">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="1.2*"/>
+            <ColumnDefinition Width="575*"/>
+            <ColumnDefinition Width="489*"/>
         </Grid.ColumnDefinitions>
 
         <Border Grid.Column="0" 
@@ -145,7 +149,7 @@
                 Padding="14" 
                 BorderBrush="#D6E6F2" 
                 BorderThickness="1" 
-                Margin="0,0,12,0">
+                Margin="0,0,10,0">
 
             <DockPanel>
                 <Grid DockPanel.Dock="Top" Margin="0,0,0,15">
@@ -161,32 +165,52 @@
                                VerticalAlignment="Center"/>
 
                     <StackPanel Grid.Column="1" Orientation="Horizontal">
-                        <TextBox x:Name="txtSearch" Width="220" Margin="0,0,8,0" Padding="8,0" />
+                        <Grid Width="220" Margin="0,0,8,0">
+                            <TextBox x:Name="txtSearch" Margin="0"/>
+                            <TextBlock IsHitTestVisible="False" 
+                                       Text="Nhập Mã HS hoặc Tên..." 
+                                       VerticalAlignment="Center" 
+                                       HorizontalAlignment="Left" 
+                                       Margin="10,0,0,0" 
+                                       Foreground="#A0A0A0"
+                                       FontStyle="Italic">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Text, ElementName=txtSearch}" Value="">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Grid>
+
                         <Button Content="Tìm kiếm" Style="{StaticResource BtnPrimary}" Click="BtnSearch_Click" Margin="0" Width="90"/>
                     </StackPanel>
                 </Grid>
 
                 <DataGrid x:Name="dgvHocSinh" 
                           IsReadOnly="True" 
-                          SelectionChanged="DgHocSinh_SelectionChanged">
+                          SelectionChanged="dgvHocSinh_SelectionChanged">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Mã HS" Binding="{Binding MaHS}" Width="110"/>
-                        <DataGridTextColumn Header="Họ Tên" Binding="{Binding HoTen}" Width="200" ElementStyle="{StaticResource LeftAlignStyle}"/>
-                        <DataGridTextColumn Header="Ngày Sinh" Binding="{Binding NgaySinh, StringFormat=dd/MM/yyyy}" Width="100"/>
-                        <DataGridTextColumn Header="Giới Tính" Binding="{Binding GioiTinh}" Width="80"/>
-                        <DataGridTextColumn Header="Lớp" Binding="{Binding Lop}" Width="150"/>
+                        <DataGridTextColumn Header="Mã HS" Binding="{Binding MaHS}" Width="140" ElementStyle="{StaticResource CenterAlignStyle}"/>
+                        <DataGridTextColumn Header="Họ Tên" Binding="{Binding HoTen}" Width="230" ElementStyle="{StaticResource LeftAlignStyle}"/>
+                        <DataGridTextColumn Header="Ngày Sinh" Binding="{Binding NgaySinh, StringFormat=dd/MM/yyyy}" Width="110" ElementStyle="{StaticResource CenterAlignStyle}"/>
+                        <DataGridTextColumn Header="Giới Tính" Binding="{Binding GioiTinh}" Width="120" ElementStyle="{StaticResource CenterAlignStyle}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </DockPanel>
         </Border>
 
-        <Border Grid.Column="1" 
+        <Border 
                 Background="White" 
                 CornerRadius="14" 
                 Padding="16" 
                 BorderBrush="#D6E6F2" 
                 BorderThickness="1" 
-                Margin="0">
+                Margin="1,0,0,0" Grid.Column="1">
 
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <StackPanel>
@@ -198,7 +222,7 @@
                                HorizontalAlignment="Center"/>
 
                     <Label Content="Mã học sinh (*)"/>
-                    <TextBox x:Name="txtMaHS" />
+                    <TextBox x:Name="txtMaHS" IsReadOnly="True" />
 
                     <Label Content="Họ và tên (*)"/>
                     <TextBox x:Name="txtHoTen" />
@@ -215,8 +239,8 @@
                         <StackPanel Grid.Column="1" Margin="6,0,0,0">
                             <Label Content="Giới tính"/>
                             <ComboBox x:Name="cmbGioiTinh">
-                                <ComboBoxItem Content="Nam"/>
-                                <ComboBoxItem Content="Nữ"/>
+                                <ComboBoxItem Content="Male"/>
+                                <ComboBoxItem Content="Female"/>
                             </ComboBox>
                         </StackPanel>
                     </Grid>
@@ -224,15 +248,20 @@
                     <Label Content="Số điện thoại (*)"/>
                     <TextBox x:Name="txtSDT" />
 
-                    <Label Content="Lớp học (*)"/>
-                    <ComboBox x:Name="cmbLop" DisplayMemberPath="TenLop" SelectedValuePath="MaLop" />
-
-                    <WrapPanel HorizontalAlignment="Center" Margin="0,15,0,0">
-                        <Button Content="Thêm mới" Style="{StaticResource BtnPrimary}" Width="95" Click="BtnAdd_Click"/>
+                    <WrapPanel HorizontalAlignment="Center" Margin="0,5,0,20">
                         <Button Content="Cập nhật" Style="{StaticResource BtnPrimary}" Width="95" Click="BtnEdit_Click"/>
-                        <Button Content="Xóa" Style="{StaticResource BtnDanger}" Width="95" Click="BtnDelete_Click"/>
                         <Button Content="Làm mới" Style="{StaticResource BtnSecondary}" Width="95" Click="BtnRefresh_Click"/>
                     </WrapPanel>
+
+                    <Label Content="Lịch sử học tập" Margin="0,0,0,5"/>
+                    <DataGrid x:Name="dgvLichSuHocTap" IsReadOnly="True" Height="160" Margin="0,0,0,12">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Mã Lớp" Binding="{Binding MaLop}" Width="*" ElementStyle="{StaticResource CenterAlignStyle}"/>
+                            <DataGridTextColumn Header="Tên Lớp" Binding="{Binding TenLop}" Width="1.5*" ElementStyle="{StaticResource CenterAlignStyle}"/>
+                            <DataGridTextColumn Header="Ngày Mở Lớp" Binding="{Binding NgayMoLop, StringFormat=dd/MM/yyyy}" Width="*" ElementStyle="{StaticResource CenterAlignStyle}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
                 </StackPanel>
             </ScrollViewer>
         </Border>

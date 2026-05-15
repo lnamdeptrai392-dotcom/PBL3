@@ -1,37 +1,25 @@
 ﻿using PBL3a.services.BLL;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace PBL3.UI.AdminC.Windows
 {
     public partial class HoSoHocSinh : UserControl
     {
         private Student_Service _studentService = new Student_Service();
+
         public HoSoHocSinh()
         {
             InitializeComponent();
             LoadData();
-            LoadComboBoxLop();
         }
 
         private void LoadData(string searchKeyword = "")
         {
             try
             {
-                // Thêm .DefaultView khi gán DataTable vào ItemsSource của WPF DataGrid
                 dgvHocSinh.ItemsSource = _studentService.GetListHocSinh(searchKeyword).DefaultView;
             }
             catch (Exception ex)
@@ -40,50 +28,58 @@ namespace PBL3.UI.AdminC.Windows
             }
         }
 
-        private void LoadComboBoxLop()
+        private void LoadLichSuHocTap(string maHS)
         {
             try
             {
-                cmbLop.ItemsSource = _studentService.GetDanhSachLop().DefaultView;
+                dgvLichSuHocTap.ItemsSource = _studentService.GetLichSuHocTap(maHS).DefaultView;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi tải danh sách lớp: " + ex.Message, "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Lỗi tải lịch sử học tập: " + ex.Message, "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
-        private void DgHocSinh_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void dgvHocSinh_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (dgvHocSinh.SelectedItem != null)
+            if (dgvHocSinh.SelectedItem is DataRowView row)
             {
-                // Ép kiểu dòng được chọn về DataRowView (vì dữ liệu trả lên là DataTable)
-                DataRowView selectedRow = (DataRowView)dgvHocSinh.SelectedItem;
+                txtMaHS.Text = row["MaHS"].ToString();
+                txtHoTen.Text = row["HoTen"].ToString();
 
-                txtMaHS.Text = selectedRow["MaHS"].ToString();
-                txtHoTen.Text = selectedRow["HoTen"].ToString();
-                dpNgaySinh.SelectedDate = selectedRow["NgaySinh"] != DBNull.Value ? Convert.ToDateTime(selectedRow["NgaySinh"]) : (DateTime?)null;
-                cmbGioiTinh.Text = selectedRow["GioiTinh"].ToString();
-                txtSDT.Text = selectedRow["SDTPhuHuynh"].ToString();
-                cmbLop.SelectedValue = selectedRow["MaLop"].ToString();
+                // Binding Ngày Sinh
+                if (DateTime.TryParse(row["NgaySinh"].ToString(), out DateTime ngaySinh))
+                {
+                    dpNgaySinh.SelectedDate = ngaySinh;
+                }
+                else
+                {
+                    dpNgaySinh.SelectedDate = null;
+                }
+
+                // Lấy giá trị giới tính từ cột "GioiTinh" và xóa khoảng trắng thừa
+                string gioiTinh = row["GioiTinh"].ToString().Trim();
+
+                if (gioiTinh == "Male")
+                {
+                    cmbGioiTinh.SelectedIndex = 0;
+                }
+                else if (gioiTinh == "Female")
+                {
+                    cmbGioiTinh.SelectedIndex = 1;
+                }
+                else
+                {
+                    cmbGioiTinh.SelectedIndex = -1;
+                }
+
+                if (row.DataView.Table.Columns.Contains("SDTPhuHuynh"))
+                {
+                    txtSDT.Text = row["SDTPhuHuynh"].ToString();
+                }
+
+                LoadLichSuHocTap(txtMaHS.Text);
             }
-        }
-
-        private bool ValidateForm()
-        {
-            if (string.IsNullOrWhiteSpace(txtMaHS.Text) || string.IsNullOrWhiteSpace(txtHoTen.Text) || cmbLop.SelectedValue == null)
-            {
-                MessageBox.Show("Vui lòng điền đầy đủ Mã học sinh, Họ tên và chọn Lớp!", "Cảnh báo", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return false;
-            }
-
-            // Validate SĐT (bắt đầu bằng 0 hoặc +84 và đủ 10 số)
-            if (!string.IsNullOrWhiteSpace(txtSDT.Text) && !Regex.IsMatch(txtSDT.Text, @"^(0|\+84)\d{9}$"))
-            {
-                MessageBox.Show("Định dạng số điện thoại không hợp lệ!", "Cảnh báo", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return false;
-            }
-
-            return true;
         }
 
         private void BtnSearch_Click(object sender, RoutedEventArgs e)
@@ -93,41 +89,46 @@ namespace PBL3.UI.AdminC.Windows
 
         private void BtnRefresh_Click(object sender, RoutedEventArgs e)
         {
+            // Làm sạch các ô text
             txtMaHS.Clear();
             txtHoTen.Clear();
-            txtSDT.Clear();
             dpNgaySinh.SelectedDate = null;
-            cmbGioiTinh.SelectedIndex = -1;
-            cmbLop.SelectedIndex = -1;
+            cmbGioiTinh.SelectedItem = null;
+            txtSDT.Clear();
             txtSearch.Clear();
 
-            LoadData(); // Load lại DataGrid
+            // Xóa dữ liệu cũ trên DataGrid Lịch sử
+            dgvLichSuHocTap.ItemsSource = null;
+
+            LoadData();
         }
 
-        private void BtnAdd_Click(object sender, RoutedEventArgs e)
+        private void BtnEdit_Click(object sender, RoutedEventArgs e)
         {
-            if (!ValidateForm()) return;
+            if (string.IsNullOrWhiteSpace(txtMaHS.Text))
+            {
+                MessageBox.Show("Vui lòng chọn một học sinh để cập nhật!", "Cảnh báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
 
             try
             {
-                // Gọi hàm Add truyền đầy đủ tham số
-                bool result = _studentService.AddHocSinh(
-                    txtMaHS.Text.Trim(),
-                    txtHoTen.Text.Trim(),
-                    dpNgaySinh.SelectedDate,
-                    cmbGioiTinh.Text,
-                    txtSDT.Text.Trim(),
-                    cmbLop.SelectedValue.ToString()
-                );
+                string maHS = txtMaHS.Text.Trim();
+                string hoTen = txtHoTen.Text.Trim();
+                DateTime? ngaySinh = dpNgaySinh.SelectedDate;
+                string gioiTinh = (cmbGioiTinh.SelectedItem as ComboBoxItem)?.Content?.ToString() ?? "";
+                string sdt = txtSDT.Text.Trim();
 
+                // Gọi thẳng hàm EditHocSinh của bạn với 5 tham số
+                bool result = _studentService.EditHocSinh(maHS, hoTen, ngaySinh, gioiTinh, sdt);
                 if (result)
                 {
-                    MessageBox.Show("Thêm học sinh thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
-                    BtnRefresh_Click(null, null); // Làm mới Form và Grid
+                    MessageBox.Show("Cập nhật thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                    BtnRefresh_Click(null, null); // Refresh lại form
                 }
                 else
                 {
-                    MessageBox.Show("Thêm thất bại. Có thể trùng Mã học sinh!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Cập nhật thất bại!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             catch (Exception ex)
@@ -136,72 +137,8 @@ namespace PBL3.UI.AdminC.Windows
             }
         }
 
-        private void BtnEdit_Click(object sender, RoutedEventArgs e)
-        {
-            if (!ValidateForm()) return;
+       
 
-            MessageBoxResult confirm = MessageBox.Show("Bạn có chắc chắn muốn cập nhật hồ sơ này?", "Xác nhận", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (confirm == MessageBoxResult.Yes)
-            {
-                try
-                {
-                    // Gọi hàm Edit truyền đầy đủ tham số
-                    bool result = _studentService.EditHocSinh(
-                        txtMaHS.Text.Trim(),
-                        txtHoTen.Text.Trim(),
-                        dpNgaySinh.SelectedDate,
-                        cmbGioiTinh.Text,
-                        txtSDT.Text.Trim(),
-                        cmbLop.SelectedValue.ToString()
-                    );
-
-                    if (result)
-                    {
-                        MessageBox.Show("Cập nhật thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
-                        LoadData();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Cập nhật thất bại!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Lỗi thực thi: " + ex.Message, "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-        }
-
-        private void BtnDelete_Click(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txtMaHS.Text))
-            {
-                MessageBox.Show("Vui lòng chọn một học sinh để xóa!", "Cảnh báo", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-
-            MessageBoxResult confirm = MessageBox.Show("Hành động này không thể hoàn tác. Bạn có chắc chắn muốn xóa học sinh này không?", "Cảnh báo", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-            if (confirm == MessageBoxResult.Yes)
-            {
-                try
-                {
-                    bool result = _studentService.DeleteHocSinh(txtMaHS.Text.Trim());
-                    if (result)
-                    {
-                        MessageBox.Show("Xóa thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
-                        BtnRefresh_Click(null, null); // Clear form và Refresh lưới
-                    }
-                    else
-                    {
-                        MessageBox.Show("Xóa thất bại!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Lỗi thực thi: " + ex.Message, "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-        }
 
 
     }

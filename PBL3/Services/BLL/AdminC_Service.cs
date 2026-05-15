@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Data;
 using Microsoft.Data.SqlClient;
-using System.Windows; // Thêm thư viện này để dùng MessageBox trong hàm của Phương Uyên
+using System.Windows;
 
 namespace PBL3a.services.BLL
 {
@@ -60,9 +60,6 @@ namespace PBL3a.services.BLL
             return dt;
         }
 
-        // =========================================================================
-        // CÁC HÀM MỚI DO PHƯƠNG UYÊN THÊM VÀO
-        // =========================================================================
         public DataTable getAttendanceInfo(string classID, string date)
         {
             DataTable dt = new DataTable();
@@ -143,7 +140,6 @@ namespace PBL3a.services.BLL
             }
             return dt.Rows.Count > 0 ? dt.Rows[0] : null;
         }
-        // =========================================================================
 
         // 3. Tải thông tin lớp học
         public DataTable GetClassInfo(string classId)
