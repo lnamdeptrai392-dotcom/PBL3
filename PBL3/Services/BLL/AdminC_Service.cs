@@ -10,7 +10,6 @@ namespace PBL3a.services.BLL
     {
         private DatabaseHelper dbHelper = new DatabaseHelper();
 
-
         // 1. Tải danh sách đơn chờ duyệt
         public DataTable GetPendingRegistrations()
         {
@@ -587,6 +586,85 @@ namespace PBL3a.services.BLL
             }
         }
 
+        // 14. Lấy danh sách học sinh theo độ tuổi trong cbb
+        public DataTable GetStudentBirthYears()
+        {
+            DataTable dt = new DataTable();
+            // Lấy ra các năm sinh không trùng lặp, sắp xếp giảm dần (ví dụ: 2013, 2012, 2009...)
+            string query = @"
+                SELECT DISTINCT YEAR(dateOfBirth) AS namSinh
+                FROM accountList 
+                WHERE Role = 'Student' AND dateOfBirth IS NOT NULL
+                ORDER BY NamSinh DESC";
+
+            using (SqlConnection conn = dbHelper.GetConnection())
+            {
+                SqlDataAdapter da = new SqlDataAdapter(query, conn);
+                da.Fill(dt);
+            }
+            return dt;
+        }
+
+        // Lấy học sinh theo Năm Sinh được truyền vào và CHƯA CÓ trong lớp
+        public DataTable GetAvailableStudentsForClassByYear(string classId, int namSinh)
+        {
+            DataTable dt = new DataTable();
+            string query = @"
+                SELECT 
+                    a.Id AS [Mã Học Sinh], 
+                    a.name AS [Tên Học Sinh], 
+                    a.dateOfBirth AS [Ngày Sinh], 
+                    a.sex AS [Giới Tính], 
+                    a.phone AS [SĐT]
+                FROM accountList a
+                WHERE a.Role = 'Student' 
+                AND YEAR(a.dateOfBirth) = @namSinh
+                AND NOT EXISTS (
+                    SELECT 1 
+                    FROM JoinClass jc
+                    WHERE jc.AccountID = a.Id AND jc.classID = @classId
+                )";
+
+            using (SqlConnection conn = dbHelper.GetConnection())
+            {
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@classId", classId);
+                cmd.Parameters.AddWithValue("@namSinh", namSinh);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(dt);
+            }
+            return dt;
+        }
+
+
+        // 15. Thêm trực tiếp một học sinh vào lớp (Không qua form đăng ký)
+        public void AddStudentToClass(string studentId, string classId)
+        {
+            string query = "INSERT INTO JoinClass (AccountID, classID) VALUES (@accountId, @classId)";
+
+            using (SqlConnection conn = dbHelper.GetConnection())
+            {
+                conn.Open();
+                try
+                {
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@accountId", studentId);
+                        cmd.Parameters.AddWithValue("@classId", classId);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                catch (SqlException sqlEx)
+                {
+                    // Mã lỗi 2627 là vi phạm khóa chính/khóa phụ (Đã tồn tại dữ liệu)
+                    if (sqlEx.Number == 2627)
+                    {
+                        throw new Exception($"Học sinh {studentId} đã tồn tại trong lớp {classId}!");
+                    }
+                    throw new Exception("Lỗi CSDL: " + sqlEx.Message);
+                }
+            }
+        }
 
 
 

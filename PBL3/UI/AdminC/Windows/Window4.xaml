@@ -66,7 +66,6 @@
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
         </Style>
-
     </UserControl.Resources>
 
     <ScrollViewer VerticalScrollBarVisibility="Auto">
@@ -107,17 +106,13 @@
                     BorderThickness="1"
                     Margin="0 0 0 16">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-
                     <TextBlock Text="Tìm theo:" Margin="0 0 8 0" VerticalAlignment="Center" FontWeight="SemiBold"/>
-
                     <ComboBox x:Name="cbbSearch" Width="150" VerticalAlignment="Center" SelectionChanged="cbbSearch_SelectedIndexChanged"/>
-
                     <TextBox x:Name="txtNhapDuLieu" Width="220" Margin="18 0 0 0" VerticalAlignment="Center" GotFocus="txtNhapDuLieu_Enter"/>
 
                     <Border CornerRadius="10" Margin="18 0 0 0" ClipToBounds="True" VerticalAlignment="Center">
                         <Button Content="Tìm kiếm" Width="90" Click="btnView2_Click" Background="#43A047"/>
                     </Border>
-
                 </StackPanel>
             </Border>
 
@@ -136,15 +131,48 @@
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
+                            <RowDefinition x:Name="rowDgvData" Height="*"/>
+                            <RowDefinition x:Name="rowDgvAvailableStudents" Height="0"/>
                         </Grid.RowDefinitions>
 
-                        <TextBlock Text="Danh sách lớp học" FontSize="18" FontWeight="Bold" Foreground="#0D47A1" Margin="0 0 0 10"/>
+                        <Grid Grid.Row="0" Margin="0 0 0 10">
+                            <TextBlock Text="Danh sách lớp học" FontSize="18" FontWeight="Bold" Foreground="#0D47A1" VerticalAlignment="Center"/>
+                            <Button x:Name="btnPrepareAddStudent" 
+                                    Content="+ Thêm học sinh" 
+                                    HorizontalAlignment="Right" 
+                                    IsEnabled="False" 
+                                    Click="btnPrepareAddStudent_Click"
+                                    Background="#1E88E5"/>
+                        </Grid>
 
                         <DataGrid x:Name="dgvData"
                                   Grid.Row="1"
-                                  MinHeight="400"
+                                  MinHeight="100"
                                   SelectionChanged="dgvData_SelectionChanged"/>
+
+                        <Grid x:Name="pnlAvailableStudents" Grid.Row="2" Visibility="Collapsed" Margin="0 15 0 0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0 0 0 8">
+                                <TextBlock Text="Chọn năm sinh:" FontSize="16" FontWeight="SemiBold" Foreground="#E65100" VerticalAlignment="Center" Margin="0 0 10 0"/>
+                                <ComboBox x:Name="cbbNamSinh" Width="100" SelectionChanged="cbbNamSinh_SelectionChanged"/>
+                                <TextBlock Text="Danh sách đủ điều kiện:" FontSize="14" FontWeight="Normal" Foreground="#424242" VerticalAlignment="Center" Margin="20 0 0 0"/>
+                            </StackPanel>
+
+                            <DataGrid x:Name="dgvAvailableStudents" 
+                                      Grid.Row="1" 
+                                      MinHeight="150"
+                                      SelectionMode="Extended"/>
+
+                            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 10 0 0">
+                                <Button x:Name="btnCancelAdd" Content="Hủy bỏ" Width="90" Background="#757575" Margin="0 0 10 0" Click="btnCancelAdd_Click"/>
+                                <Button x:Name="btnConfirmAdd" Content="Lưu vào lớp" Width="120" Background="#43A047" Click="btnConfirmAdd_Click"/>
+                            </StackPanel>
+                        </Grid>
                     </Grid>
                 </Border>
 
@@ -156,13 +184,11 @@
                         BorderThickness="1"
                         Margin="12 0 0 0">
                     <StackPanel>
-
                         <TextBlock Text="Thông Tin Giáo Viên" FontSize="16" FontWeight="Bold" Foreground="#0D47A1" Margin="0 0 0 8"/>
                         <DataGrid x:Name="dgvGV" Height="130"/>
 
                         <TextBlock Text="Danh Sách Học Sinh" FontSize="16" FontWeight="Bold" Foreground="#0D47A1" Margin="0 16 0 8"/>
                         <DataGrid x:Name="dgvHS" Height="250"/>
-
                     </StackPanel>
                 </Border>
             </Grid>
