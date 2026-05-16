@@ -8,7 +8,7 @@ namespace PBL3a.UI.Teacher
     public partial class QuanLyChungT : Window
     {
         private readonly string currentTeacherID;
-        private Button currentButton;
+        
 
         public QuanLyChungT(string teacherId)
         {

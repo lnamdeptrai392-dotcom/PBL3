@@ -120,5 +120,12 @@ namespace PBL3.UI.AdminC.Windows
                 dgvAttendance.ItemsSource = dtAttendance.DefaultView;
             }
         }
+
+        private void btnLuu_Click(object sender, RoutedEventArgs e)
+        {
+            //luu du lieu sau khi diem danh
+        }
+
+        
     }
 }

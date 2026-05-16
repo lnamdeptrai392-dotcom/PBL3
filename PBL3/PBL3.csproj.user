@@ -29,6 +29,12 @@
     <Compile Update="UI\AdminTC\ChildForm\ThietLapHP.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UI\AdminTC\ChildForm\ThongKe.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\AdminTC\ChildForm\TongQuan.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UI\AdminTC\QuanLyChungTC.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

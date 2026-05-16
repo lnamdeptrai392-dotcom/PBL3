@@ -1,0 +1,134 @@
+﻿<UserControl x:Class="PBL3.UI.AdminTC.ChildForm.ThongKe"
+                          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+mc:Ignorable="d"
+Background="#F0F2F5" d:DesignWidth="800"  d:DesignHeight="500">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <!-- Header & Filter Bar -->
+            <RowDefinition Height="Auto"/>
+            <!-- Main Content Card -->
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- 1. Thanh bộ lọc (Style EduCore) -->
+        <Border Grid.Row="0" Background="White" CornerRadius="8" Padding="20,15" Margin="0,0,0,20">
+
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock Text="Tháng:" VerticalAlignment="Center" FontWeight="SemiBold" Margin="0,0,10,0" Foreground="#555"/>
+                <ComboBox x:Name="cbbThang" Width="100" Height="32" Margin="0,0,30,0" SelectionChanged="cbbThang_SelectionChanged">
+                    <ComboBoxItem Content="1"/>
+                    <ComboBoxItem Content="2"/>
+                    <ComboBoxItem Content="3"/>
+                    <ComboBoxItem Content="4"/>
+                    <ComboBoxItem Content="5"/>
+                    <ComboBoxItem Content="6"/>
+                    <ComboBoxItem Content="7"/>
+                    <ComboBoxItem Content="8"/>
+                    <ComboBoxItem Content="9"/>
+                    <ComboBoxItem Content="10"/>
+                    <ComboBoxItem Content="11"/>
+                    <ComboBoxItem Content="12"/>
+                </ComboBox>
+
+                <TextBlock Text="Năm:" VerticalAlignment="Center" FontWeight="SemiBold" Margin="0,0,10,0" Foreground="#555"/>
+                <ComboBox x:Name="cbbNam" Width="120" Height="32" Margin="0,0,30,0" SelectionChanged="cbbNam_SelectionChanged">
+                    <ComboBoxItem Content="2025"/>
+                    <ComboBoxItem Content="2026"/>
+                </ComboBox>
+
+                <Button x:Name="btnShow" Content="Xem" Width="120" Height="32" Click="btnShow_Click"
+                    Background="#1E88E5" Foreground="White" BorderThickness="0">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="4"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </StackPanel>
+        </Border>
+
+        <!-- 2. Vùng nội dung chính (Card báo cáo) -->
+        <Border Grid.Row="1" Background="White" CornerRadius="8" Padding="15">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <!-- Title -->
+                    <RowDefinition Height="*"/>
+                    <!-- DataGrid -->
+                    <RowDefinition Height="Auto"/>
+                    <!-- Summary Footer -->
+                </Grid.RowDefinitions>
+
+                <!-- Tiêu đề báo cáo -->
+                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="5,0,0,15">
+                    <Rectangle Width="4" Height="20" Fill="#1E88E5" Margin="0,0,10,0"/>
+                    <TextBlock Text="THỐNG KÊ TÀI CHÍNH" FontSize="16" FontWeight="Bold" Foreground="#1565C0"/>
+                </StackPanel>
+
+                <!-- DataGrid -->
+                <DataGrid x:Name="dataGridView1"
+                      Grid.Row="1"
+      AutoGenerateColumns="False"
+      IsReadOnly="True"
+      CanUserAddRows="False"
+      SelectionMode="Single"
+      SelectionUnit="FullRow"
+      Background="White"
+      BorderBrush="#E0E0E0"
+      GridLinesVisibility="Horizontal"
+      HorizontalGridLinesBrush="#F0F0F0"
+      RowHeight="40">
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Mã" Binding="{Binding Mã}" Width="100"/>
+                        <DataGridTextColumn Header="Ngày" Binding="{Binding Ngày}" Width="120"/>
+                        <DataGridTextColumn Header="Loại" Binding="{Binding Loại}" Width="100"/>
+                        <DataGridTextColumn Header="Nội dung" Binding="{Binding Nội dung}" Width="*"/>
+                        <DataGridTextColumn Header="Số tiền" Binding="{Binding Số tiền}" Width="200">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Right"/>
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="Margin" Value="0,0,20,0"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Ghi chú" Binding="{Binding Ghi chú}" Width="150"/>
+                    </DataGrid.Columns>
+
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="Background" Value="#E3F2FD"/>
+                            <Setter Property="Foreground" Value="#1565C0"/>
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="Padding" Value="10,5"/>
+                            <Setter Property="Height" Value="40"/>
+                            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                            <Setter Property="BorderBrush" Value="#BBDEFB"/>
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
+
+                </DataGrid>
+
+                <!-- Footer Summary: Lợi nhuận -->
+                <Border Grid.Row="2" Background="#F1F8E9" CornerRadius="5" Padding="15" Margin="0,15,0,0">
+                    
+                        <StackPanel  Orientation="Horizontal" VerticalAlignment="Center">
+                            <StackPanel>
+                            <TextBlock Text="Tổng thu:" VerticalAlignment="Center" FontWeight="SemiBold" Margin="0,0,10,0" Foreground="#555"/>
+                        <TextBox x:Name="txtTongThu" Width="200" Height="32" Margin="0,0,30,0"/>
+                            </StackPanel>
+                        <StackPanel>
+                        <TextBlock Text="Tổng chi:" VerticalAlignment="Center" FontWeight="SemiBold" Margin="0,0,10,0" Foreground="#555"/>
+                        <TextBox x:Name="txtTongChi" Width="199" Height="32" Margin="0,0,30,0"/>
+                            </StackPanel>
+                        </StackPanel>
+                    
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

@@ -59,26 +59,18 @@
                HorizontalAlignment="Center"
                VerticalAlignment="Center"/>
             </Border>
-
-            <Expander Header="Quản lý Đối tượng"
-                  Foreground="White" 
-                  FontSize="14"
-                  FontWeight="SemiBold"
-                  BorderThickness="0"
-                  Margin="0,5,0,0">
-                <StackPanel Margin="20,5,0,5">
-                    <Button x:Name="btnDshs"
-                Content="   Danh sách học sinh" 
+            <StackPanel Margin="20,5,0,5">
+                <Button x:Name="btnDashborad"
+                Content="Tổng quan" 
+                Foreground="White" 
+                FontSize="14"
+                FontWeight="SemiBold"
+                BorderThickness="0"
+                Margin="0,5,0,0"
                 Style="{StaticResource MenuButtonStyle}"
-                Click="btnDshs_Click"/>
-                    <Button x:Name="btnDsgv"
-                Content="   Danh sách giáo viên" 
-                Style="{StaticResource MenuButtonStyle}"
-                Click="btnDsgv_Click"/>
-                    
-
-                </StackPanel>
-            </Expander>
+                Click="btnDashborad_Click"/>
+            </StackPanel>
+            
 
             <Expander Header="Nghiệp vụ thu - chi"
                   Foreground="White" 
@@ -110,14 +102,14 @@
                   BorderThickness="0"
                   Margin="0,5,0,0">
                             <StackPanel Margin="20,5,0,5">
-                                <Button x:Name="btnLshd"
-                Content="   Lịch sử hóa đơn" 
-                Style="{StaticResource MenuButtonStyle}"
-                Click="btnLshd_Click"/>
-                                <Button x:Name="btnProfit"
-                Content="   Báo cáo lợi nhuận" 
-                Style="{StaticResource MenuButtonStyle}"
-                Click="btnProfit_Click"/>
+                                <Button x:Name="btnThongKe"
+                    Content="   Thống kê tài chính" 
+                    Style="{StaticResource MenuButtonStyle}"
+                    Click="btnThongKe_Click"/>
+                    <Button x:Name="btnProfit"
+                    Content="   Báo cáo lợi nhuận" 
+                    Style="{StaticResource MenuButtonStyle}"
+                    Click="btnProfit_Click"/>
 
 
                 </StackPanel>

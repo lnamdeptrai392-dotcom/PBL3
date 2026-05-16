@@ -1,4 +1,6 @@
-﻿using PBL3a.UI.Login;
+﻿using PBL3.UI.AdminTC.ChildForm;
+using PBL3a.UI.Login;
+using PBL3a.UI.Teacher;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -7,28 +9,19 @@ namespace PBL3a.UI.AdminTC
 {
     public partial class QuanLyChungTC : Window
     {
+        private readonly string currentForm;
 
         public QuanLyChungTC()
         {
             InitializeComponent();
+            OpenChild(new TongQuan());
         }
-
         private void OpenChild(UserControl child)
         {
             child.HorizontalAlignment = HorizontalAlignment.Stretch;
             child.VerticalAlignment = VerticalAlignment.Stretch;
 
             paDesktop.Content = child;
-        }
-
-        private void btnDshs_Click(object sender, RoutedEventArgs e)
-        {
-            //tao mot xaml show danh sach hoc sinh
-        }
-
-        private void btnDsgv_Click(object sender, RoutedEventArgs e)
-        {
-            //tao mot xaml show danh sach giao vien
         }
 
         private void btnThuHP_Click(object sender, RoutedEventArgs e)
@@ -50,10 +43,6 @@ namespace PBL3a.UI.AdminTC
             OpenChild(khoanChi);
         }
 
-        private void btnLshd_Click(object sender, RoutedEventArgs e)
-        {
-            //OpenChild(new LSGD(),sender);
-        }
         private void btnProfit_Click(object sender, RoutedEventArgs e)
         {
             Lai lai = new Lai();
@@ -64,6 +53,19 @@ namespace PBL3a.UI.AdminTC
             LoginWindow login = new LoginWindow();
             login.Show();
             Close();
+        }
+
+        private void btnDashborad_Click(object sender, RoutedEventArgs e)
+        {
+            //dashboard tong quan danh sach sinh vien cham hoc phi trong ki hoc hien tai, danh sach giao vien da chi tra luong
+            TongQuan tq = new TongQuan();
+            OpenChild(tq);
+        }
+        private void btnThongKe_Click(object sender, RoutedEventArgs e)
+        {
+            //mo form thong ke
+            ThongKe tk = new ThongKe();
+            OpenChild(tk);
         }
     }
 }

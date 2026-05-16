@@ -953,7 +953,7 @@ CREATE TABLE Attendance
     AccountID NVARCHAR(20) NOT NULL,
     ClassID NVARCHAR(20) NOT NULL,
     AttendanceDate DATE NOT NULL,
-    Status NVARCHAR(20) NOT NULL,
+    Status NVARCHAR(20) NOT NULL  DEFAULT N'Chưa điểm danh',
     Note NVARCHAR(255) NULL,
     CONSTRAINT FK_Attendance_Account FOREIGN KEY (AccountID) REFERENCES accountList(Id),
     CONSTRAINT FK_Attendance_Class FOREIGN KEY (ClassID) REFERENCES Class(classID),
