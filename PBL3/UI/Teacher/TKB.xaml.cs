@@ -60,7 +60,7 @@ namespace PBL3a.UI.Teacher
                                 textBox1.Text = "";
                                 dataGridView1.ItemsSource = null;
 
-                                MessageBox.Show("Giảng viên chưa có lớp!");
+                                MessageBox.Show("Giảng viên chưa có lớp học nào đang mở!");
                                 return;
                             }
 
@@ -99,22 +99,22 @@ namespace PBL3a.UI.Teacher
 
         private void LoadScheduleByClass(string classID)
         {
-            string query = @"SELECT 
-                    CASE dayOfWeek
-                        WHEN 1 THEN N'Thứ 2'
-                        WHEN 2 THEN N'Thứ 3'
-                        WHEN 3 THEN N'Thứ 4'
-                        WHEN 4 THEN N'Thứ 5'
-                        WHEN 5 THEN N'Thứ 6'
-                        WHEN 6 THEN N'Thứ 7'
-                        WHEN 7 THEN N'Chủ nhật'
-                    END AS [Ngày học],
-                    CONVERT(VARCHAR(5), startTime, 108) AS [Giờ bắt đầu],
-                    CONVERT(VARCHAR(5), endTime, 108) AS [Giờ kết thúc]
+            // Tạo DataTable với cấu trúc khớp với DataGrid (4 cột)
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Thu", typeof(string));
+            dt.Columns.Add("Ca", typeof(string));
+            dt.Columns.Add("ThoiGian", typeof(string));
+            dt.Columns.Add("TrangThai", typeof(string));
+
+            string query = @"
+                SELECT 
+                    cs.dayOfWeek,
+                    cs.startTime,
+                    cs.endTime
                 FROM ClassSchedule cs
-                join Class c on cs.classID = c.classID
+                JOIN Class c ON cs.classID = c.classID
                 WHERE c.classID = @ClassID AND c.status = N'Đang mở'
-                ORDER BY dayOfWeek, startTime";
+                ORDER BY cs.dayOfWeek, cs.startTime";
 
             try
             {
@@ -126,19 +126,93 @@ namespace PBL3a.UI.Teacher
                     {
                         cmd.Parameters.AddWithValue("@ClassID", classID);
 
-                        using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                        using (SqlDataReader reader = cmd.ExecuteReader())
                         {
-                            DataTable dt = new DataTable();
-                            adapter.Fill(dt);
+                            while (reader.Read())
+                            {
+                                DataRow row = dt.NewRow();
 
-                            dataGridView1.ItemsSource = dt.DefaultView;
+                                // Xác định thứ
+                                int dayOfWeek = reader.GetInt32(0);
+                                switch (dayOfWeek)
+                                {
+                                    case 1: row["Thu"] = "Thứ 2"; break;
+                                    case 2: row["Thu"] = "Thứ 3"; break;
+                                    case 3: row["Thu"] = "Thứ 4"; break;
+                                    case 4: row["Thu"] = "Thứ 5"; break;
+                                    case 5: row["Thu"] = "Thứ 6"; break;
+                                    case 6: row["Thu"] = "Thứ 7"; break;
+                                    case 7: row["Thu"] = "Chủ nhật"; break;
+                                    default: row["Thu"] = "Không xác định"; break;
+                                }
+
+                                // Xác định ca dạy dựa trên giờ
+                                TimeSpan startTime = reader.GetTimeSpan(1);
+                                if (startTime.Hours >= 7 && startTime.Hours < 12)
+                                    row["Ca"] = "Sáng";
+                                else if (startTime.Hours >= 13 && startTime.Hours < 17)
+                                    row["Ca"] = "Chiều";
+                                else if (startTime.Hours >= 17 && startTime.Hours < 21)
+                                    row["Ca"] = "Tối";
+                                else
+                                    row["Ca"] = "Khác";
+
+                                // Thời gian
+                                string start = reader.GetTimeSpan(1).ToString(@"hh\:mm");
+                                string end = reader.GetTimeSpan(2).ToString(@"hh\:mm");
+                                row["ThoiGian"] = $"{start} - {end}";
+
+                                // Trạng thái
+                                row["TrangThai"] = GetTrangThai(startTime, reader.GetTimeSpan(2), dayOfWeek);
+
+                                dt.Rows.Add(row);
+                            }
                         }
                     }
+                }
+
+                dataGridView1.ItemsSource = dt.DefaultView;
+
+                if (dt.Rows.Count == 0)
+                {
+                    MessageBox.Show("Lớp học này chưa có lịch trình!");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi load TKB: " + ex.Message);
+                MessageBox.Show("Lỗi load thời khóa biểu: " + ex.Message);
+            }
+        }
+
+        // Hàm xác định trạng thái buổi học
+        private string GetTrangThai(TimeSpan startTime, TimeSpan endTime, int dayOfWeek)
+        {
+            DateTime now = DateTime.Now;
+            DateTime today = now.Date;
+
+            // Tính ngày của buổi học trong tuần này
+            int currentDayOfWeek = (int)now.DayOfWeek;
+            if (currentDayOfWeek == 0) currentDayOfWeek = 7; // Chủ nhật = 7
+
+            int daysUntil = dayOfWeek - currentDayOfWeek;
+            DateTime classDate = today.AddDays(daysUntil);
+
+            TimeSpan classStart = new TimeSpan(startTime.Hours, startTime.Minutes, 0);
+            TimeSpan classEnd = new TimeSpan(endTime.Hours, endTime.Minutes, 0);
+
+            if (classDate < today)
+                return "Đã kết thúc";
+            else if (classDate > today)
+                return "Sắp diễn ra";
+            else // Hôm nay
+            {
+                TimeSpan nowTime = now.TimeOfDay;
+                if (nowTime < classStart)
+                    return "Sắp diễn ra";
+                else if (nowTime >= classStart && nowTime <= classEnd)
+                    return "Đang diễn ra";
+                else
+                    return "Đã kết thúc";
             }
         }
     }

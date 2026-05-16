@@ -1,7 +1,10 @@
 ﻿<UserControl x:Class="PBL3a.UI.Teacher.TKB"
+                          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             Background="#F4F7F9" Height="405" Width="732">
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+mc:Ignorable="d"
+Background="#F0F2F5" d:DesignWidth="800"  d:DesignHeight="500">
 
     <Grid Margin="20">
         <Grid.RowDefinitions>
@@ -54,10 +57,10 @@
                       HorizontalGridLinesBrush="#F0F0F0"
                       RowHeight="40">
                 <DataGrid.Columns>
-                    <!-- Tùy chỉnh các cột theo Database của Xíu -->
+                   
                     <DataGridTextColumn Header="Thứ" Binding="{Binding Thu}" Width="100"/>
                     <DataGridTextColumn Header="Ca dạy" Binding="{Binding Ca}" Width="120"/>
-                    <DataGridTextColumn Header="Phòng học" Binding="{Binding Phong}" Width="120"/>
+                    
                     <DataGridTextColumn Header="Thời gian" Binding="{Binding ThoiGian}" Width="*"/>
                     <DataGridTextColumn Header="Trạng thái" Binding="{Binding TrangThai}" Width="150">
                         <DataGridTextColumn.ElementStyle>

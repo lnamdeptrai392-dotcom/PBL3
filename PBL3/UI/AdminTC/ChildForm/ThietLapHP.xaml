@@ -106,7 +106,9 @@
                             <DataGridTextColumn Header="STT" Binding="{Binding STT}" Width="60" IsReadOnly="True"/>
                             <DataGridTextColumn Header="Mã HS" Binding="{Binding AccountID}" Width="120" IsReadOnly="True"/>
                             <DataGridTextColumn Header="Họ Tên" Binding="{Binding HoTen}" Width="*" IsReadOnly="True"/>
-                            <DataGridTemplateColumn Header="Trạng Thái" Width="150">
+                            <!-- Thêm sau cột "Họ Tên", trước cột "Trạng Thái" -->
+                            <DataGridTextColumn Header="Số tiền (VNĐ)" Binding="{Binding SoTien, StringFormat={}{0:N0}}" Width="200" IsReadOnly="True"/>
+                            <DataGridTemplateColumn Header="Trạng Thái" Width="200">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding TrangThai}" VerticalAlignment="Center" Margin="10,0"/>

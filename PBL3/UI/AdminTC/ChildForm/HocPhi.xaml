@@ -86,7 +86,7 @@ Background="#F0F2F5" d:DesignWidth="800"  d:DesignHeight="500">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Mã HS" Binding="{Binding AccountID}" Width="100"/>
                         <DataGridTextColumn Header="Họ Tên" Binding="{Binding HoTen}" Width="*"/>
-                        <DataGridTextColumn Header="Tháng" Binding="{Binding TuitionMonth}" Width="80"/>
+                        <DataGridTextColumn Header="Ngày đóng" Binding="{Binding NgayDong}" Width="80"/>
                         <DataGridTextColumn Header="Số tiền" Binding="{Binding SoTien, StringFormat={}{0:N0} VNĐ}" Width="150"/>
                         <DataGridTextColumn Header="Trạng thái" Binding="{Binding TrangThai}" Width="120"/>
                     </DataGrid.Columns>

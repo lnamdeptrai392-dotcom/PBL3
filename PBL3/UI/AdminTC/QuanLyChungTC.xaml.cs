@@ -9,7 +9,7 @@ namespace PBL3a.UI.AdminTC
 {
     public partial class QuanLyChungTC : Window
     {
-        private readonly string currentForm;
+        
 
         public QuanLyChungTC()
         {

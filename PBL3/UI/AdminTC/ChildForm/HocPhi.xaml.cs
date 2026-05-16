@@ -82,17 +82,19 @@ namespace PBL3a.UI.AdminTC
                 {
                     conn.Open();
                     string query = @"
-                        SELECT 
-                            a.Id AS [AccountID], 
-                            a.name AS [HoTen], 
-                            ISNULL(CAST(hp.TuitionMonth AS NVARCHAR), N'--') AS [TuitionMonth], 
-                            ISNULL(hp.SoTien, 0) AS [SoTien], 
-                            ISNULL(hp.TrangThai, N'Chưa thiết lập') AS [TrangThai]
-                        FROM JoinClass jc
-                        INNER JOIN accountList a ON jc.AccountID = a.Id
-                        LEFT JOIN HocPhi hp ON jc.AccountID = hp.AccountID AND jc.classID = hp.ClassID
-                        WHERE jc.classID = @classID
-                        ORDER BY hp.TrangThai DESC, a.name ASC";
+                SELECT 
+                    a.Id AS [AccountID], 
+                    a.name AS [HoTen], 
+                    ISNULL(hp.SoTien, 0) AS [SoTien], 
+                    ISNULL(CONVERT(NVARCHAR, hp.NgayDong, 103), N'--') AS [NgayDong],
+                    ISNULL(hp.TrangThai, N'Chưa thiết lập') AS [TrangThai]
+                FROM JoinClass jc
+                INNER JOIN accountList a ON jc.AccountID = a.Id
+                LEFT JOIN HocPhi hp 
+                    ON jc.AccountID = hp.AccountID 
+                    AND jc.classID = hp.ClassID
+                WHERE jc.classID = @classID
+                ORDER BY hp.TrangThai DESC, a.name ASC";
 
                     using (SqlDataAdapter adapter = new SqlDataAdapter(query, conn))
                     {
