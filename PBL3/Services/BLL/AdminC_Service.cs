@@ -60,11 +60,6 @@ namespace PBL3a.services.BLL
             return dt;
         }
 
-        // ====================================================================================
-        // CÁC HÀM QUẢN LÝ ĐIỂM DANH (Chuyển từ DiemDanh.xaml.cs cũ sang)
-        // ====================================================================================
-
-        // 1. Lấy danh sách lớp học có lịch học vào một Thứ cụ thể trong tuần
         public DataTable GetClassesByDayOfWeek(int dayOfWeek)
         {
             string query = @"
@@ -84,7 +79,7 @@ namespace PBL3a.services.BLL
             return dt;
         }
 
-        // 2. Lấy danh sách học sinh để điểm danh (Cập nhật để khớp với UI DataGrid mới)
+        // 2. Lấy danh sách học sinh để điểm danh
         public DataTable getAttendanceInfo(string classID, DateTime date)
         {
             DataTable dt = new DataTable();
@@ -107,12 +102,11 @@ namespace PBL3a.services.BLL
                 {
                     SqlCommand cmd = new SqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@classID", classID);
-                    cmd.Parameters.AddWithValue("@date", date); // Truyền trực tiếp DateTime, an toàn hơn parse chuỗi
+                    cmd.Parameters.AddWithValue("@date", date);
 
                     SqlDataAdapter da = new SqlDataAdapter(cmd);
                     da.Fill(dt);
 
-                    // Cấp quyền sửa đổi các cột này trên DataGrid
                     if (dt.Columns.Contains("TrangThai")) dt.Columns["TrangThai"].ReadOnly = false;
                     if (dt.Columns.Contains("Note")) dt.Columns["Note"].ReadOnly = false;
                 }
@@ -125,7 +119,7 @@ namespace PBL3a.services.BLL
             return dt;
         }
 
-        // 3. Lưu điểm danh (Hỗ trợ cả Thêm mới và Cập nhật bằng Transaction)
+        // 3. Lưu điểm danh
         public bool SaveAttendance(string classID, DateTime attendanceDate, DataTable dtAttendance)
         {
             using (SqlConnection conn = dbHelper.GetConnection())
@@ -141,7 +135,6 @@ namespace PBL3a.services.BLL
                             string status = row["TrangThai"]?.ToString() ?? "Có mặt";
                             string note = row["Note"]?.ToString() ?? "";
 
-                            // Kiểm tra xem học sinh này đã được điểm danh trong ngày hôm đó chưa
                             string checkQuery = @"
                         SELECT COUNT(*) 
                         FROM Attendance 
@@ -157,7 +150,6 @@ namespace PBL3a.services.BLL
 
                                 if (count > 0)
                                 {
-                                    // Đã tồn tại -> CẬP NHẬT
                                     string updateQuery = @"
                                 UPDATE Attendance 
                                 SET Status = @status, Note = @note
@@ -175,7 +167,6 @@ namespace PBL3a.services.BLL
                                 }
                                 else
                                 {
-                                    // Chưa tồn tại -> THÊM MỚI
                                     string insertQuery = @"
                                 INSERT INTO Attendance (AccountID, ClassID, AttendanceDate, Status, Note)
                                 VALUES (@acc, @class, @date, @status, @note)";
@@ -192,12 +183,12 @@ namespace PBL3a.services.BLL
                                 }
                             }
                         }
-                        trans.Commit(); // Lưu toàn bộ vào DB
+                        trans.Commit();
                         return true;
                     }
                     catch (Exception ex)
                     {
-                        trans.Rollback(); // Nếu có lỗi ở 1 học sinh nào đó, hoàn tác toàn bộ
+                        trans.Rollback();
                         MessageBox.Show("Lỗi lưu điểm danh: " + ex.Message);
                         return false;
                     }
@@ -753,7 +744,7 @@ namespace PBL3a.services.BLL
                                 cmd.Parameters.AddWithValue("@end_date", row["Ngày Kết Thúc"]);
                                 cmd.Parameters.AddWithValue("@capacity", row["Sức Chứa"]);
                                 cmd.Parameters.AddWithValue("@grade", row["Khối"]);
-                                cmd.Parameters.AddWithValue("@fee", row["Học Phí"]); // Lấy từ DataTable
+                                cmd.Parameters.AddWithValue("@fee", row["Học Phí"]);
 
                                 cmd.ExecuteNonQuery();
                             }

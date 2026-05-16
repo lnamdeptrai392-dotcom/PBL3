@@ -115,7 +115,6 @@ namespace PBL3.UI.AdminC.Windows
         {
             try
             {
-                // Ép kiểu chuỗi dd/MM/yyyy về DateTime chuẩn để gửi xuống SQL
                 DateTime date = DateTime.ParseExact(dateStr, "dd/MM/yyyy", null);
                 DataTable dtAttendance = adminC_Service.getAttendanceInfo(classID, date);
 
@@ -144,12 +143,10 @@ namespace PBL3.UI.AdminC.Windows
                 string dateStr = cbbDate.SelectedItem.ToString();
                 DateTime attendanceDate = DateTime.ParseExact(dateStr, "dd/MM/yyyy", null);
 
-                // Lấy DataTable đằng sau DataGrid
                 if (dgvAttendance.ItemsSource is DataView dv)
                 {
                     DataTable dtToSave = dv.Table;
 
-                    // Gọi hàm lưu điểm danh (Thêm mới/Cập nhật) từ tầng BLL
                     bool isSuccess = adminC_Service.SaveAttendance(classID, attendanceDate, dtToSave);
 
                     if (isSuccess)

@@ -113,7 +113,7 @@ namespace PBL3a.UI.AdminC.Windows
                     );
 
                     MessageBox.Show("Đã từ chối đơn!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
-                    LoadData(); // Load lại bảng
+                    LoadData();
                 }
                 catch (Exception ex)
                 {
