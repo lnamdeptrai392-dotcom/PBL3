@@ -16,7 +16,6 @@ namespace PBL3a.UI.AdminC.Windows
         {
             InitializeComponent();
 
-            // ✅ FIX TRIỆT ĐỂ ItemsSource
             cbbRole.ItemsSource = new string[]
             {
                 "Học sinh",

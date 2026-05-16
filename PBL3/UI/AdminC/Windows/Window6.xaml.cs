@@ -1,26 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using PBL3a.services.BLL;
+using System;
+using System.Data;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace PBL3.UI.AdminC.Windows
 {
-    /// <summary>
-    /// Interaction logic for Window6.xaml
-    /// </summary>
     public partial class HoSoGiaoVien : UserControl
     {
-        // Giả sử có: private Teacher_Service _teacherService = new Teacher_Service();
+        private Teacher_Service _teacherService = new Teacher_Service();
 
         public HoSoGiaoVien()
         {
@@ -32,8 +21,9 @@ namespace PBL3.UI.AdminC.Windows
         {
             try
             {
-                // Truyền searchKeyword (tên hoặc chuyên môn) xuống DTO
-                // dgGiaoVien.ItemsSource = _teacherService.GetListGiaoVien(searchKeyword);
+                DataView dv = _teacherService.GetListGiaoVien(searchKeyword).DefaultView;
+                dgvGiaoVien.ItemsSource = dv;
+                FilterBySubject();
             }
             catch (Exception ex)
             {
@@ -41,34 +31,63 @@ namespace PBL3.UI.AdminC.Windows
             }
         }
 
-        private void DgGiaoVien_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void cbbChuyenMon_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (dgGiaoVien.SelectedItem != null)
-            {
-                dynamic row = dgGiaoVien.SelectedItem;
+            FilterBySubject();
+        }
 
-                txtMaGV.Text = row.MaGV;
-                txtHoTen.Text = row.HoTen;
-                dpNgaySinh.SelectedDate = row.NgaySinh;
-                cmbGioiTinh.Text = row.GioiTinh;
-                txtSDT.Text = row.SDT;
-                txtEmail.Text = row.Email;
-                cmbChuyenMon.Text = row.ChuyenMon;
-                cmbTinhTrang.Text = row.TinhTrang;
+        private void FilterBySubject()
+        {
+            if (dgvGiaoVien != null && dgvGiaoVien.ItemsSource is DataView dv)
+            {
+                if (cbbChuyenMon.SelectedItem is ComboBoxItem selectedItem)
+                {
+                    string subject = selectedItem.Content.ToString();
+
+                    if (subject == "Tất cả")
+                    {
+                        dv.RowFilter = "";
+                    }
+                    else
+                    {
+                        dv.RowFilter = $"ChuyenMon = '{subject}'";
+                    }
+                }
+            }
+        }
+
+        private void dgvGiaoVien_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (dgvGiaoVien.SelectedItem is DataRowView row)
+            {
+                txtMaGV.Text = row["MaGV"].ToString();
+                txtHoTen.Text = row["HoTen"].ToString();
+                txtSDT.Text = row["SDT"].ToString();
+
+                if (DateTime.TryParse(row["NgaySinh"].ToString(), out DateTime ngaySinh))
+                    dpNgaySinh.SelectedDate = ngaySinh;
+                else
+                    dpNgaySinh.SelectedDate = null;
+
+                string gioiTinh = row["GioiTinh"].ToString().Trim();
+                foreach (ComboBoxItem item in cmbGioiTinh.Items)
+                {
+                    if (item.Content.ToString().Equals(gioiTinh, StringComparison.OrdinalIgnoreCase))
+                    {
+                        cmbGioiTinh.SelectedItem = item;
+                        break;
+                    }
+                }
+
+                txtChuyenMon.Text = row["ChuyenMon"].ToString().Trim();
             }
         }
 
         private bool ValidateForm()
         {
-            if (string.IsNullOrWhiteSpace(txtMaGV.Text) || string.IsNullOrWhiteSpace(txtHoTen.Text) || string.IsNullOrWhiteSpace(cmbChuyenMon.Text))
+            if (string.IsNullOrWhiteSpace(txtMaGV.Text) || string.IsNullOrWhiteSpace(txtHoTen.Text) || string.IsNullOrWhiteSpace(txtChuyenMon.Text))
             {
                 MessageBox.Show("Vui lòng nhập Mã giáo viên, Họ tên và Chuyên môn!", "Cảnh báo", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return false;
-            }
-
-            if (!string.IsNullOrWhiteSpace(txtEmail.Text) && !Regex.IsMatch(txtEmail.Text, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
-            {
-                MessageBox.Show("Định dạng Email không hợp lệ!", "Cảnh báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }
 
@@ -91,21 +110,14 @@ namespace PBL3.UI.AdminC.Windows
             txtMaGV.Clear();
             txtHoTen.Clear();
             txtSDT.Clear();
-            txtEmail.Clear();
             dpNgaySinh.SelectedDate = null;
-            cmbGioiTinh.SelectedIndex = -1;
-            cmbChuyenMon.SelectedIndex = -1;
-            cmbTinhTrang.SelectedIndex = -1;
+            cmbGioiTinh.SelectedItem = null;
+            txtChuyenMon.Clear();
             txtSearch.Clear();
-            LoadData();
-        }
 
-        private void BtnAdd_Click(object sender, RoutedEventArgs e)
-        {
-            if (!ValidateForm()) return;
-            // Thực hiện Add thông qua service
-            MessageBox.Show("Thêm giáo viên thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
-            LoadData(); // Cập nhật lại grid
+            cbbChuyenMon.SelectedIndex = 0;
+
+            LoadData();
         }
 
         private void BtnEdit_Click(object sender, RoutedEventArgs e)
@@ -115,27 +127,23 @@ namespace PBL3.UI.AdminC.Windows
             MessageBoxResult res = MessageBox.Show("Cập nhật lại thông tin giáo viên này?", "Xác nhận", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (res == MessageBoxResult.Yes)
             {
-                // Thực hiện Update thông qua service
-                MessageBox.Show("Cập nhật thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
-                LoadData();
+                string gt = cmbGioiTinh.SelectedItem != null ? ((ComboBoxItem)cmbGioiTinh.SelectedItem).Content.ToString() : "Male";
+                string chuyenMon = txtChuyenMon.Text.Trim();
+
+                bool success = _teacherService.UpdateGiaoVien(txtMaGV.Text.Trim(), txtHoTen.Text.Trim(), dpNgaySinh.SelectedDate, gt, txtSDT.Text.Trim(), chuyenMon, "Hoạt động");
+
+                if (success)
+                {
+                    MessageBox.Show("Cập nhật thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                    LoadData();
+                }
+                else
+                {
+                    MessageBox.Show("Cập nhật thất bại!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
 
-        private void BtnDelete_Click(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txtMaGV.Text))
-            {
-                MessageBox.Show("Hãy chọn một giáo viên bên cạnh để xóa!", "Cảnh báo", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-
-            MessageBoxResult res = MessageBox.Show("Hành động xóa sẽ không khôi phục được. Xác nhận xóa?", "Cảnh báo", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-            if (res == MessageBoxResult.Yes)
-            {
-                // Thực hiện Delete thông qua service
-                MessageBox.Show("Xóa giáo viên thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
-                BtnRefresh_Click(null, null);
-            }
-        }
+       
     }
 }

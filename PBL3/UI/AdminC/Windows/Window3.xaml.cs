@@ -20,7 +20,9 @@ namespace PBL3.UI.AdminC.Windows
         {
             try
             {
+                DataView dv = _studentService.GetListHocSinh(searchKeyword).DefaultView;
                 dgvHocSinh.ItemsSource = _studentService.GetListHocSinh(searchKeyword).DefaultView;
+                FilterByYear();
             }
             catch (Exception ex)
             {
@@ -40,6 +42,25 @@ namespace PBL3.UI.AdminC.Windows
             }
         }
 
+        private void FilterByYear()
+        {
+            if (dgvHocSinh != null && dgvHocSinh.ItemsSource is DataView dv)
+            {
+                if (cbbChooseClass.SelectedItem is ComboBoxItem selectedItem)
+                {
+                    string year = selectedItem.Content.ToString();
+                    if (year == "Tất cả")
+                    {
+                        dv.RowFilter = "";
+                    }
+                    else
+                    {
+                        dv.RowFilter = $"NgaySinh >= '{year}-01-01' AND NgaySinh <= '{year}-12-31'";
+                    }
+                }
+            }
+        }
+
         private void dgvHocSinh_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (dgvHocSinh.SelectedItem is DataRowView row)
@@ -47,7 +68,6 @@ namespace PBL3.UI.AdminC.Windows
                 txtMaHS.Text = row["MaHS"].ToString();
                 txtHoTen.Text = row["HoTen"].ToString();
 
-                // Binding Ngày Sinh
                 if (DateTime.TryParse(row["NgaySinh"].ToString(), out DateTime ngaySinh))
                 {
                     dpNgaySinh.SelectedDate = ngaySinh;
@@ -57,7 +77,6 @@ namespace PBL3.UI.AdminC.Windows
                     dpNgaySinh.SelectedDate = null;
                 }
 
-                // Lấy giá trị giới tính từ cột "GioiTinh" và xóa khoảng trắng thừa
                 string gioiTinh = row["GioiTinh"].ToString().Trim();
 
                 if (gioiTinh == "Male")
@@ -82,6 +101,11 @@ namespace PBL3.UI.AdminC.Windows
             }
         }
 
+        private void cbbChooseClass_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            FilterByYear();
+        }
+
         private void BtnSearch_Click(object sender, RoutedEventArgs e)
         {
             LoadData(txtSearch.Text.Trim());
@@ -89,15 +113,13 @@ namespace PBL3.UI.AdminC.Windows
 
         private void BtnRefresh_Click(object sender, RoutedEventArgs e)
         {
-            // Làm sạch các ô text
             txtMaHS.Clear();
             txtHoTen.Clear();
             dpNgaySinh.SelectedDate = null;
             cmbGioiTinh.SelectedItem = null;
             txtSDT.Clear();
             txtSearch.Clear();
-
-            // Xóa dữ liệu cũ trên DataGrid Lịch sử
+            cbbChooseClass.SelectedIndex = 0;
             dgvLichSuHocTap.ItemsSource = null;
 
             LoadData();
@@ -119,12 +141,11 @@ namespace PBL3.UI.AdminC.Windows
                 string gioiTinh = (cmbGioiTinh.SelectedItem as ComboBoxItem)?.Content?.ToString() ?? "";
                 string sdt = txtSDT.Text.Trim();
 
-                // Gọi thẳng hàm EditHocSinh của bạn với 5 tham số
                 bool result = _studentService.EditHocSinh(maHS, hoTen, ngaySinh, gioiTinh, sdt);
                 if (result)
                 {
                     MessageBox.Show("Cập nhật thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
-                    BtnRefresh_Click(null, null); // Refresh lại form
+                    BtnRefresh_Click(null, null);
                 }
                 else
                 {

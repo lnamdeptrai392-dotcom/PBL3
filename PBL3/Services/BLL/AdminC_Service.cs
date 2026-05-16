@@ -60,42 +60,149 @@ namespace PBL3a.services.BLL
             return dt;
         }
 
-        public DataTable getAttendanceInfo(string classID, string date)
+        // ====================================================================================
+        // CÁC HÀM QUẢN LÝ ĐIỂM DANH (Chuyển từ DiemDanh.xaml.cs cũ sang)
+        // ====================================================================================
+
+        // 1. Lấy danh sách lớp học có lịch học vào một Thứ cụ thể trong tuần
+        public DataTable GetClassesByDayOfWeek(int dayOfWeek)
+        {
+            string query = @"
+        SELECT DISTINCT c.classID, c.class_name 
+        FROM Class c
+        JOIN ClassSchedule cs ON c.classID = cs.classID
+        WHERE cs.dayOfWeek = @dayOfWeek AND c.status = N'Đang mở'";
+
+            DataTable dt = new DataTable();
+            using (SqlConnection conn = dbHelper.GetConnection())
+            {
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@dayOfWeek", dayOfWeek);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(dt);
+            }
+            return dt;
+        }
+
+        // 2. Lấy danh sách học sinh để điểm danh (Cập nhật để khớp với UI DataGrid mới)
+        public DataTable getAttendanceInfo(string classID, DateTime date)
         {
             DataTable dt = new DataTable();
             string query = @"
         SELECT 
             s.Id AS StudentID, 
             s.name AS StudentName, 
-            ISNULL(a.Status, N'Chưa điểm danh') AS TrangThai, 
+            ISNULL(a.Status, N'Có mặt') AS TrangThai, 
             ISNULL(a.Note, '') AS Note
         FROM accountList s
         INNER JOIN JoinClass jc ON s.Id = jc.AccountID
         LEFT JOIN Attendance a ON s.Id = a.AccountID 
             AND a.ClassID = jc.classID 
             AND a.AttendanceDate = @date
-        WHERE jc.classID = @classID";
+        WHERE jc.classID = @classID AND s.Role = 'Student'";
 
             try
             {
                 using (SqlConnection conn = dbHelper.GetConnection())
                 {
                     SqlCommand cmd = new SqlCommand(query, conn);
-                    // Chuyển đổi chuỗi ngày từ ComboBox (dd/MM/yyyy) sang định dạng SQL (yyyy-MM-dd)
-                    DateTime selectedDate = DateTime.ParseExact(date, "dd/MM/yyyy", null);
-
                     cmd.Parameters.AddWithValue("@classID", classID);
-                    cmd.Parameters.AddWithValue("@date", selectedDate);
+                    cmd.Parameters.AddWithValue("@date", date); // Truyền trực tiếp DateTime, an toàn hơn parse chuỗi
 
                     SqlDataAdapter da = new SqlDataAdapter(cmd);
                     da.Fill(dt);
-                    dt.Columns["TrangThai"].ReadOnly = false;
+
+                    // Cấp quyền sửa đổi các cột này trên DataGrid
+                    if (dt.Columns.Contains("TrangThai")) dt.Columns["TrangThai"].ReadOnly = false;
                     if (dt.Columns.Contains("Note")) dt.Columns["Note"].ReadOnly = false;
                 }
             }
-            catch (Exception ex) { MessageBox.Show("Lỗi load danh sách: " + ex.Message); }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi load danh sách điểm danh: " + ex.Message);
+            }
 
             return dt;
+        }
+
+        // 3. Lưu điểm danh (Hỗ trợ cả Thêm mới và Cập nhật bằng Transaction)
+        public bool SaveAttendance(string classID, DateTime attendanceDate, DataTable dtAttendance)
+        {
+            using (SqlConnection conn = dbHelper.GetConnection())
+            {
+                conn.Open();
+                using (SqlTransaction trans = conn.BeginTransaction())
+                {
+                    try
+                    {
+                        foreach (DataRow row in dtAttendance.Rows)
+                        {
+                            string studentID = row["StudentID"].ToString();
+                            string status = row["TrangThai"]?.ToString() ?? "Có mặt";
+                            string note = row["Note"]?.ToString() ?? "";
+
+                            // Kiểm tra xem học sinh này đã được điểm danh trong ngày hôm đó chưa
+                            string checkQuery = @"
+                        SELECT COUNT(*) 
+                        FROM Attendance 
+                        WHERE AccountID = @acc AND ClassID = @class AND AttendanceDate = @date";
+
+                            using (SqlCommand checkCmd = new SqlCommand(checkQuery, conn, trans))
+                            {
+                                checkCmd.Parameters.AddWithValue("@acc", studentID);
+                                checkCmd.Parameters.AddWithValue("@class", classID);
+                                checkCmd.Parameters.AddWithValue("@date", attendanceDate);
+
+                                int count = (int)checkCmd.ExecuteScalar();
+
+                                if (count > 0)
+                                {
+                                    // Đã tồn tại -> CẬP NHẬT
+                                    string updateQuery = @"
+                                UPDATE Attendance 
+                                SET Status = @status, Note = @note
+                                WHERE AccountID = @acc AND ClassID = @class AND AttendanceDate = @date";
+
+                                    using (SqlCommand updateCmd = new SqlCommand(updateQuery, conn, trans))
+                                    {
+                                        updateCmd.Parameters.AddWithValue("@status", status);
+                                        updateCmd.Parameters.AddWithValue("@note", note);
+                                        updateCmd.Parameters.AddWithValue("@acc", studentID);
+                                        updateCmd.Parameters.AddWithValue("@class", classID);
+                                        updateCmd.Parameters.AddWithValue("@date", attendanceDate);
+                                        updateCmd.ExecuteNonQuery();
+                                    }
+                                }
+                                else
+                                {
+                                    // Chưa tồn tại -> THÊM MỚI
+                                    string insertQuery = @"
+                                INSERT INTO Attendance (AccountID, ClassID, AttendanceDate, Status, Note)
+                                VALUES (@acc, @class, @date, @status, @note)";
+
+                                    using (SqlCommand insertCmd = new SqlCommand(insertQuery, conn, trans))
+                                    {
+                                        insertCmd.Parameters.AddWithValue("@acc", studentID);
+                                        insertCmd.Parameters.AddWithValue("@class", classID);
+                                        insertCmd.Parameters.AddWithValue("@date", attendanceDate);
+                                        insertCmd.Parameters.AddWithValue("@status", status);
+                                        insertCmd.Parameters.AddWithValue("@note", note);
+                                        insertCmd.ExecuteNonQuery();
+                                    }
+                                }
+                            }
+                        }
+                        trans.Commit(); // Lưu toàn bộ vào DB
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        trans.Rollback(); // Nếu có lỗi ở 1 học sinh nào đó, hoàn tác toàn bộ
+                        MessageBox.Show("Lỗi lưu điểm danh: " + ex.Message);
+                        return false;
+                    }
+                }
+            }
         }
 
         public DataTable GetActiveClassNow()
@@ -141,7 +248,7 @@ namespace PBL3a.services.BLL
             return dt.Rows.Count > 0 ? dt.Rows[0] : null;
         }
 
-        // 3. Tải thông tin lớp học
+        // Tải thông tin lớp học
         public DataTable GetClassInfo(string classId)
         {
             string query = @"
@@ -166,7 +273,7 @@ namespace PBL3a.services.BLL
             return dt;
         }
 
-        // 4. Xử lý duyệt đơn
+        // Xử lý duyệt đơn
         public void ApproveRegistration(string accountId, string classId)
         {
             using (SqlConnection conn = dbHelper.GetConnection())
@@ -212,7 +319,7 @@ namespace PBL3a.services.BLL
             }
         }
 
-        // 5. Lấy dữ liệu đơn đăng ký đã được LỌC
+        // Lấy dữ liệu đơn đăng ký đã được LỌC
         public DataTable FilterRegistrations(string monHoc, string khoi, string classId)
         {
             string query = @"
@@ -271,7 +378,7 @@ namespace PBL3a.services.BLL
             return dt;
         }
 
-        // 6. Xử lý từ chối đơn
+        // Xử lý từ chối đơn
         public void RejectRegistration(string accountId, string classId)
         {
             string updateQuery = "UPDATE Registration SET Status = N'Từ chối' WHERE AccountID = @accountID AND ClassID = @classID";
@@ -287,7 +394,7 @@ namespace PBL3a.services.BLL
             }
         }
 
-        // 7. Lấy danh sách Khối và Lớp đang có học sinh xin vào
+        // Lấy danh sách Khối và Lớp đang có học sinh xin vào
         public DataTable GetActiveClasses()
         {
             DataTable dtClasses = new DataTable();
@@ -317,7 +424,7 @@ namespace PBL3a.services.BLL
             return dt;
         }
 
-        // 8. Lấy danh sách Khối đang có trong Class
+        // Lấy danh sách Khối đang có trong Class
         public DataTable GetBlocksBySubject(string subject)
         {
             DataTable dt = new DataTable();
@@ -347,7 +454,7 @@ namespace PBL3a.services.BLL
             return dt;
         }
 
-        // 9. Lọc danh sách Lớp
+        // Lọc danh sách Lớp
         public DataTable GetClassesByFilter(string subject, string khoi, string status)
         {
             DataTable dt = new DataTable();
@@ -396,7 +503,7 @@ namespace PBL3a.services.BLL
             return dt;
         }
 
-        // 10. Lấy thông tin GVCN của một lớp
+        // Lấy thông tin GVCN của một lớp
         public DataTable GetTeacherByClass(string classId)
         {
             DataTable dt = new DataTable();
@@ -420,7 +527,7 @@ namespace PBL3a.services.BLL
             return dt;
         }
 
-        // 11. Lấy danh sách Học sinh của một lớp
+        // Lấy danh sách Học sinh của một lớp
         public DataTable GetStudentsByClass(string classId)
         {
             DataTable dt = new DataTable();
@@ -445,7 +552,7 @@ namespace PBL3a.services.BLL
             return dt;
         }
 
-        // 12. Lấy thông tin học sinh
+        // Lấy thông tin học sinh
         public DataTable GetStudentClassHistory(string accountId)
         {
             string query = @"
@@ -472,7 +579,7 @@ namespace PBL3a.services.BLL
             }
         }
 
-        // 13. Search TT
+        // Search TT
         public DataTable SearchClasses(string searchType, string keyword)
         {
             DataTable dt = new DataTable();
@@ -596,22 +703,18 @@ namespace PBL3a.services.BLL
             return "SUB";
         }
 
-        // 2. Sửa lại logic sinh Mã Lớp (MAT10.01) và Tên Lớp (Toán 10 - Nhóm 01)
         public void GenerateClassIdentifiers(string subject, string khoi, DateTime startDate, out string courseId, out string classId, out string className)
         {
             string subjectCode = GetSubjectCode(subject);
             string gradeNumber = khoi.Replace("Khối ", "").Trim();
 
-            // courseID theo format trong DB của bạn (ví dụ: MAT, LIT, ENG)
             courseId = subjectCode;
 
-            // Tiền tố để tìm lớp tiếp theo (ví dụ: MAT10.)
             string prefix = $"{subjectCode}{gradeNumber}.";
 
             using (SqlConnection conn = dbHelper.GetConnection())
             {
                 conn.Open();
-                // Đếm xem đã có bao nhiêu lớp thuộc môn này, khối này
                 string query = "SELECT COUNT(*) FROM Class WHERE classID LIKE @prefix + '%'";
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@prefix", prefix);
@@ -635,7 +738,6 @@ namespace PBL3a.services.BLL
                 {
                     try
                     {
-                        // Thêm fee_default và grade vào câu lệnh SQL
                         string insertClass = @"INSERT INTO Class (classID, class_name, courseID, teacherID, start_date, end_date, capacity, grade, fee_default) 
                                        VALUES (@classID, @class_name, @courseID, @teacherID, @start_date, @end_date, @capacity, @grade, @fee)";
 
@@ -667,11 +769,10 @@ namespace PBL3a.services.BLL
             }
         }
 
-        // 14. Lấy danh sách học sinh theo độ tuổi trong cbb
+        // Lấy danh sách học sinh theo độ tuổi trong cbb
         public DataTable GetStudentBirthYears()
         {
             DataTable dt = new DataTable();
-            // Lấy ra các năm sinh không trùng lặp, sắp xếp giảm dần (ví dụ: 2013, 2012, 2009...)
             string query = @"
                 SELECT DISTINCT YEAR(dateOfBirth) AS namSinh
                 FROM accountList 
@@ -717,7 +818,7 @@ namespace PBL3a.services.BLL
             return dt;
         }
 
-        // 15. Thêm trực tiếp một học sinh vào lớp (Không qua form đăng ký)
+        // Thêm trực tiếp một học sinh vào lớp (Không qua form đăng ký)
         public void AddStudentToClass(string studentId, string classId)
         {
             string query = "INSERT INTO JoinClass (AccountID, classID) VALUES (@accountId, @classId)";
@@ -736,7 +837,6 @@ namespace PBL3a.services.BLL
                 }
                 catch (SqlException sqlEx)
                 {
-                    // Mã lỗi 2627 là vi phạm khóa chính/khóa phụ (Đã tồn tại dữ liệu)
                     if (sqlEx.Number == 2627)
                     {
                         throw new Exception($"Học sinh {studentId} đã tồn tại trong lớp {classId}!");

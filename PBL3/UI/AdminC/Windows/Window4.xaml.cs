@@ -57,7 +57,6 @@ namespace PBL3a.UI.AdminC.Windows
                 return;
             }
 
-            // cbbMH và cbbTTL đang bind từ mảng string[] nên dùng SelectedItem.ToString() vẫn đúng
             string mon = GetKeyword(cbbMH.SelectedItem.ToString());
             string ttl = cbbTTL.SelectedItem.ToString();
             string khoi = cbbKhoi.SelectedValue.ToString();
@@ -113,16 +112,13 @@ namespace PBL3a.UI.AdminC.Windows
             {
                 if (dgvData.SelectedItem is DataRowView selectedClass)
                 {
-                    // 1. Lưu Mã Lớp vào biến toàn cục TRƯỚC KHI thay đổi ItemsSource
                     _currentAddingClassId = selectedClass["Mã Lớp"]?.ToString();
 
-                    // 2. Thu nhỏ giao diện dgvData (Giữ nguyên code của bạn)
                     _originalDgvDataSource = dgvData.ItemsSource;
                     DataTable dtSingleClass = selectedClass.DataView.Table.Clone();
                     dtSingleClass.ImportRow(selectedClass.Row);
                     dgvData.ItemsSource = dtSingleClass.DefaultView;
 
-                    // 3. Hiển thị Panel và gán dữ liệu cho ComboBox Năm Sinh
                     pnlAvailableStudents.Visibility = Visibility.Visible;
                     rowDgvData.Height = new GridLength(1, GridUnitType.Star);
                     rowDgvAvailableStudents.Height = new GridLength(2, GridUnitType.Star);
@@ -135,7 +131,6 @@ namespace PBL3a.UI.AdminC.Windows
                     }
                     cbbNamSinh.ItemsSource = yearList;
 
-                    // 4. Kích hoạt chọn năm đầu tiên
                     if (cbbNamSinh.Items.Count > 0) cbbNamSinh.SelectedIndex = 0;
                 }
             }
@@ -159,7 +154,6 @@ namespace PBL3a.UI.AdminC.Windows
 
                 if (!string.IsNullOrEmpty(_currentAddingClassId))
                 {
-                    // Lặp qua các học sinh được chọn
                     foreach (var item in dgvAvailableStudents.SelectedItems)
                     {
                         if (item is DataRowView studentRow)
@@ -171,10 +165,8 @@ namespace PBL3a.UI.AdminC.Windows
 
                     MessageBox.Show("Đã thêm học sinh thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                    // Load lại danh sách học sinh của lớp này
                     dgvHS.ItemsSource = adminService.GetStudentsByClass(_currentAddingClassId).DefaultView;
 
-                    // Trả lại giao diện
                     RestoreUI();
                 }
             }
@@ -186,10 +178,8 @@ namespace PBL3a.UI.AdminC.Windows
 
         private void RestoreUI()
         {
-            // Reset biến
             _currentAddingClassId = "";
 
-            // Trả lại danh sách
             dgvData.ItemsSource = _originalDgvDataSource as System.Collections.IEnumerable;
 
             pnlAvailableStudents.Visibility = Visibility.Collapsed;
@@ -215,7 +205,6 @@ namespace PBL3a.UI.AdminC.Windows
             cbbKhoi.DisplayMemberPath = "Khoi";
             cbbKhoi.SelectedValuePath = "Khoi";
 
-            // Tự động chọn giá trị đầu tiên để tránh Combobox bị trống
             if (cbbKhoi.Items.Count > 0)
             {
                 cbbKhoi.SelectedIndex = 0;
@@ -250,10 +239,7 @@ namespace PBL3a.UI.AdminC.Windows
                 {
                     DataTable dtHS = adminService.GetAvailableStudentsForClassByYear(_currentAddingClassId, namSinh);
 
-                    // Gán dữ liệu vào DataGrid hiển thị danh sách học sinh để chọn
                     dgvAvailableStudents.ItemsSource = dtHS.DefaultView;
-
-                    // MessageBox.Show($"Tìm thấy {dtHS.Rows.Count} học sinh năm {namSinh}");
                 }
             }
         }

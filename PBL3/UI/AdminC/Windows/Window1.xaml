@@ -116,8 +116,8 @@
             <!-- MAIN CONTENT -->
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2.1*"/>
-                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="533*"/>
+                    <ColumnDefinition Width="238*"/>
                 </Grid.ColumnDefinitions>
 
                 <!-- LEFT -->
@@ -126,7 +126,7 @@
                         Padding="14"
                         BorderBrush="#D6E6F2"
                         BorderThickness="1"
-                        Margin="0 0 12 0">
+                        Margin="0,0,12,0">
 
                     <Grid>
                         <Grid.RowDefinitions>
@@ -180,7 +180,7 @@
                         Padding="14"
                         BorderBrush="#D6E6F2"
                         BorderThickness="1"
-                        Margin="12 0 0 0">
+                        Margin="12,0,0,0">
 
                     <StackPanel>
 

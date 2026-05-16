@@ -9,23 +9,19 @@ namespace PBL3a.services.BLL
     {
         private DatabaseHelper dbHelper = new DatabaseHelper();
 
-        // 1. Tải danh sách học sinh (Từ accountList kết hợp với JoinClass và Class)
+        // 1. Tải danh sách học sinh
         public DataTable GetListHocSinh(string keyword = "")
         {
             string query = @"
-                SELECT 
-                    a.Id AS MaHS, 
-                    a.name AS HoTen, 
-                    a.dateOfBirth AS NgaySinh, 
-                    a.sex AS GioiTinh, 
-                    a.phone AS SDTPhuHuynh,
-                    c.classID AS MaLop,
-                    c.class_name AS Lop
-                FROM accountList a
-                LEFT JOIN JoinClass jc ON a.Id = jc.AccountID
-                LEFT JOIN Class c ON jc.classID = c.classID
-                WHERE a.Role = 'Student' 
-                  AND (a.Id LIKE @key OR a.name LIKE @key)";
+        SELECT 
+            Id AS MaHS, 
+            name AS HoTen, 
+            dateOfBirth AS NgaySinh, 
+            sex AS GioiTinh, 
+            phone AS SDTPhuHuynh
+        FROM accountList
+        WHERE Role = 'Student' 
+          AND (Id LIKE @key OR name LIKE @key)";
 
             DataTable dt = new DataTable();
             using (SqlConnection conn = dbHelper.GetConnection())
@@ -51,7 +47,7 @@ namespace PBL3a.services.BLL
             return dt;
         }
 
-        // 3. Thêm mới học sinh (Thêm vào accountList và JoinClass)
+        // 3. Thêm mới học sinh
         public bool AddHocSinh(string ma, string ten, DateTime? ns, string gt, string sdt, string maLop)
         {
             using (SqlConnection conn = dbHelper.GetConnection())
@@ -61,7 +57,6 @@ namespace PBL3a.services.BLL
                 {
                     try
                     {
-                        // Insert vào bảng accountList
                         string queryAcc = @"
                             INSERT INTO accountList (Id, name, dateOfBirth, sex, phone, Role, password, status) 
                             VALUES (@ma, @ten, @ns, @gt, @sdt, 'Student', '123456', N'Hoạt động')";
@@ -76,7 +71,6 @@ namespace PBL3a.services.BLL
                             cmdAcc.ExecuteNonQuery();
                         }
 
-                        // Insert vào bảng JoinClass (để biết HS này học lớp nào)
                         if (!string.IsNullOrEmpty(maLop))
                         {
                             string queryJoin = "INSERT INTO JoinClass (AccountID, classID) VALUES (@ma, @maLop)";
@@ -110,7 +104,6 @@ namespace PBL3a.services.BLL
                 {
                     try
                     {
-                        // Chỉ cập nhật thông tin cá nhân trong accountList
                         string queryAcc = "UPDATE accountList SET name=@ten, dateOfBirth=@ns, sex=@gt, phone=@sdt WHERE Id=@ma AND Role='Student'";
                         using (SqlCommand cmdAcc = new SqlCommand(queryAcc, conn, trans))
                         {

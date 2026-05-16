@@ -1,27 +1,25 @@
 ﻿using PBL3a.services;
 using PBL3a.services.BLL;
-using PBL3a.UI.AdminDD;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace PBL3.UI.AdminC.Windows
 {
-    
     public partial class Attendance : UserControl
     {
-        
         public AdminC_Service adminC_Service = new AdminC_Service();
         private DataTable dtActive;
+
         public Attendance()
         {
             InitializeComponent();
             Loaded += Attendance_Load;
         }
-        private void Attendance_Load(object sender, EventArgs e)
+
+        private void Attendance_Load(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -33,99 +31,137 @@ namespace PBL3.UI.AdminC.Windows
                     cbbClass.SelectedValuePath = "classID";
                 }
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi tải dữ liệu lớp học: " + ex.Message, "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void cbbClass_SelectionChanged(object sender, SelectionChangedEventArgs e)
-{
-    if (cbbClass.SelectedValue == null) return;
-
-    try
-    {
-        string classID = cbbClass.SelectedValue.ToString();
-
-        if (cbbClass.SelectedItem is DataRowView selectedRow)
         {
-            // --- PHẦN 1: TÍNH TOÁN DANH SÁCH NGÀY HỌC ---
-            int targetDayOfWeek = Convert.ToInt32(selectedRow["dayOfWeek"]);
-            DayOfWeek csharpDay = (targetDayOfWeek == 7) ? DayOfWeek.Sunday : (DayOfWeek)targetDayOfWeek;
+            if (cbbClass.SelectedValue == null) return;
 
-            DataRow duration = adminC_Service.GetClassDuration(classID);
-            if (duration != null)
+            try
             {
-                DateTime start = Convert.ToDateTime(duration["startDate"]);
-                DateTime end = Convert.ToDateTime(duration["endDate"]);
-                List<string> validDates = new List<string>();
+                string classID = cbbClass.SelectedValue.ToString();
 
-                for (DateTime date = start; date <= end; date = date.AddDays(1))
+                if (cbbClass.SelectedItem is DataRowView selectedRow)
                 {
-                    if (date.DayOfWeek == csharpDay)
+                    // TÍNH TOÁN DANH SÁCH NGÀY HỌC
+                    int targetDayOfWeek = Convert.ToInt32(selectedRow["dayOfWeek"]);
+                    DayOfWeek csharpDay = (targetDayOfWeek == 7) ? DayOfWeek.Sunday : (DayOfWeek)targetDayOfWeek;
+
+                    DataRow duration = adminC_Service.GetClassDuration(classID);
+                    if (duration != null)
                     {
-                        validDates.Add(date.ToString("dd/MM/yyyy"));
+                        DateTime start = Convert.ToDateTime(duration["startDate"]);
+                        DateTime end = Convert.ToDateTime(duration["endDate"]);
+                        List<string> validDates = new List<string>();
+
+                        for (DateTime date = start; date <= end; date = date.AddDays(1))
+                        {
+                            if (date.DayOfWeek == csharpDay)
+                            {
+                                validDates.Add(date.ToString("dd/MM/yyyy"));
+                            }
+                        }
+
+                        cbbDate.ItemsSource = validDates;
+
+                        string todayStr = DateTime.Now.ToString("dd/MM/yyyy");
+                        if (validDates.Contains(todayStr))
+                            cbbDate.SelectedItem = todayStr;
+                        else if (validDates.Count > 0)
+                            cbbDate.SelectedIndex = 0;
                     }
+
+                    txtDayOfWeek.Text = selectedRow["NgayHoc"]?.ToString();
+                    txtStartTime.Text = selectedRow["GioBatDau"]?.ToString();
+                    txtEndTime.Text = selectedRow["GioKetThuc"]?.ToString();
                 }
 
-                // Gán nguồn dữ liệu cho ComboBox Ngày
-                cbbDate.ItemsSource = validDates;
+                // PHẦN 2: LOAD THÔNG TIN GIÁO VIÊN
+                DataTable dtInfo = adminC_Service.GetClassInfo(classID);
+                if (dtInfo != null && dtInfo.Rows.Count > 0)
+                {
+                    txtTeacher.Text = dtInfo.Rows[0]["GV Chủ Nhiệm"].ToString();
+                    txtStatus.Text = "Đang mở";
+                }
 
-                // Chọn ngày: Ưu tiên ngày hôm nay, nếu không thì chọn ngày đầu tiên
-                string todayStr = DateTime.Now.ToString("dd/MM/yyyy");
-                if (validDates.Contains(todayStr))
-                    cbbDate.SelectedItem = todayStr;
-                else if (validDates.Count > 0)
-                    cbbDate.SelectedIndex = 0;
+                // PHẦN 3: LOAD DANH SÁCH HỌC SINH
+                if (cbbDate.SelectedItem != null)
+                {
+                    string selectedDateStr = cbbDate.SelectedItem.ToString();
+                    LoadDataGridAttendance(classID, selectedDateStr);
+                }
             }
-
-            // Hiển thị thông tin thời gian lên TextBox
-            txtDayOfWeek.Text = selectedRow["NgayHoc"]?.ToString();
-            txtStartTime.Text = selectedRow["GioBatDau"]?.ToString();
-            txtEndTime.Text = selectedRow["GioKetThuc"]?.ToString();
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi tải dữ liệu: " + ex.Message, "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
-        // --- PHẦN 2: LOAD THÔNG TIN GIÁO VIÊN ---
-        DataTable dtInfo = adminC_Service.GetClassInfo(classID);
-        if (dtInfo != null && dtInfo.Rows.Count > 0)
-        {
-            txtTeacher.Text = dtInfo.Rows[0]["GV Chủ Nhiệm"].ToString();
-            txtStatus.Text = "Đang mở"; 
-        }
-
-        // --- PHẦN 3: LOAD DANH SÁCH HỌC SINH ---
-        // Lấy ngày đang được chọn từ cbbDate để load điểm danh
-        if (cbbDate.SelectedItem != null)
-        {
-            string selectedDate = cbbDate.SelectedItem.ToString();
-            LoadDataGridAttendance(classID, selectedDate);
-        }
-    }
-    catch (Exception ex)
-    {
-        MessageBox.Show("Lỗi khi tải dữ liệu: " + ex.Message);
-    }
-}
         private void cbbDate_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (cbbClass.SelectedValue != null && cbbDate.SelectedItem != null)
             {
                 string classID = cbbClass.SelectedValue.ToString();
-                string selectedDate = cbbDate.SelectedItem.ToString();
-                LoadDataGridAttendance(classID, selectedDate);
+                string selectedDateStr = cbbDate.SelectedItem.ToString();
+                LoadDataGridAttendance(classID, selectedDateStr);
             }
         }
-        private void LoadDataGridAttendance(string classID, string date)
+
+        private void LoadDataGridAttendance(string classID, string dateStr)
         {
-            DataTable dtAttendance = adminC_Service.getAttendanceInfo(classID, date);
-            if (dtAttendance != null)
+            try
             {
-                dgvAttendance.ItemsSource = dtAttendance.DefaultView;
+                // Ép kiểu chuỗi dd/MM/yyyy về DateTime chuẩn để gửi xuống SQL
+                DateTime date = DateTime.ParseExact(dateStr, "dd/MM/yyyy", null);
+                DataTable dtAttendance = adminC_Service.getAttendanceInfo(classID, date);
+
+                if (dtAttendance != null)
+                {
+                    dgvAttendance.ItemsSource = dtAttendance.DefaultView;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi định dạng ngày hoặc tải danh sách: " + ex.Message, "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         private void btnLuu_Click(object sender, RoutedEventArgs e)
         {
-            //luu du lieu sau khi diem danh
-        }
+            if (cbbClass.SelectedValue == null || cbbDate.SelectedItem == null)
+            {
+                MessageBox.Show("Vui lòng chọn lớp và ngày để lưu điểm danh!", "Cảnh báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
 
-        
+            try
+            {
+                string classID = cbbClass.SelectedValue.ToString();
+                string dateStr = cbbDate.SelectedItem.ToString();
+                DateTime attendanceDate = DateTime.ParseExact(dateStr, "dd/MM/yyyy", null);
+
+                // Lấy DataTable đằng sau DataGrid
+                if (dgvAttendance.ItemsSource is DataView dv)
+                {
+                    DataTable dtToSave = dv.Table;
+
+                    // Gọi hàm lưu điểm danh (Thêm mới/Cập nhật) từ tầng BLL
+                    bool isSuccess = adminC_Service.SaveAttendance(classID, attendanceDate, dtToSave);
+
+                    if (isSuccess)
+                    {
+                        MessageBox.Show("Đã lưu kết quả điểm danh thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi trong quá trình lưu: " + ex.Message, "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
     }
 }

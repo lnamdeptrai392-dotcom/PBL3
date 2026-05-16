@@ -177,8 +177,7 @@ namespace PBL3a.UI.AdminC.Windows
             {
                 new { classID = "Tất cả", class_name = "Tất cả" }
             };
-
-            // Lọc danh sách Lớp
+            
             foreach (DataRow row in dtActiveClasses.Rows)
             {
                 string id = row["classID"].ToString();

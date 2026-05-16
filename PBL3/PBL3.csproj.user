@@ -5,9 +5,6 @@
     <Compile Update="UI\AdminC\Windows\Attendance.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="UI\AdminC\Windows\DiemDanh.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="UI\AdminC\Windows\Window3.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -3,7 +3,6 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using PBL3.UI.AdminC.Windows;
 using PBL3a.UI.AdminC.Windows;
-using PBL3a.UI.AdminDD;
 using PBL3a.UI.Login;
 
 namespace PBL3a.UI.AdminC
@@ -52,7 +51,6 @@ namespace PBL3a.UI.AdminC
             MessageBoxButton.YesNo,
             MessageBoxImage.Question);
 
-            // Chỉ thực hiện đăng xuất nếu người dùng chọn Yes
             if (result == MessageBoxResult.Yes)
             {
                 LoginWindow login = new LoginWindow();

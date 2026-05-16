@@ -65,6 +65,7 @@
             <Setter Property="Padding" Value="8 0"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="TextBlock.TextAlignment" Value="Center"/>
         </Style>
     </UserControl.Resources>
 
@@ -118,8 +119,8 @@
 
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2.1*"/>
-                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="17*"/>
+                    <ColumnDefinition Width="11*"/>
                 </Grid.ColumnDefinitions>
 
                 <Border Background="White"
@@ -127,7 +128,7 @@
                         Padding="14"
                         BorderBrush="#D6E6F2"
                         BorderThickness="1"
-                        Margin="0 0 12 0">
+                        Margin="0,0,12,0">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
@@ -145,7 +146,7 @@
                                     Background="#1E88E5"/>
                         </Grid>
 
-                        <DataGrid x:Name="dgvData"
+                        <DataGrid x:Name="dgvData" IsReadOnly="True"
                                   Grid.Row="1"
                                   MinHeight="100"
                                   SelectionChanged="dgvData_SelectionChanged"/>
@@ -182,13 +183,13 @@
                         Padding="14"
                         BorderBrush="#D6E6F2"
                         BorderThickness="1"
-                        Margin="12 0 0 0">
+                        Margin="12,0,0,0">
                     <StackPanel>
                         <TextBlock Text="Thông Tin Giáo Viên" FontSize="16" FontWeight="Bold" Foreground="#0D47A1" Margin="0 0 0 8"/>
-                        <DataGrid x:Name="dgvGV" Height="130"/>
+                        <DataGrid x:Name="dgvGV" Height="130" IsReadOnly="True"/>
 
                         <TextBlock Text="Danh Sách Học Sinh" FontSize="16" FontWeight="Bold" Foreground="#0D47A1" Margin="0 16 0 8"/>
-                        <DataGrid x:Name="dgvHS" Height="250"/>
+                        <DataGrid x:Name="dgvHS" Height="400" IsReadOnly="True"/>
                     </StackPanel>
                 </Border>
             </Grid>
