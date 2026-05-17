@@ -1,4 +1,5 @@
 ﻿using PBL3.UI.AdminTC.ChildForm;
+using PBL3a.UI.AdminTC.ChildForm;
 using PBL3a.UI.Login;
 using PBL3a.UI.Teacher;
 using System.Windows;
@@ -66,6 +67,13 @@ namespace PBL3a.UI.AdminTC
             //mo form thong ke
             ThongKe tk = new ThongKe();
             OpenChild(tk);
+        }
+
+        private void btnTheoDoiHP_Click(object sender, RoutedEventArgs e)
+        {
+            //mo form theo doi hoc phi
+            TheoDoiHocPhi theoDoiHocPhi = new TheoDoiHocPhi();
+            OpenChild(theoDoiHocPhi);
         }
     }
 }

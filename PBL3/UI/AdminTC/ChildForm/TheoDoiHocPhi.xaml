@@ -1,0 +1,83 @@
+﻿<UserControl x:Class="PBL3a.UI.AdminTC.ChildForm.TheoDoiHocPhi"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="White">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Thống Kê Tiến Độ Thu Học Phí" FontSize="24" FontWeight="Bold" Foreground="#2C4E62" Margin="0,0,0,15"/>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,20">
+            <TextBlock Text="Chọn lớp học:" VerticalAlignment="Center" Margin="0,0,10,0" FontWeight="SemiBold"/>
+            <ComboBox x:Name="cboLopHoc" Width="250" Height="35" 
+                    VerticalContentAlignment="Center" Padding="10,0"
+                    SelectionChanged="cboLopHoc_SelectionChanged" 
+                    DisplayMemberPath="class_name" 
+                    SelectedValuePath="classID"
+          
+                    IsEditable="True"
+                    IsReadOnly="False"
+                    TextSearch.TextPath="class_name"/>
+        </StackPanel>
+
+        <Border Grid.Row="2" Background="#F8FAFC" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="10" Padding="20" Margin="0,0,0,20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock Text="Tiến độ thu học phí" Foreground="#64748B" FontSize="14" FontWeight="SemiBold"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                        <TextBlock x:Name="txtDaNop" Text="0" FontSize="36" FontWeight="Bold" Foreground="#0F172A"/>
+                        <TextBlock Text=" / " FontSize="36" FontWeight="Bold" Foreground="#94A3B8"/>
+                        <TextBlock x:Name="txtTongHocVien" Text="0" FontSize="36" FontWeight="Bold" Foreground="#0F172A"/>
+                        <TextBlock Text=" học viên" FontSize="16" Foreground="#64748B" VerticalAlignment="Bottom" Margin="5,0,0,6"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="40,0,0,0">
+                    <TextBlock Text="Số học viên chưa nộp (Nợ)" Foreground="#EF4444" FontSize="14" FontWeight="SemiBold"/>
+                    <TextBlock x:Name="txtChuaNop" Text="0" FontSize="36" FontWeight="Bold" Foreground="#DC2626" Margin="0,5,0,0"/>
+                </StackPanel>
+
+                <Button x:Name="btnXemChiTiet" Grid.Column="2" Content=" 🔍 Xem danh sách chưa nộp " Background="#1E3A5C" Foreground="White" 
+                        FontSize="14" FontWeight="SemiBold" Cursor="Hand"
+                        Click="btnXemChiTiet_Click" Margin="65,16,14,14">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="6"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </Grid>
+        </Border>
+
+        <Border x:Name="paChiTiet" Grid.Row="3" Visibility="Collapsed" BorderBrush="#E0E0E0" BorderThickness="1" CornerRadius="6">
+            <DataGrid x:Name="dgvHocPhi" AutoGenerateColumns="False" IsReadOnly="True" 
+                      HeadersVisibility="Column" Background="White" RowHeight="35" BorderThickness="0">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Mã Học Viên" Binding="{Binding AccountID}" Width="120"/>
+                    <DataGridTextColumn Header="Tên Học Viên" Binding="{Binding HoTen}" Width="*"/>
+                    <DataGridTextColumn Header="Lớp" Binding="{Binding TenLop}" Width="150"/>
+                    <DataGridTextColumn Header="Số Điện Thoại" Binding="{Binding SoDienThoai}" Width="130"/>
+                    <DataGridTextColumn Header="Mức Nợ" Binding="{Binding MucHocPhi, StringFormat=\{0:N0\} VNĐ}" Width="130">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Foreground" Value="#D32F2F"/>
+                                <Setter Property="FontWeight" Value="SemiBold"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+    </Grid>
+</UserControl>

@@ -143,6 +143,12 @@
                         <TextBlock Text="BÁO CÁO" Foreground="#4A7FA5" FontSize="10"
                                    FontWeight="Bold" Margin="22,12,0,4"/>
 
+                        <!-- Button Theo doi hoc phi -->
+                        <Button x:Name="btnTheoDoiHP" Content="  🧾  Theo dõi học phí"
+                                Style="{StaticResource MenuButtonStyle}"
+                                Click="btnTheoDoiHP_Click"/>
+
+
                         <Button x:Name="btnThongKe" Content="  📊  Thống kê tài chính"
                                 Style="{StaticResource MenuButtonStyle}"
                                 Click="btnThongKe_Click"/>

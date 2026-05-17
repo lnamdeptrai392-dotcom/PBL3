@@ -35,6 +35,9 @@
     <Compile Update="UI\AdminTC\QuanLyChungTC.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UI\AdminTC\ChildForm\TheoDoiHocPhi.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UI\Student\StudentAll.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
