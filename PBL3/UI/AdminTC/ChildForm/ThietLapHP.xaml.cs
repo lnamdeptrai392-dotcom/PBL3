@@ -40,19 +40,18 @@ namespace PBL3a.UI.AdminTC
 
         private void btLuu_Click(object sender, RoutedEventArgs e)
         {
-            // Bắt buộc phải đã nhập và tính tiền trước khi lưu
-            if (_soTienMoiHS <= 0)
+            string chuoiTien = txtTienTrenNg.Text?.Trim() ?? "";
+            bool coNhapTien = (chuoiTien != "");
+            if (coNhapTien && _soTienMoiHS <= 0)
             {
-                MessageBox.Show("Vui lòng nhập số tiền và nhấn 'Tính tổng tiền' trước khi lưu!",
+                MessageBox.Show("Vui lòng nhấn nút 'Tính tổng tiền' để xác nhận số tiền trước khi lưu!",
                                 "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-
-            // Commit ô đang edit (nếu user đang sửa trạng thái mà chưa click ra ngoài)
+            dgHocSinhLop.CommitEdit(DataGridEditingUnit.Cell, exitEditingMode: true);
             dgHocSinhLop.CommitEdit(DataGridEditingUnit.Row, exitEditingMode: true);
 
             DataView dv = (DataView)dgHocSinhLop.ItemsSource;
-            DataTable dt = dv.ToTable();
 
             int thangHienTai = DateTime.Now.Month;
             int namHienTai = DateTime.Now.Year;
@@ -63,50 +62,56 @@ namespace PBL3a.UI.AdminTC
                 SqlTransaction trans = conn.BeginTransaction();
                 try
                 {
-                    foreach (DataRow row in dt.Rows)
+                    // Duyệt trực tiếp trên từng dòng của DataView để lấy trạng thái mới nhất
+                    foreach (DataRowView rowView in dv)
                     {
-                        string trangThai = row["TrangThai"]?.ToString() ?? "Chưa đóng";
+                        DataRow row = rowView.Row;
+                        if (row.RowState == DataRowState.Deleted) continue;
 
+                        string trangThai = row["TrangThai"]?.ToString() ?? "Chưa đóng";
                         string query = @"
-                    IF EXISTS (
-                        SELECT 1 FROM HocPhi 
-                        WHERE AccountID = @accID 
-                          AND ClassID   = @classID 
-                          AND TuitionMonth = @month 
-                          AND TuitionYear  = @year
-                    )
-                    BEGIN
-                        UPDATE HocPhi 
-                        SET SoTien    = @tien,
-                            TrangThai = @status,
-                            NgayDong  = CASE WHEN @status = N'Đã đóng' THEN GETDATE() ELSE NULL END
-                        WHERE AccountID = @accID 
-                          AND ClassID   = @classID 
-                          AND TuitionMonth = @month 
-                          AND TuitionYear  = @year
-                    END
-                    ELSE
-                    BEGIN
-                        INSERT INTO HocPhi 
-                            (AccountID, ClassID, TuitionMonth, TuitionYear, SoTien, TrangThai, NgayDong)
-                        VALUES 
-                            (@accID, @classID, @month, @year, @tien, @status,
-                             CASE WHEN @status = N'Đã đóng' THEN GETDATE() ELSE NULL END)
-                    END";
+                        IF EXISTS (
+                            SELECT 1 FROM HocPhi 
+                            WHERE AccountID = @accID 
+                                AND ClassID   = @classID 
+                                AND TuitionMonth = @month 
+                                AND TuitionYear  = @year
+                        )
+                        BEGIN
+                            UPDATE HocPhi 
+                            SET SoTien    = CASE WHEN @coNhapTien = 1 THEN @tien ELSE SoTien END,
+                                TrangThai = @status,
+                                NgayDong  = CASE WHEN @status = N'Đã đóng' THEN GETDATE() ELSE NULL END
+                            WHERE AccountID = @accID 
+                                AND ClassID   = @classID 
+                                AND TuitionMonth = @month 
+                                AND TuitionYear  = @year
+                        END
+                        ELSE
+                        BEGIN
+                            INSERT INTO HocPhi 
+                                (AccountID, ClassID, TuitionMonth, TuitionYear, SoTien, TrangThai, NgayDong)
+                            VALUES 
+                                (@accID, @classID, @month, @year, 
+                                    CASE WHEN @coNhapTien = 1 THEN @tien ELSE 0 END, 
+                                    @status,
+                                    CASE WHEN @status = N'Đã đóng' THEN GETDATE() ELSE NULL END)
+                        END";
 
                         using (SqlCommand cmd = new SqlCommand(query, conn, trans))
                         {
                             cmd.Parameters.AddWithValue("@accID", row["AccountID"]);
                             cmd.Parameters.AddWithValue("@classID", MaLop);
-                            cmd.Parameters.AddWithValue("@tien", _soTienMoiHS);   // ← lấy từ biến đã tính
+                            cmd.Parameters.AddWithValue("@tien", _soTienMoiHS);
+                            cmd.Parameters.AddWithValue("@coNhapTien", coNhapTien ? 1 : 0); 
                             cmd.Parameters.AddWithValue("@status", trangThai);
-                            cmd.Parameters.AddWithValue("@month", thangHienTai);   // ← tháng thực tế
-                            cmd.Parameters.AddWithValue("@year", namHienTai);     // ← năm thực tế
+                            cmd.Parameters.AddWithValue("@month", thangHienTai);
+                            cmd.Parameters.AddWithValue("@year", namHienTai);
                             cmd.ExecuteNonQuery();
                         }
                     }
                     trans.Commit();
-                    MessageBox.Show("Cập nhật học phí thành công!", "Thông báo",
+                    MessageBox.Show("Cập nhật dữ liệu học phí thành công!", "Thông báo",
                                     MessageBoxButton.OK, MessageBoxImage.Information);
                     this.Close();
                 }
@@ -118,6 +123,7 @@ namespace PBL3a.UI.AdminTC
                 }
             }
         }
+
         private void LoadChiTietHocPhi()
         {
             using (SqlConnection conn = db.GetConnection())
