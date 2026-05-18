@@ -1,19 +1,47 @@
 ﻿using PBL3a.UI.Login;
 using System.Windows;
 using System.Windows.Controls;
+using Microsoft.Data.SqlClient;
+using PBL3a.services;
 
 namespace PBL3a.UI.Student
 {
     public partial class StudentAll : Window
     {
         public string StudentID { get; set; } = "";
-
+        private readonly DatabaseHelper db = new DatabaseHelper();
         public StudentAll(string id)
         {
             InitializeComponent();
-            StudentID = id;
-        }
 
+            StudentID = id;
+            LoadUserName(StudentID);
+            OpenChild(new StudentINFO(StudentID));
+        }
+        private void LoadUserName(string id)
+        {
+            try
+            {
+                using (SqlConnection conn = db.GetConnection())
+                {
+                    conn.Open();
+                    string query = "SELECT name FROM accountList WHERE Id = @id";
+                    using (SqlCommand cmd = new SqlCommand(query,conn ))
+                    {
+                        cmd.Parameters.AddWithValue("@id", id);
+                        string name = cmd.ExecuteScalar()?.ToString() ?? "Học sinh";
+                        tbUserName.Text = name;
+                        tbAvatarChar.Text = name.Length > 0
+                                            ? name[0].ToString().ToUpper() : "H";
+                    }
+                }
+            }
+            catch
+            {
+                tbUserName.Text = "Học sinh";
+                tbAvatarChar.Text = "H";
+            }
+        }
         private void OpenChild(UserControl child)
         {
             panelChildBox.Content = child;
