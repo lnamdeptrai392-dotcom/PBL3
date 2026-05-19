@@ -12,7 +12,7 @@ namespace PBL3a.UI.AdminC
         public AdminC()
         {
             InitializeComponent();    
-            OpenChild(new Window1());
+            OpenChild(new DuyetDon());
         }
 
         private void OpenChild(UserControl child)
@@ -22,24 +22,24 @@ namespace PBL3a.UI.AdminC
 
         private void btnDuyetDon_Click(object sender, RoutedEventArgs e)
         {
-            OpenChild(new Window1());
+            OpenChild(new DuyetDon());
             //Duyệt đơn
         }
 
         private void btnKhoaLop_Click(object sender, RoutedEventArgs e)
         {
-            OpenChild(new Window4());
+            OpenChild(new XemKhoaLop());
             //Xem khóa lớp
         }
         private void btnTaoTK_Click(object sender, RoutedEventArgs e)
         {
-            OpenChild(new Window5());
+            OpenChild(new TaoTaiKhoan());
             //Tạo tài khoản
         }
 
         private void btnTaoLH_Click(object sender, RoutedEventArgs e)
         {  
-            OpenChild(new Window2());
+            OpenChild(new TaoLopHoc());
             //Tạo lớp học
         }
 

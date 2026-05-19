@@ -8,12 +8,12 @@ using PBL3a.services.BLL;
 
 namespace PBL3a.UI.AdminC.Windows
 {
-    public partial class Window1 : UserControl
+    public partial class DuyetDon : UserControl
     {
         private AdminC_Service adminService = new AdminC_Service();
         private DataTable dtActiveClasses;
 
-        public Window1()
+        public DuyetDon()
         {
             InitializeComponent();
             Loaded += Window1_Load;

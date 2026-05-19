@@ -5,10 +5,10 @@
     <Compile Update="UI\AdminC\Windows\Attendance.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="UI\AdminC\Windows\Window3.xaml.cs">
+    <Compile Update="UI\AdminC\Windows\HoSoHocSinh.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="UI\AdminC\Windows\Window6.xaml.cs">
+    <Compile Update="UI\AdminC\Windows\HoSoGiaoVien.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UI\AdminTC\ChildForm\HocPhi.xaml.cs">

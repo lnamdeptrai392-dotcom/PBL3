@@ -7,13 +7,13 @@ using System.Windows.Controls;
 
 namespace PBL3a.UI.AdminC.Windows
 {
-    public partial class Window4 : UserControl
+    public partial class XemKhoaLop : UserControl
     {
         private AdminC_Service adminService = new AdminC_Service();
         private object _originalDgvDataSource;
         private string _currentAddingClassId = "";
 
-        public Window4()
+        public XemKhoaLop()
         {
             InitializeComponent();
             Loaded += Window4_Load;

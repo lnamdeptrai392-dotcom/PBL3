@@ -6,13 +6,13 @@ using PBL3a.services.BLL;
 
 namespace PBL3a.UI.AdminC.Windows
 {
-    public partial class Window2 : UserControl
+    public partial class TaoLopHoc : UserControl
     {
         private AdminC_Service adminService = new AdminC_Service();
         private DataTable dtTempClasses;
         private string selectedTeacherId = "";
 
-        public Window2()
+        public TaoLopHoc()
         {
             InitializeComponent();
             Loaded += Window2_Load;

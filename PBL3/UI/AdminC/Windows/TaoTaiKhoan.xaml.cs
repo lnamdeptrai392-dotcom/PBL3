@@ -7,12 +7,12 @@ using System.Windows.Controls;
 
 namespace PBL3a.UI.AdminC.Windows
 {
-    public partial class Window5 : UserControl
+    public partial class TaoTaiKhoan : UserControl
     {
         DatabaseHelper dbHelper = new DatabaseHelper();
         DataTable dtPreview = new DataTable();
 
-        public Window5()
+        public TaoTaiKhoan()
         {
             InitializeComponent();
 
