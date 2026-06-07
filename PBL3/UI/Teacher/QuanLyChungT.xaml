@@ -28,7 +28,7 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="bd" Property="Background" Value="#1E3A5C"/>
+                                <Setter TargetName="bd" Property="Background" Value="#1565C0"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -125,7 +125,7 @@
                                FontWeight="Bold" Margin="22,8,0,4"/>
 
                     <Button x:Name="btnInfo"     Content="  👤  Thông tin cá nhân"
-                            Style="{StaticResource MenuButtonActiveStyle}"
+                            Style="{StaticResource MenuButtonStyle}"
                             Click="btnInfo_Click"/>
                     <Button x:Name="btnSchedule" Content="  📅  Thời khóa biểu"
                             Style="{StaticResource MenuButtonStyle}"

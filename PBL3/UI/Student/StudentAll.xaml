@@ -27,18 +27,14 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="bd" Property="Background" Value="#1E3A5C"/>
+                                <Setter TargetName="bd" Property="Background" Value="#1565C0"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="MenuButtonActiveStyle" TargetType="Button" BasedOn="{StaticResource MenuButtonStyle}">
-            <Setter Property="Background" Value="#1565C0"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-        </Style>
+        
         <Style x:Key="LogoutButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Foreground" Value="#EF9A9A"/>
@@ -112,7 +108,7 @@
                     <TextBlock Text="MENU" Foreground="#4A7FA5" FontSize="10"
                                FontWeight="Bold" Margin="22,8,0,4"/>
                     <Button x:Name="btn_info"     Content="  👤  Thông tin cá nhân"
-                            Style="{StaticResource MenuButtonActiveStyle}" Click="btn_info_Click_1"/>
+                            Style="{StaticResource MenuButtonStyle}" Click="btn_info_Click_1"/>
                     <Button x:Name="btn_schedule" Content="  📅  Thời khóa biểu"
                             Style="{StaticResource MenuButtonStyle}" Click="btn_schedule_Click"/>
                     <Button x:Name="btn_score"    Content="  📝  Kết quả học tập"

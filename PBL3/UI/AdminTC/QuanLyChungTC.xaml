@@ -27,7 +27,7 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="bd" Property="Background" Value="#1E3A5C"/>
+                                <Setter TargetName="bd" Property="Background" Value="#1565C0"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -122,7 +122,7 @@
 
                         <!-- Tổng quan -->
                         <Button x:Name="btnDashboard" Content="  🏠  Tổng quan"
-                                Style="{StaticResource MenuButtonActiveStyle}"
+                                Style="{StaticResource MenuButtonStyle}"
                                 Click="btnDashborad_Click"/>
 
                         <!-- Separator label -->

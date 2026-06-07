@@ -9,6 +9,7 @@ namespace PBL3a.UI.AdminC
 {
     public partial class AdminC : Window
     {
+        
         public AdminC()
         {
             InitializeComponent();    
@@ -22,25 +23,24 @@ namespace PBL3a.UI.AdminC
 
         private void btnDuyetDon_Click(object sender, RoutedEventArgs e)
         {
-            OpenChild(new DuyetDon());
-            //Duyệt đơn
+            OpenChild(new DuyetDon());            
         }
 
         private void btnKhoaLop_Click(object sender, RoutedEventArgs e)
         {
             OpenChild(new XemKhoaLop());
-            //Xem khóa lớp
+            
         }
         private void btnTaoTK_Click(object sender, RoutedEventArgs e)
         {
             OpenChild(new TaoTaiKhoan());
-            //Tạo tài khoản
+            
         }
 
         private void btnTaoLH_Click(object sender, RoutedEventArgs e)
-        {  
+        {
             OpenChild(new TaoLopHoc());
-            //Tạo lớp học
+            
         }
 
         private void butOut_Click(object sender, RoutedEventArgs e)
@@ -65,17 +65,17 @@ namespace PBL3a.UI.AdminC
         }
         private void btnDiemDanh_Click(object sender, RoutedEventArgs e)
         {
-            OpenChild(new Attendance());
+            OpenChild(new Attendance());            
         }
 
         private void btnStudentProfile_Click(object sender, RoutedEventArgs e)
         {
-            OpenChild(new HoSoHocSinh());
+            OpenChild(new HoSoHocSinh());            
         }
 
         private void btnTeacherProfile_Click(object sender, RoutedEventArgs e)
         {
-            OpenChild(new HoSoGiaoVien());
+            OpenChild(new HoSoGiaoVien());            
         }
     }
 }
