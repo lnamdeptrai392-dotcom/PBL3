@@ -9,10 +9,13 @@ namespace PBL3a.UI.AdminC
 {
     public partial class AdminC : Window
     {
+        private Button currentActiveButton;
+
         public AdminC()
         {
             InitializeComponent();    
             OpenChild(new DuyetDon());
+            SetActiveButton(btnDuyetDon);
         }
 
         private void OpenChild(UserControl child)
@@ -20,26 +23,43 @@ namespace PBL3a.UI.AdminC
             panelDesktop.Content = child;
         }
 
+        private void SetActiveButton(Button button)
+        {
+            // Bỏ highlight từ button cũ
+            if (currentActiveButton != null)
+            {
+                currentActiveButton.Style = (Style)FindResource("MenuButtonStyle");
+            }
+
+            // Highlight button mới
+            button.Style = (Style)FindResource("MenuButtonActiveStyle");
+            currentActiveButton = button;
+        }
+
         private void btnDuyetDon_Click(object sender, RoutedEventArgs e)
         {
             OpenChild(new DuyetDon());
+            SetActiveButton(btnDuyetDon);
             //Duyệt đơn
         }
 
         private void btnKhoaLop_Click(object sender, RoutedEventArgs e)
         {
             OpenChild(new XemKhoaLop());
+            SetActiveButton(btnKhoaLop);
             //Xem khóa lớp
         }
         private void btnTaoTK_Click(object sender, RoutedEventArgs e)
         {
             OpenChild(new TaoTaiKhoan());
+            SetActiveButton(btnTaoTK);
             //Tạo tài khoản
         }
 
         private void btnTaoLH_Click(object sender, RoutedEventArgs e)
         {  
             OpenChild(new TaoLopHoc());
+            SetActiveButton(btnTaoLH);
             //Tạo lớp học
         }
 
@@ -66,16 +86,19 @@ namespace PBL3a.UI.AdminC
         private void btnDiemDanh_Click(object sender, RoutedEventArgs e)
         {
             OpenChild(new Attendance());
+            SetActiveButton(btnDiemDanh);
         }
 
         private void btnStudentProfile_Click(object sender, RoutedEventArgs e)
         {
             OpenChild(new HoSoHocSinh());
+            SetActiveButton(btnStudentProfile);
         }
 
         private void btnTeacherProfile_Click(object sender, RoutedEventArgs e)
         {
             OpenChild(new HoSoGiaoVien());
+            SetActiveButton(btnTeacherProfile);
         }
     }
 }

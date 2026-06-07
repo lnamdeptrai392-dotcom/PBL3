@@ -20,7 +20,7 @@ namespace PBL3a.services.BLL
                     a.name AS [Tên Học Sinh],
                     r.ClassID AS [Mã Lớp],
                     c.class_name AS [Tên Lớp],
-                    r.RegistrationDate AS [Ngày Gửi],
+                    CONVERT(VARCHAR(10), r.RegistrationDate, 120) AS [Ngày Gửi],
                     r.Note AS [Ghi Chú]
                 FROM Registration r
                 INNER JOIN accountList a ON r.AccountID = a.Id
@@ -43,7 +43,7 @@ namespace PBL3a.services.BLL
                 SELECT 
                     Id AS [Mã HS], 
                     name AS [Họ và Tên], 
-                    dateOfBirth AS [Ngày Sinh], 
+                    CONVERT(VARCHAR(10), dateOfBirth, 120) AS [Ngày Sinh], 
                     sex AS [Giới Tính], 
                     phone AS [Số Điện Thoại]
                 FROM accountList 
@@ -63,10 +63,10 @@ namespace PBL3a.services.BLL
         public DataTable GetClassesByDayOfWeek(int dayOfWeek)
         {
             string query = @"
-        SELECT DISTINCT c.classID, c.class_name 
-        FROM Class c
-        JOIN ClassSchedule cs ON c.classID = cs.classID
-        WHERE cs.dayOfWeek = @dayOfWeek AND c.status = N'Đang mở'";
+                SELECT DISTINCT c.classID, c.class_name 
+                FROM Class c
+                JOIN ClassSchedule cs ON c.classID = cs.classID
+                WHERE cs.dayOfWeek = @dayOfWeek AND c.status = N'Đang mở'";
 
             DataTable dt = new DataTable();
             using (SqlConnection conn = dbHelper.GetConnection())
@@ -84,17 +84,17 @@ namespace PBL3a.services.BLL
         {
             DataTable dt = new DataTable();
             string query = @"
-        SELECT 
-            s.Id AS StudentID, 
-            s.name AS StudentName, 
-            ISNULL(a.Status, N'Có mặt') AS TrangThai, 
-            ISNULL(a.Note, '') AS Note
-        FROM accountList s
-        INNER JOIN JoinClass jc ON s.Id = jc.AccountID
-        LEFT JOIN Attendance a ON s.Id = a.AccountID 
-            AND a.ClassID = jc.classID 
-            AND a.AttendanceDate = @date
-        WHERE jc.classID = @classID AND s.Role = 'Student'";
+                SELECT 
+                    s.Id AS StudentID, 
+                    s.name AS StudentName, 
+                    ISNULL(a.Status, N'Có mặt') AS TrangThai, 
+                    ISNULL(a.Note, '') AS Note
+                FROM accountList s
+                INNER JOIN JoinClass jc ON s.Id = jc.AccountID
+                LEFT JOIN Attendance a ON s.Id = a.AccountID 
+                    AND a.ClassID = jc.classID 
+                    AND a.AttendanceDate = @date
+                WHERE jc.classID = @classID AND s.Role = 'Student'";
 
             try
             {
@@ -136,9 +136,9 @@ namespace PBL3a.services.BLL
                             string note = row["Note"]?.ToString() ?? "";
 
                             string checkQuery = @"
-                        SELECT COUNT(*) 
-                        FROM Attendance 
-                        WHERE AccountID = @acc AND ClassID = @class AND AttendanceDate = @date";
+                                SELECT COUNT(*) 
+                                FROM Attendance 
+                                WHERE AccountID = @acc AND ClassID = @class AND AttendanceDate = @date";
 
                             using (SqlCommand checkCmd = new SqlCommand(checkQuery, conn, trans))
                             {
@@ -151,9 +151,9 @@ namespace PBL3a.services.BLL
                                 if (count > 0)
                                 {
                                     string updateQuery = @"
-                                UPDATE Attendance 
-                                SET Status = @status, Note = @note
-                                WHERE AccountID = @acc AND ClassID = @class AND AttendanceDate = @date";
+                                        UPDATE Attendance 
+                                        SET Status = @status, Note = @note
+                                        WHERE AccountID = @acc AND ClassID = @class AND AttendanceDate = @date";
 
                                     using (SqlCommand updateCmd = new SqlCommand(updateQuery, conn, trans))
                                     {
@@ -168,8 +168,8 @@ namespace PBL3a.services.BLL
                                 else
                                 {
                                     string insertQuery = @"
-                                INSERT INTO Attendance (AccountID, ClassID, AttendanceDate, Status, Note)
-                                VALUES (@acc, @class, @date, @status, @note)";
+                                        INSERT INTO Attendance (AccountID, ClassID, AttendanceDate, Status, Note)
+                                        VALUES (@acc, @class, @date, @status, @note)";
 
                                     using (SqlCommand insertCmd = new SqlCommand(insertQuery, conn, trans))
                                     {
@@ -199,21 +199,22 @@ namespace PBL3a.services.BLL
         public DataTable GetActiveClassNow()
         {
             DataTable dt = new DataTable();
-            string query = @"SELECT 
-                        c.classID,
-                        cs.dayOfWeek,
-                        c.class_name, 
-                        CASE cs.dayOfWeek
-                            WHEN 1 THEN N'Thứ 2' WHEN 2 THEN N'Thứ 3'
-                            WHEN 3 THEN N'Thứ 4' WHEN 4 THEN N'Thứ 5'
-                            WHEN 5 THEN N'Thứ 6' WHEN 6 THEN N'Thứ 7'
-                            WHEN 7 THEN N'Chủ nhật'
-                        END AS [NgayHoc],
-                        CONVERT(VARCHAR(5), cs.startTime, 108) AS [GioBatDau],
-                        CONVERT(VARCHAR(5), cs.endTime, 108) AS [GioKetThuc]
-                    FROM ClassSchedule cs
-                    JOIN Class c ON cs.classID = c.classID
-                    WHERE c.status = N'Đang mở'";
+            string query = @"
+                SELECT 
+                    c.classID,
+                    cs.dayOfWeek,
+                    c.class_name, 
+                    CASE cs.dayOfWeek
+                        WHEN 1 THEN N'Thứ 2' WHEN 2 THEN N'Thứ 3'
+                        WHEN 3 THEN N'Thứ 4' WHEN 4 THEN N'Thứ 5'
+                        WHEN 5 THEN N'Thứ 6' WHEN 6 THEN N'Thứ 7'
+                        WHEN 7 THEN N'Chủ nhật'
+                    END AS [NgayHoc],
+                    CONVERT(VARCHAR(5), cs.startTime, 108) AS [GioBatDau],
+                    CONVERT(VARCHAR(5), cs.endTime, 108) AS [GioKetThuc]
+                FROM ClassSchedule cs
+                JOIN Class c ON cs.classID = c.classID
+                WHERE c.status = N'Đang mở'";
             using (SqlConnection conn = dbHelper.GetConnection())
             {
                 SqlDataAdapter da = new SqlDataAdapter(query, conn);
@@ -314,17 +315,17 @@ namespace PBL3a.services.BLL
         public DataTable FilterRegistrations(string monHoc, string khoi, string classId)
         {
             string query = @"
-        SELECT
-            r.AccountID AS [Mã HS],
-            a.name AS [Tên Học Sinh],
-            r.ClassID AS [Mã Lớp],
-            c.class_name AS [Tên Lớp],
-            r.RegistrationDate AS [Ngày Gửi],
-            r.Note AS [Ghi Chú]
-        FROM Registration r
-        INNER JOIN accountList a ON r.AccountID = a.Id
-        INNER JOIN Class c ON r.ClassID = c.classID
-        WHERE r.Status = N'Chờ duyệt'";
+                SELECT
+                    r.AccountID AS [Mã HS],
+                    a.name AS [Tên Học Sinh],
+                    r.ClassID AS [Mã Lớp],
+                    c.class_name AS [Tên Lớp],
+                    CONVERT(VARCHAR(10), r.RegistrationDate, 120) AS [Ngày Gửi],
+                    r.Note AS [Ghi Chú]
+                FROM Registration r
+                INNER JOIN accountList a ON r.AccountID = a.Id
+                INNER JOIN Class c ON r.ClassID = c.classID
+                WHERE r.Status = N'Chờ duyệt'";
 
             List<SqlParameter> parameters = new List<SqlParameter>();
 
@@ -390,10 +391,10 @@ namespace PBL3a.services.BLL
         {
             DataTable dtClasses = new DataTable();
             string query = @"
-        SELECT DISTINCT c.classID, c.class_name
-        FROM Registration r
-        INNER JOIN Class c ON r.ClassID = c.classID
-        WHERE r.Status = N'Chờ duyệt'";
+                SELECT DISTINCT c.classID, c.class_name
+                FROM Registration r
+                INNER JOIN Class c ON r.ClassID = c.classID
+                WHERE r.Status = N'Chờ duyệt'";
 
             using (SqlConnection conn = dbHelper.GetConnection())
             {
@@ -429,7 +430,7 @@ namespace PBL3a.services.BLL
 
             string query = @"
                 SELECT DISTINCT 
-                CAST(c.grade AS NVARCHAR) AS Khoi 
+                    CAST(c.grade AS NVARCHAR) AS Khoi 
                 FROM Class c
                 INNER JOIN teacherInfo ti ON c.teacherID = ti.Id
                 WHERE ti.subject = @subject AND c.class_name LIKE '%' + @keyword + '%'";
@@ -459,32 +460,32 @@ namespace PBL3a.services.BLL
 
             string query = @"
                 SELECT 
-                   c.classID AS [Mã Lớp], 
-                   c.class_name AS [Tên Lớp], 
-                   c.start_date AS [Ngày Bắt Đầu], 
-                   c.end_date AS [Ngày Kết Thúc], 
-                   c.capacity AS [Sức Chứa],
-                CASE 
-                WHEN c.start_date > GETDATE() THEN N'Sắp mở'
-                WHEN c.start_date <= GETDATE() AND c.end_date >= GETDATE() THEN N'Đang học'
-                ELSE N'Đã kết thúc'
-                END AS [Tình Trạng]
+                    c.classID AS [Mã Lớp], 
+                    c.class_name AS [Tên Lớp], 
+                    CONVERT(VARCHAR(10), c.start_date, 120) AS [Ngày Bắt Đầu], 
+                    CONVERT(VARCHAR(10), c.end_date, 120) AS [Ngày Kết Thúc], 
+                    c.capacity AS [Sức Chứa],
+                    CASE 
+                        WHEN c.start_date > GETDATE() THEN N'Sắp mở'
+                        WHEN c.start_date <= GETDATE() AND c.end_date >= GETDATE() THEN N'Đang học'
+                        ELSE N'Đã kết thúc'
+                    END AS [Tình Trạng]
                 FROM Class c
                 INNER JOIN teacherInfo ti ON c.teacherID = ti.Id
                 WHERE ti.subject = @subject 
-                AND c.class_name LIKE '%' + @khoi + '%'
-                AND c.class_name LIKE '%' + @keyword + '%'
-          AND (
-                (@status = N'Sắp mở' AND c.start_date > GETDATE()) OR
-                (@status = N'Đang học' AND c.start_date <= GETDATE() AND c.end_date >= GETDATE()) OR
-                (@status = N'Đã kết thúc' AND c.end_date < GETDATE())
-          )";
+                    AND c.class_name LIKE '%' + @khoi + '%'
+                    AND c.class_name LIKE '%' + @keyword + '%'
+                    AND (
+                        (@status = N'Sắp mở' AND c.start_date > GETDATE()) OR
+                        (@status = N'Đang học' AND c.start_date <= GETDATE() AND c.end_date >= GETDATE()) OR
+                        (@status = N'Đã kết thúc' AND c.end_date < GETDATE())
+                    )";
 
             using (SqlConnection conn = dbHelper.GetConnection())
             {
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@subject", subject);
-                cmd.Parameters.AddWithValue("@status", status); // "Sắp mở", "Đang học" hoặc "Đã kết thúc"
+                cmd.Parameters.AddWithValue("@status", status);
                 cmd.Parameters.AddWithValue("@khoi", khoi);
                 cmd.Parameters.AddWithValue("@keyword", keyword);
 
@@ -526,7 +527,7 @@ namespace PBL3a.services.BLL
                 SELECT 
                     a.Id AS [Mã HS], 
                     a.name AS [Tên Học Sinh], 
-                    a.dateOfBirth AS [Ngày Sinh], 
+                    CONVERT(VARCHAR(10), a.dateOfBirth, 120) AS [Ngày Sinh], 
                     a.sex AS [Giới Tính], 
                     a.phone AS [SĐT]
                 FROM accountList a
@@ -547,17 +548,17 @@ namespace PBL3a.services.BLL
         public DataTable GetStudentClassHistory(string accountId)
         {
             string query = @"
-        SELECT 
-            c.classID AS [Mã Lớp], 
-            c.class_name AS [Tên Lớp], 
-            CASE 
-                WHEN c.start_date > GETDATE() THEN N'Sắp mở'
-                WHEN c.start_date <= GETDATE() AND c.end_date >= GETDATE() THEN N'Đang học'
-                ELSE N'Đã kết thúc'
-            END AS [Trạng Thái]
-        FROM Class c
-        INNER JOIN JoinClass jc ON c.classID = jc.classID
-        WHERE jc.accountID = @accountId";
+                SELECT 
+                    c.classID AS [Mã Lớp], 
+                    c.class_name AS [Tên Lớp], 
+                    CASE 
+                        WHEN c.start_date > GETDATE() THEN N'Sắp mở'
+                        WHEN c.start_date <= GETDATE() AND c.end_date >= GETDATE() THEN N'Đang học'
+                        ELSE N'Đã kết thúc'
+                    END AS [Trạng Thái]
+                FROM Class c
+                INNER JOIN JoinClass jc ON c.classID = jc.classID
+                WHERE jc.accountID = @accountId";
 
             using (SqlConnection conn = dbHelper.GetConnection())
             {
@@ -576,18 +577,18 @@ namespace PBL3a.services.BLL
             DataTable dt = new DataTable();
 
             string query = @"
-        SELECT DISTINCT
-            c.classID AS [Mã Lớp], 
-            c.class_name AS [Tên Lớp], 
-            c.start_date AS [Ngày Bắt Đầu], 
-            c.end_date AS [Ngày Kết Thúc], 
-            c.capacity AS [Sức Chứa],
-            CASE 
-                WHEN c.start_date > GETDATE() THEN N'Sắp mở'
-                WHEN c.start_date <= GETDATE() AND c.end_date >= GETDATE() THEN N'Đang học'
-                ELSE N'Đã kết thúc'
-            END AS [Tình Trạng]
-        FROM Class c ";
+                SELECT DISTINCT
+                    c.classID AS [Mã Lớp], 
+                    c.class_name AS [Tên Lớp], 
+                    CONVERT(VARCHAR(10), c.start_date, 120) AS [Ngày Bắt Đầu], 
+                    CONVERT(VARCHAR(10), c.end_date, 120) AS [Ngày Kết Thúc], 
+                    c.capacity AS [Sức Chứa],
+                    CASE 
+                        WHEN c.start_date > GETDATE() THEN N'Sắp mở'
+                        WHEN c.start_date <= GETDATE() AND c.end_date >= GETDATE() THEN N'Đang học'
+                        ELSE N'Đã kết thúc'
+                    END AS [Tình Trạng]
+                FROM Class c ";
 
             // Dựa vào tiêu chí để JOIN thêm bảng
             if (searchType == "Mã Học Sinh" || searchType == "Tên Học Sinh")
@@ -634,10 +635,10 @@ namespace PBL3a.services.BLL
             else if (subject == "Văn Học") dbSubject = "Văn";
 
             string query = @"
-        SELECT a.Id AS [Mã GV], a.name AS [Tên Giáo Viên], a.phone AS [SĐT]
-        FROM accountList a
-        INNER JOIN teacherInfo t ON a.Id = t.Id
-        WHERE a.Role = 'Teacher' AND t.subject = @subject AND a.status = N'Hoạt động'";
+                SELECT a.Id AS [Mã GV], a.name AS [Tên Giáo Viên], a.phone AS [SĐT]
+                FROM accountList a
+                INNER JOIN teacherInfo t ON a.Id = t.Id
+                WHERE a.Role = 'Teacher' AND t.subject = @subject AND a.status = N'Hoạt động'";
 
             DataTable dt = new DataTable();
             using (SqlConnection conn = dbHelper.GetConnection())
@@ -654,23 +655,23 @@ namespace PBL3a.services.BLL
         public DataTable GetTeacherDetailsAndClasses(string teacherId)
         {
             string query = @"
-        SELECT 
-            a.Id AS [Mã GV], 
-            a.name AS [Họ Tên], 
-            a.dateOfBirth AS [Ngày Sinh], 
-            a.phone AS [SĐT],
-            ISNULL(c.classID, '') AS [Mã Lớp],
-            ISNULL(c.class_name, '') AS [Tên Lớp],
-            c.start_date AS [Ngày Bắt Đầu],
-            c.end_date AS [Ngày Kết Thúc],
-            CASE 
-                WHEN c.start_date > GETDATE() THEN N'Sắp mở'
-                WHEN c.start_date <= GETDATE() AND c.end_date >= GETDATE() THEN N'Đang dạy'
-                ELSE N'Đã kết thúc'
-            END AS [Trạng Thái]
-        FROM accountList a
-        LEFT JOIN Class c ON a.Id = c.teacherID AND c.end_date >= GETDATE() -- Chỉ lấy lớp đang và sắp dạy
-        WHERE a.Id = @teacherId";
+                SELECT 
+                    a.Id AS [Mã GV], 
+                    a.name AS [Họ Tên], 
+                    CONVERT(VARCHAR(10), a.dateOfBirth, 120) AS [Ngày Sinh], 
+                    a.phone AS [SĐT],
+                    ISNULL(c.classID, '') AS [Mã Lớp],
+                    ISNULL(c.class_name, '') AS [Tên Lớp],
+                    CONVERT(VARCHAR(10), c.start_date, 120) AS [Ngày Bắt Đầu],
+                    CONVERT(VARCHAR(10), c.end_date, 120) AS [Ngày Kết Thúc],
+                    CASE 
+                        WHEN c.start_date > GETDATE() THEN N'Sắp mở'
+                        WHEN c.start_date <= GETDATE() AND c.end_date >= GETDATE() THEN N'Đang dạy'
+                        ELSE N'Đã kết thúc'
+                    END AS [Trạng Thái]
+                FROM accountList a
+                LEFT JOIN Class c ON a.Id = c.teacherID AND c.end_date >= GETDATE() -- Chỉ lấy lớp đang và sắp dạy
+                WHERE a.Id = @teacherId";
 
             DataTable dt = new DataTable();
             using (SqlConnection conn = dbHelper.GetConnection())
@@ -729,8 +730,8 @@ namespace PBL3a.services.BLL
                 {
                     try
                     {
-                        string insertClass = @"INSERT INTO Class (classID, class_name, courseID, teacherID, start_date, end_date, capacity, grade, fee_default) 
-                                       VALUES (@classID, @class_name, @courseID, @teacherID, @start_date, @end_date, @capacity, @grade, @fee)";
+                        string insertClass = @"INSERT INTO Class (classID, class_name, courseID, teacherID, start_date, end_date, capacity, grade, fee_default, status) 
+                                       VALUES (@classID, @class_name, @courseID, @teacherID, @start_date, @end_date, @capacity, @grade, @fee, @status)";
 
                         foreach (DataRow row in dtClasses.Rows)
                         {
@@ -745,6 +746,7 @@ namespace PBL3a.services.BLL
                                 cmd.Parameters.AddWithValue("@capacity", row["Sức Chứa"]);
                                 cmd.Parameters.AddWithValue("@grade", row["Khối"]);
                                 cmd.Parameters.AddWithValue("@fee", row["Học Phí"]);
+                                cmd.Parameters.AddWithValue("@status", "Sắp mở");
 
                                 cmd.ExecuteNonQuery();
                             }
@@ -786,17 +788,17 @@ namespace PBL3a.services.BLL
                 SELECT 
                     a.Id AS [Mã Học Sinh], 
                     a.name AS [Tên Học Sinh], 
-                    a.dateOfBirth AS [Ngày Sinh], 
+                    CONVERT(VARCHAR(10), a.dateOfBirth, 120) AS [Ngày Sinh], 
                     a.sex AS [Giới Tính], 
                     a.phone AS [SĐT]
                 FROM accountList a
                 WHERE a.Role = 'Student' 
-                AND YEAR(a.dateOfBirth) = @namSinh
-                AND NOT EXISTS (
-                    SELECT 1 
-                    FROM JoinClass jc
-                    WHERE jc.AccountID = a.Id AND jc.classID = @classId
-                )";
+                    AND YEAR(a.dateOfBirth) = @namSinh
+                    AND NOT EXISTS (
+                        SELECT 1 
+                        FROM JoinClass jc
+                        WHERE jc.AccountID = a.Id AND jc.classID = @classId
+                    )";
 
             using (SqlConnection conn = dbHelper.GetConnection())
             {

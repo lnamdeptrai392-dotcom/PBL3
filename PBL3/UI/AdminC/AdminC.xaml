@@ -119,7 +119,7 @@
                         <TextBlock Text="NHÂN SỰ" Foreground="#4A7FA5" FontSize="10"
                                    FontWeight="Bold" Margin="22,12,0,4"/>
                         <Button x:Name="btnStudentProfile" Content="  👨‍🎓  Hồ sơ học sinh"
-                                Style="{StaticResource MenuButtonActiveStyle}" Click="btnStudentProfile_Click"/>
+                                Style="{StaticResource MenuButtonStyle}" Click="btnStudentProfile_Click"/>
                         <Button x:Name="btnTeacherProfile" Content="  👨‍🏫  Hồ sơ giáo viên"
                                 Style="{StaticResource MenuButtonStyle}" Click="btnTeacherProfile_Click"/>
                         <Button x:Name="btnTaoTK" Content="  🔑  Cấp tài khoản"
