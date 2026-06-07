@@ -25,8 +25,8 @@ namespace PBL3.UI.AdminTC.ChildForm
     /// </summary>
     public partial class TongQuan : UserControl
     {
-        private DatabaseHelper db = new DatabaseHelper();
-        
+        private AdminTC_Service bll = new AdminTC_Service();
+
         public TongQuan()
         {
             InitializeComponent();
@@ -35,58 +35,29 @@ namespace PBL3.UI.AdminTC.ChildForm
 
         private void LoadHocSinhChamHocPhi()
         {
-            string query = @"
-                SELECT 
-                    a.Id         AS [Mã HS],
-                    a.name       AS [Họ tên],
-                    a.phone      AS [Số điện thoại],
-                    c.class_name AS [Lớp],
-                    hp.TuitionMonth AS [Tháng],
-                    hp.TuitionYear  AS [Năm],
-                    FORMAT(hp.SoTien, 'N0') + N' đ' AS [Số tiền],
-                    hp.TrangThai AS [Trạng thái]
-                FROM HocPhi hp
-                JOIN accountList a ON hp.AccountID = a.Id
-                JOIN Class c       ON hp.ClassID   = c.classID
-                WHERE hp.TrangThai = N'Chưa đóng'
-                ORDER BY hp.TuitionYear DESC, hp.TuitionMonth DESC, a.name";
-
-            DataTable dt = new DataTable();
-            using (SqlConnection conn = db.GetConnection())
+            dgvDanhSach.ItemsSource = null;
+            try
             {
-                SqlCommand cmd = new SqlCommand(query, conn);
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-                da.Fill(dt);
+                DataTable dt = bll.GetHocSinhChamHocPhi();
+                dgvDanhSach.ItemsSource = dt.DefaultView;
             }
-            dgvDanhSach.ItemsSource = dt.DefaultView;
-
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi tải danh sách học sinh chậm học phí: " + ex.Message, "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
         private void LoadGiaoVienChuaTraLuong()
         {
-            string query = @"
-                SELECT 
-                    a.Id       AS [Mã GV],
-                    a.name     AS [Họ tên],
-                    a.phone    AS [Số điện thoại],
-                    ti.subject AS [Môn dạy],
-                    lg.SalaryMonth AS [Tháng],
-                    lg.SalaryYear  AS [Năm],
-                    FORMAT(lg.TongLuong, 'N0') + N' đ' AS [Tổng lương],
-                    lg.TrangThai AS [Trạng thái]
-                FROM LuongGV lg
-                JOIN accountList a  ON lg.TeacherID = a.Id
-                JOIN teacherInfo ti ON lg.TeacherID = ti.Id
-                WHERE lg.TrangThai = N'Chưa thanh toán'
-                ORDER BY lg.SalaryYear DESC, lg.SalaryMonth DESC, a.name";
-
-            DataTable dt = new DataTable();
-            using (SqlConnection conn = db.GetConnection())
+            dgvDanhSach.ItemsSource = null;
+            try
             {
-                SqlCommand cmd = new SqlCommand(query, conn);
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-                da.Fill(dt);
+                DataTable dt = bll.GetGiaoVienChuaTraLuong();
+                dgvDanhSach.ItemsSource = dt.DefaultView;
             }
-            dgvDanhSach.ItemsSource = dt.DefaultView;
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi tải danh sách giáo viên chưa trả lương: " + ex.Message, "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void cbbList_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -95,7 +66,6 @@ namespace PBL3.UI.AdminTC.ChildForm
                 LoadHocSinhChamHocPhi();
             else if (cbbList.SelectedIndex == 1)
                 LoadGiaoVienChuaTraLuong();
-            
         }
 
         private void btnShow_Click(object sender, RoutedEventArgs e)

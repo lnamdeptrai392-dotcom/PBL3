@@ -1,17 +1,19 @@
 ﻿using Microsoft.Data.SqlClient;
 using PBL3a.services;
+using PBL3a.services.BLL;
 using System;
 using System.Data;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Collections.Generic;
 
 namespace PBL3a.UI.AdminTC
 {
     public partial class HocPhi : UserControl
     {
-        private DatabaseHelper db = new DatabaseHelper();
         private DataTable dtHocPhi = new DataTable();
+        private AdminTC_Service bll = new AdminTC_Service();
 
         public HocPhi()
         {
@@ -33,25 +35,10 @@ namespace PBL3a.UI.AdminTC
 
             try
             {
-                using (SqlConnection conn = db.GetConnection())
+                List<string> classIDs = bll.GetClassIDsByFilters(selectedGrade, selectedCourseTag);
+                foreach (string classID in classIDs)
                 {
-                    conn.Open();
-                    string query = "SELECT classID FROM Class WHERE grade = @grade AND courseID = @courseID ORDER BY classID";
-
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@grade", selectedGrade);
-                        cmd.Parameters.AddWithValue("@courseID", selectedCourseTag);
-
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                // Thêm trực tiếp string vào Items
-                                cbbML.Items.Add(reader["classID"].ToString());
-                            }
-                        }
-                    }
+                    cbbML.Items.Add(classID);
                 }
             }
             catch (Exception ex)
@@ -78,36 +65,13 @@ namespace PBL3a.UI.AdminTC
         {
             try
             {
-                using (SqlConnection conn = db.GetConnection())
-                {
-                    conn.Open();
-                    string query = @"
-                SELECT 
-                    a.Id AS [AccountID], 
-                    a.name AS [HoTen], 
-                    ISNULL(hp.SoTien, 0) AS [SoTien], 
-                    ISNULL(CONVERT(NVARCHAR, hp.NgayDong, 103), N'--') AS [NgayDong],
-                    ISNULL(hp.TrangThai, N'Chưa thiết lập') AS [TrangThai]
-                FROM JoinClass jc
-                INNER JOIN accountList a ON jc.AccountID = a.Id
-                LEFT JOIN HocPhi hp 
-                    ON jc.AccountID = hp.AccountID 
-                    AND jc.classID = hp.ClassID
-                WHERE jc.classID = @classID
-                ORDER BY hp.TrangThai DESC, a.name ASC";
+                dtHocPhi = bll.GetHocPhiByClassID(classID);
 
-                    using (SqlDataAdapter adapter = new SqlDataAdapter(query, conn))
-                    {
-                        adapter.SelectCommand.Parameters.AddWithValue("@classID", classID);
-                        dtHocPhi = new DataTable();
-                        adapter.Fill(dtHocPhi);
-                        dataGridView1.ItemsSource = dtHocPhi.DefaultView;
-                    }
-                }
+                dataGridView1.ItemsSource = dtHocPhi.DefaultView;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Không thể tải danh sách học phí: " + ex.Message);
+                MessageBox.Show("Không thể tải danh sách học phí: " + ex.Message, "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

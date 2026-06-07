@@ -86,8 +86,8 @@ Background="#F0F2F5" d:DesignWidth="800"  d:DesignHeight="500">
                         <DataGridTextColumn Header="Mã" Binding="{Binding Mã}" Width="100"/>
                         <DataGridTextColumn Header="Ngày" Binding="{Binding Ngày}" Width="120"/>
                         <DataGridTextColumn Header="Loại" Binding="{Binding Loại}" Width="100"/>
-                        <DataGridTextColumn Header="Nội dung" Binding="{Binding Nội dung}" Width="*"/>
-                        <DataGridTextColumn Header="Số tiền" Binding="{Binding Số tiền}" Width="200">
+                        <DataGridTextColumn Header="Nội dung" Binding="{Binding [Nội dung]}" Width="*"/>
+                        <DataGridTextColumn Header="Số tiền" Binding="{Binding [Số tiền]}" Width="200">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="HorizontalAlignment" Value="Right"/>
@@ -96,7 +96,7 @@ Background="#F0F2F5" d:DesignWidth="800"  d:DesignHeight="500">
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
-                        <DataGridTextColumn Header="Ghi chú" Binding="{Binding Ghi chú}" Width="150"/>
+                        <DataGridTextColumn Header="Ghi chú" Binding="{Binding [Ghi chú]}" Width="150"/>
                     </DataGrid.Columns>
 
                     <DataGrid.ColumnHeaderStyle>

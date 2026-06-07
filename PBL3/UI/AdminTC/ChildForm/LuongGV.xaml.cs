@@ -1,16 +1,18 @@
 ﻿using Microsoft.Data.SqlClient;
 using PBL3a.services;
+using PBL3a.services.BLL;
 using System;
 using System.Data;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Collections.Generic;
 
 namespace PBL3a.UI.AdminTC
 {
     public partial class LuongGV : UserControl
     {
-        private DatabaseHelper db = new DatabaseHelper();
+        private AdminTC_Service bll = new AdminTC_Service();
 
         public LuongGV()
         {
@@ -20,6 +22,32 @@ namespace PBL3a.UI.AdminTC
 
         private void LuongGV_Load(object sender, RoutedEventArgs e)
         {
+            bool hasAllItem = false;
+            foreach (ComboBoxItem item in cbbThang.Items)
+            {
+                if (item.Content.ToString() == "Tất cả")
+                {
+                    hasAllItem = true;
+                    break;
+                }
+            }
+            if (!hasAllItem)
+            {
+                ComboBoxItem allItem = new ComboBoxItem { Content = "Tất cả" };
+                cbbThang.Items.Insert(0, allItem);
+            }
+
+            string currentMonth = DateTime.Now.Month.ToString();
+            foreach (ComboBoxItem item in cbbThang.Items)
+            {
+                if (item.Content.ToString() == currentMonth)
+                {
+                    cbbThang.SelectedItem = item;
+                    break;
+                }
+            }
+            txtNam.Text = DateTime.Now.Year.ToString();
+
             LoadDanhSachGV("");
         }
 
@@ -28,21 +56,10 @@ namespace PBL3a.UI.AdminTC
             try
             {
                 cbbMGV.Items.Clear();
-                using (SqlConnection conn = db.GetConnection())
+                List<string> ids = bll.GetTeacherIDs(text);
+                foreach (string id in ids)
                 {
-                    conn.Open();
-                    string query = "SELECT Id FROM accountList WHERE Role='Teacher' AND Id LIKE @text";
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@text", "%" + text + "%");
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                cbbMGV.Items.Add(reader["Id"].ToString());
-                            }
-                        }
-                    }
+                    cbbMGV.Items.Add(id);
                 }
             }
             catch (Exception ex) { MessageBox.Show("Lỗi load danh sách: " + ex.Message); }
@@ -63,41 +80,58 @@ namespace PBL3a.UI.AdminTC
 
         private void LoadTenGV(string id)
         {
-            using (SqlConnection conn = db.GetConnection())
+            try
             {
-                conn.Open();
-                using (SqlCommand cmd = new SqlCommand("SELECT name FROM accountList WHERE Id=@id", conn))
+                string name = bll.GetTeacherName(id);
+                tbTL.Text = !string.IsNullOrEmpty(name) ? name : "N/A";
+            }
+            catch (Exception ex) { MessageBox.Show("Lỗi tải tên giáo viên: " + ex.Message); }
+        }
+
+        private void LoadLuong(string id)
+        {
+            if (string.IsNullOrEmpty(id) || cbbThang.SelectedItem == null || string.IsNullOrEmpty(txtNam.Text))
+            {
+                dataGridView1.ItemsSource = null;
+                return;
+            }
+
+            try
+            {
+                string thang = ((ComboBoxItem)cbbThang.SelectedItem).Content.ToString();
+                string nam = txtNam.Text.Trim();
+
+                DataTable dtAll = bll.GetLuongByTeacherID(id);
+                DataView dv = new DataView(dtAll);
+
+                if (thang == "Tất cả")
                 {
-                    cmd.Parameters.AddWithValue("@id", id);
-                    object result = cmd.ExecuteScalar();
-                    tbTL.Text = result != null ? result.ToString() : "N/A";
+                    dv.RowFilter = $"SalaryYear = {nam}";
                 }
+                else
+                {
+                    dv.RowFilter = $"SalaryMonth = {thang} AND SalaryYear = {nam}";
+                }
+
+                dataGridView1.ItemsSource = dv;
+            }
+            catch (Exception ex) { MessageBox.Show("Lỗi tải bảng lương: " + ex.Message); }
+        }
+
+        private void cbbThang_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cbbMGV.SelectedItem != null)
+            {
+                LoadLuong(cbbMGV.SelectedItem.ToString());
             }
         }
 
-        // Hàm LoadLuong để sửa lỗi CS0103
-        private void LoadLuong(string id)
+        private void txtNam_TextChanged(object sender, TextChangedEventArgs e)
         {
-            try
+            if (cbbMGV.SelectedItem != null && txtNam.Text.Trim().Length == 4)
             {
-                using (SqlConnection conn = db.GetConnection())
-                {
-                    conn.Open();
-                    string query = @"SELECT LuongID, SalaryMonth, SoLopDay, SoBuoiDay, LuongCoBan, Thuong, Phat, TongLuong, TrangThai, NgayThanhToan
-                                    FROM LuongGV 
-                                    WHERE TeacherID=@id 
-                                    ORDER BY SalaryYear DESC, SalaryMonth DESC";
-
-                    using (SqlDataAdapter ad = new SqlDataAdapter(query, conn))
-                    {
-                        ad.SelectCommand.Parameters.AddWithValue("@id", id);
-                        DataTable dt = new DataTable();
-                        ad.Fill(dt);
-                        dataGridView1.ItemsSource = dt.DefaultView;
-                    }
-                }
+                LoadLuong(cbbMGV.SelectedItem.ToString());
             }
-            catch (Exception ex) { MessageBox.Show("Lỗi tải bảng lương: " + ex.Message); }
         }
 
         private void btSetL_Click(object sender, RoutedEventArgs e)
@@ -106,10 +140,17 @@ namespace PBL3a.UI.AdminTC
 
             string id = cbbMGV.SelectedItem.ToString();
 
-            // Sửa lỗi ép kiểu và kiểm tra null cho C# 7.3
             if (cbbThang.SelectedItem == null || string.IsNullOrEmpty(txtNam.Text))
             {
                 MessageBox.Show("Vui lòng nhập đúng Tháng/Năm");
+                return;
+            }
+
+            string selectedMonthStr = ((ComboBoxItem)cbbThang.SelectedItem).Content.ToString();
+
+            if (selectedMonthStr == "Tất cả")
+            {
+                MessageBox.Show("Vui lòng chọn một Tháng cụ thể (1-12) để tính lương, không thể chọn 'Tất cả'!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -118,45 +159,14 @@ namespace PBL3a.UI.AdminTC
 
             try
             {
-                using (SqlConnection conn = db.GetConnection())
+                bool isExist = bll.CheckLuongExists(id, month, year);
+                if (isExist)
                 {
-                    conn.Open();
-
-                    // Kiểm tra trùng
-                    using (SqlCommand checkCmd = new SqlCommand("SELECT COUNT(1) FROM LuongGV WHERE TeacherID=@id AND SalaryMonth=@m AND SalaryYear=@y", conn))
-                    {
-                        checkCmd.Parameters.AddWithValue("@id", id);
-                        checkCmd.Parameters.AddWithValue("@m", month);
-                        checkCmd.Parameters.AddWithValue("@y", year);
-                        if ((int)checkCmd.ExecuteScalar() > 0)
-                        {
-                            MessageBox.Show("Tháng này đã được tính lương!");
-                            return;
-                        }
-                    }
-
-                    int soLop = (int)new SqlCommand("SELECT COUNT(*) FROM Class WHERE teacherID=@id", conn)
-                    { Parameters = { new SqlParameter("@id", id) } }.ExecuteScalar();
-
-                    int soBuoi = soLop * 8;
-                    decimal mucLuongMoiBuoi = 400000;
-                    decimal tongLuong = soBuoi * mucLuongMoiBuoi;
-
-                    string insert = @"INSERT INTO LuongGV (TeacherID, SalaryMonth, SalaryYear, SoLopDay, SoBuoiDay, LuongCoBan, Thuong, Phat, TongLuong, TrangThai)
-                                    VALUES (@id, @m, @y, @lop, @buoi, @muc, 0, 0, @tong, N'Chưa thanh toán')";
-
-                    using (SqlCommand cmd = new SqlCommand(insert, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@id", id);
-                        cmd.Parameters.AddWithValue("@m", month);
-                        cmd.Parameters.AddWithValue("@y", year);
-                        cmd.Parameters.AddWithValue("@lop", soLop);
-                        cmd.Parameters.AddWithValue("@buoi", soBuoi);
-                        cmd.Parameters.AddWithValue("@muc", mucLuongMoiBuoi);
-                        cmd.Parameters.AddWithValue("@tong", tongLuong);
-                        cmd.ExecuteNonQuery();
-                    }
+                    MessageBox.Show("Tháng này đã được tính lương!");
+                    return;
                 }
+
+                bll.CalculateAndInsertLuong(id, month, year);
                 MessageBox.Show("Tính lương thành công!");
                 LoadLuong(id);
             }
@@ -170,43 +180,15 @@ namespace PBL3a.UI.AdminTC
 
             string teacherID = cbbMGV.SelectedItem != null ? cbbMGV.SelectedItem.ToString() : "";
 
-            using (SqlConnection conn = db.GetConnection())
+            try
             {
-                conn.Open();
-                using (SqlTransaction trans = conn.BeginTransaction())
-                {
-                    try
-                    {
-                        foreach (DataRow row in dv.Table.Rows)
-                        {
-                            // C# 7.3 không hỗ trợ RowState check trực tiếp trong foreach dễ dàng, 
-                            // nhưng lệnh UPDATE này vẫn an toàn.
-                            string query = @"UPDATE LuongGV SET 
-                                           TrangThai = @status, 
-                                           NgayThanhToan = (CASE WHEN @status = N'Đã thanh toán' THEN GETDATE() ELSE NULL END),
-                                           Thuong = @thuong, Phat = @phat,
-                                           TongLuong = (LuongCoBan * SoBuoiDay + @thuong - @phat)
-                                           WHERE LuongID = @luongID";
-
-                            using (SqlCommand cmd = new SqlCommand(query, conn, trans))
-                            {
-                                cmd.Parameters.AddWithValue("@luongID", row["LuongID"]);
-                                cmd.Parameters.AddWithValue("@status", row["TrangThai"] != null ? row["TrangThai"].ToString() : "Chưa thanh toán");
-                                cmd.Parameters.AddWithValue("@thuong", row["Thuong"] == DBNull.Value ? 0 : row["Thuong"]);
-                                cmd.Parameters.AddWithValue("@phat", row["Phat"] == DBNull.Value ? 0 : row["Phat"]);
-                                cmd.ExecuteNonQuery();
-                            }
-                        }
-                        trans.Commit();
-                        MessageBox.Show("Cập nhật thành công!");
-                        if (!string.IsNullOrEmpty(teacherID)) LoadLuong(teacherID);
-                    }
-                    catch (Exception ex)
-                    {
-                        trans.Rollback();
-                        MessageBox.Show("Lỗi lưu dữ liệu: " + ex.Message);
-                    }
-                }
+                bll.SaveLuongChanges(dv.Table);
+                MessageBox.Show("Cập nhật thành công!");
+                if (!string.IsNullOrEmpty(teacherID)) LoadLuong(teacherID);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi lưu dữ liệu: " + ex.Message);
             }
         }
 
