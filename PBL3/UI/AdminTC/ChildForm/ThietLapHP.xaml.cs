@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using PBL3a.services;
+using PBL3a.services.BLL;
 using System;
 using System.Data;
 using System.Windows;
@@ -9,7 +10,7 @@ namespace PBL3a.UI.AdminTC
 {
     public partial class ThietLapHP : Window
     {
-        private DatabaseHelper db = new DatabaseHelper();
+        private AdminTC_Service bll = new AdminTC_Service();
         private string MaLop;
         public ThietLapHP(string m)
         {
@@ -22,17 +23,14 @@ namespace PBL3a.UI.AdminTC
         public void SetGUI()
         {
             txtMaLop.Text = MaLop;
-            using (SqlConnection conn = db.GetConnection())
+            try
             {
-                conn.Open();
-                string query = "SELECT class_name FROM Class WHERE classID = @id";
-                using (SqlCommand cmd = new SqlCommand(query, conn))
-                {
-                    cmd.Parameters.AddWithValue("@id", MaLop);
-
-                    object result = cmd.ExecuteScalar();
-                    tbTL.Text = result != null ? result.ToString() : "";
-                }
+                string className = bll.GetClassNameByID(MaLop);
+                tbTL.Text = className;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi tải thông tin lớp: " + ex.Message, "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -56,125 +54,46 @@ namespace PBL3a.UI.AdminTC
             int thangHienTai = DateTime.Now.Month;
             int namHienTai = DateTime.Now.Year;
 
-            using (SqlConnection conn = db.GetConnection())
+            try
             {
-                conn.Open();
-                SqlTransaction trans = conn.BeginTransaction();
-                try
-                {
-                    // Duyệt trực tiếp trên từng dòng của DataView để lấy trạng thái mới nhất
-                    foreach (DataRowView rowView in dv)
-                    {
-                        DataRow row = rowView.Row;
-                        if (row.RowState == DataRowState.Deleted) continue;
-
-                        string trangThai = row["TrangThai"]?.ToString() ?? "Chưa đóng";
-                        string query = @"
-                        IF EXISTS (
-                            SELECT 1 FROM HocPhi 
-                            WHERE AccountID = @accID 
-                                AND ClassID   = @classID 
-                                AND TuitionMonth = @month 
-                                AND TuitionYear  = @year
-                        )
-                        BEGIN
-                            UPDATE HocPhi 
-                            SET SoTien    = CASE WHEN @coNhapTien = 1 THEN @tien ELSE SoTien END,
-                                TrangThai = @status,
-                                NgayDong  = CASE WHEN @status = N'Đã đóng' THEN GETDATE() ELSE NULL END
-                            WHERE AccountID = @accID 
-                                AND ClassID   = @classID 
-                                AND TuitionMonth = @month 
-                                AND TuitionYear  = @year
-                        END
-                        ELSE
-                        BEGIN
-                            INSERT INTO HocPhi 
-                                (AccountID, ClassID, TuitionMonth, TuitionYear, SoTien, TrangThai, NgayDong)
-                            VALUES 
-                                (@accID, @classID, @month, @year, 
-                                    CASE WHEN @coNhapTien = 1 THEN @tien ELSE 0 END, 
-                                    @status,
-                                    CASE WHEN @status = N'Đã đóng' THEN GETDATE() ELSE NULL END)
-                        END";
-
-                        using (SqlCommand cmd = new SqlCommand(query, conn, trans))
-                        {
-                            cmd.Parameters.AddWithValue("@accID", row["AccountID"]);
-                            cmd.Parameters.AddWithValue("@classID", MaLop);
-                            cmd.Parameters.AddWithValue("@tien", _soTienMoiHS);
-                            cmd.Parameters.AddWithValue("@coNhapTien", coNhapTien ? 1 : 0); 
-                            cmd.Parameters.AddWithValue("@status", trangThai);
-                            cmd.Parameters.AddWithValue("@month", thangHienTai);
-                            cmd.Parameters.AddWithValue("@year", namHienTai);
-                            cmd.ExecuteNonQuery();
-                        }
-                    }
-                    trans.Commit();
-                    MessageBox.Show("Cập nhật dữ liệu học phí thành công!", "Thông báo",
-                                    MessageBoxButton.OK, MessageBoxImage.Information);
-                    this.Close();
-                }
-                catch (Exception ex)
-                {
-                    trans.Rollback();
-                    MessageBox.Show("Lỗi khi lưu dữ liệu: " + ex.Message, "Lỗi",
-                                    MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                bll.SaveHocPhiSetup(dv.Table, MaLop, _soTienMoiHS, coNhapTien, thangHienTai, namHienTai);
+                MessageBox.Show("Cập nhật dữ liệu học phí thành công!", "Thông báo",
+                                MessageBoxButton.OK, MessageBoxImage.Information);
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi lưu dữ liệu: " + ex.Message, "Lỗi",
+                                MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         private void LoadChiTietHocPhi()
         {
-            using (SqlConnection conn = db.GetConnection())
+            try
             {
-                conn.Open();
                 int thang = DateTime.Now.Month;
                 int nam = DateTime.Now.Year;
 
-                string query = @"
-            SELECT 
-                ROW_NUMBER() OVER (ORDER BY a.name) AS STT,
-                a.Id   AS AccountID, 
-                a.name AS HoTen, 
-                ISNULL(hp.SoTien, @tienMacDinh)    AS SoTien, 
-                ISNULL(hp.TrangThai, N'Chưa đóng') AS TrangThai
-            FROM JoinClass jc
-            INNER JOIN accountList a ON jc.AccountID = a.Id
-            LEFT JOIN HocPhi hp 
-                ON jc.AccountID  = hp.AccountID 
-                AND jc.classID   = hp.ClassID
-                AND hp.TuitionMonth = @thang        -- chỉ lấy bản ghi của tháng hiện tại
-                AND hp.TuitionYear  = @nam
-            WHERE jc.classID = @classID";
-
-                using (SqlDataAdapter adapter = new SqlDataAdapter(query, conn))
-                {
-                    adapter.SelectCommand.Parameters.AddWithValue("@classID", MaLop);
-                    adapter.SelectCommand.Parameters.AddWithValue("@tienMacDinh", _soTienMoiHS);
-                    adapter.SelectCommand.Parameters.AddWithValue("@thang", thang);
-                    adapter.SelectCommand.Parameters.AddWithValue("@nam", nam);
-
-                    DataTable dt = new DataTable();
-                    adapter.Fill(dt);
-                    dgHocSinhLop.ItemsSource = dt.DefaultView;
-                }
+                DataTable dt = bll.GetChiTietHocPhi(MaLop, _soTienMoiHS, thang, nam);
+                dgHocSinhLop.ItemsSource = dt.DefaultView;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi tải chi tiết học phí: " + ex.Message, "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         public int capacity_cl(string idlop)
         {
-            int cap = 0;
-            using (SqlConnection conn = db.GetConnection())
+            try
             {
-                conn.Open();
-                string query = "SELECT COUNT(*) FROM JoinClass WHERE classID = @id";
-                using (SqlCommand cmd = new SqlCommand(query, conn))
-                {
-                    cmd.Parameters.AddWithValue("@id", idlop);
-                    cap = (int)cmd.ExecuteScalar();
-                }
+                return bll.GetClassCapacity(idlop);
             }
-            return cap;
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi tính sĩ số: " + ex.Message, "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                return 0;
+            }
         }
         public decimal SetHP(decimal hphi)
         {
@@ -199,6 +118,6 @@ namespace PBL3a.UI.AdminTC
         private void button1_Click(object sender, RoutedEventArgs e)
         {
             Close();
-        }        
+        }
     }
 }

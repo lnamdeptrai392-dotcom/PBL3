@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using PBL3a.services;
+using PBL3a.services.BLL;
 using System;
 using System.Data;
 using System.Windows;
@@ -13,7 +14,7 @@ namespace PBL3.UI.AdminTC.ChildForm
     /// </summary>
     public partial class ThongKe : UserControl
     {
-        private DatabaseHelper db = new DatabaseHelper();
+        private AdminTC_Service bll = new AdminTC_Service();
 
         public ThongKe()
         {
@@ -80,178 +81,7 @@ namespace PBL3.UI.AdminTC.ChildForm
                 decimal tongThu = 0;
                 decimal tongChi = 0;
 
-                using (SqlConnection conn = db.GetConnection())
-                {
-                    conn.Open();
-
-                    // ==================== 1. THU TỪ KHOANTHU ====================
-                    string sqlThu = @"
-                        SELECT 
-                            ThuID AS [Mã],
-                            FORMAT(NgayThu, 'dd/MM/yyyy') AS [Ngày],
-                            N'Thu' AS [Loại],
-                            NoiDung AS [Nội dung],
-                            SoTien AS [Số tiền gốc],
-                            ISNULL(GhiChu, '') AS [Ghi chú]
-                        FROM KhoanThu
-                        WHERE ThuYear = @Nam";
-
-                    if (thang.HasValue)
-                        sqlThu += " AND ThuMonth = @Thang";
-
-                    using (SqlCommand cmd = new SqlCommand(sqlThu, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@Nam", nam);
-                        if (thang.HasValue)
-                            cmd.Parameters.AddWithValue("@Thang", thang.Value);
-
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                DataRow row = dt.NewRow();
-                                row["Mã"] = "KT_" + reader["Mã"].ToString();
-                                row["Ngày"] = reader["Ngày"].ToString();
-                                row["Loại"] = reader["Loại"].ToString();
-                                row["Nội dung"] = reader["Nội dung"].ToString();
-                                decimal soTien = Convert.ToDecimal(reader["Số tiền gốc"]);
-                                row["Số tiền"] = soTien.ToString("N0") + " đ";
-                                row["Ghi chú"] = reader["Ghi chú"].ToString();
-                                row["SoTienGoc"] = soTien;
-                                dt.Rows.Add(row);
-                                tongThu += soTien;
-                            }
-                        }
-                    }
-
-                    // ==================== 2. THU TỪ HỌC PHÍ (HocPhi) ====================
-                    string sqlHocPhi = @"
-                        SELECT 
-                            hp.HocPhiID AS [Mã],
-                            FORMAT(hp.NgayDong, 'dd/MM/yyyy') AS [Ngày],
-                            N'Thu học phí' AS [Loại],
-                            a.name + N' - ' + c.class_name + N' (T' + CAST(hp.TuitionMonth AS VARCHAR) + N'/' + CAST(hp.TuitionYear AS VARCHAR) + N')' AS [Nội dung],
-                            hp.SoTien AS [Số tiền gốc],
-                            ISNULL(hp.GhiChu, '') AS [Ghi chú]
-                        FROM HocPhi hp
-                        JOIN accountList a ON hp.AccountID = a.Id
-                        JOIN Class c ON hp.ClassID = c.classID
-                        WHERE hp.TrangThai = N'Đã đóng'
-                            AND hp.NgayDong IS NOT NULL
-                            AND YEAR(hp.NgayDong) = @Nam";
-
-                    if (thang.HasValue)
-                        sqlHocPhi += " AND MONTH(hp.NgayDong) = @Thang";
-
-                    using (SqlCommand cmd = new SqlCommand(sqlHocPhi, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@Nam", nam);
-                        if (thang.HasValue)
-                            cmd.Parameters.AddWithValue("@Thang", thang.Value);
-
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                DataRow row = dt.NewRow();
-                                row["Mã"] = "HP_" + reader["Mã"].ToString();
-                                row["Ngày"] = reader["Ngày"].ToString();
-                                row["Loại"] = reader["Loại"].ToString();
-                                row["Nội dung"] = reader["Nội dung"].ToString();
-                                decimal soTien = Convert.ToDecimal(reader["Số tiền gốc"]);
-                                row["Số tiền"] = soTien.ToString("N0") + " đ";
-                                row["Ghi chú"] = reader["Ghi chú"].ToString();
-                                row["SoTienGoc"] = soTien;
-                                dt.Rows.Add(row);
-                                tongThu += soTien;
-                            }
-                        }
-                    }
-
-                    // ==================== 3. CHI TỪ KHOANCHI ====================
-                    string sqlChi = @"
-                        SELECT 
-                            ChiID AS [Mã],
-                            FORMAT(NgayChi, 'dd/MM/yyyy') AS [Ngày],
-                            N'Chi' AS [Loại],
-                            NoiDung AS [Nội dung],
-                            SoTien AS [Số tiền gốc],
-                            ISNULL(GhiChu, '') AS [Ghi chú]
-                        FROM KhoanChi
-                        WHERE ChiYear = @Nam";
-
-                    if (thang.HasValue)
-                        sqlChi += " AND ChiMonth = @Thang";
-
-                    using (SqlCommand cmd = new SqlCommand(sqlChi, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@Nam", nam);
-                        if (thang.HasValue)
-                            cmd.Parameters.AddWithValue("@Thang", thang.Value);
-
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                DataRow row = dt.NewRow();
-                                row["Mã"] = "KC_" + reader["Mã"].ToString();
-                                row["Ngày"] = reader["Ngày"].ToString();
-                                row["Loại"] = reader["Loại"].ToString();
-                                row["Nội dung"] = reader["Nội dung"].ToString();
-                                decimal soTien = Convert.ToDecimal(reader["Số tiền gốc"]);
-                                row["Số tiền"] = soTien.ToString("N0") + " đ";
-                                row["Ghi chú"] = reader["Ghi chú"].ToString();
-                                row["SoTienGoc"] = soTien;
-                                dt.Rows.Add(row);
-                                tongChi += soTien;
-                            }
-                        }
-                    }
-
-                    // ==================== 4. CHI LƯƠNG GIÁO VIÊN (LuongGV) ====================
-                    string sqlLuongGV = @"
-                        SELECT 
-                            lg.LuongID AS [Mã],
-                            FORMAT(lg.NgayThanhToan, 'dd/MM/yyyy') AS [Ngày],
-                            N'Chi lương' AS [Loại],
-                            a.name + N' - ' + ti.subject + N' (T' + CAST(lg.SalaryMonth AS VARCHAR) + N'/' + CAST(lg.SalaryYear AS VARCHAR) + N')' AS [Nội dung],
-                            lg.TongLuong AS [Số tiền gốc],
-                            ISNULL(lg.GhiChu, '') AS [Ghi chú]
-                        FROM LuongGV lg
-                        JOIN accountList a ON lg.TeacherID = a.Id
-                        JOIN teacherInfo ti ON lg.TeacherID = ti.Id
-                        WHERE lg.TrangThai = N'Đã thanh toán'
-                            AND lg.NgayThanhToan IS NOT NULL
-                            AND YEAR(lg.NgayThanhToan) = @Nam";
-
-                    if (thang.HasValue)
-                        sqlLuongGV += " AND MONTH(lg.NgayThanhToan) = @Thang";
-
-                    using (SqlCommand cmd = new SqlCommand(sqlLuongGV, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@Nam", nam);
-                        if (thang.HasValue)
-                            cmd.Parameters.AddWithValue("@Thang", thang.Value);
-
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                DataRow row = dt.NewRow();
-                                row["Mã"] = "LG_" + reader["Mã"].ToString();
-                                row["Ngày"] = reader["Ngày"].ToString();
-                                row["Loại"] = reader["Loại"].ToString();
-                                row["Nội dung"] = reader["Nội dung"].ToString();
-                                decimal soTien = Convert.ToDecimal(reader["Số tiền gốc"]);
-                                row["Số tiền"] = soTien.ToString("N0") + " đ";
-                                row["Ghi chú"] = reader["Ghi chú"].ToString();
-                                row["SoTienGoc"] = soTien;
-                                dt.Rows.Add(row);
-                                tongChi += soTien;
-                            }
-                        }
-                    }
-                }
+                bll.FetchThongKeTaiChinhData(dt, ref tongThu, ref tongChi, nam, thang);
 
                 // Sắp xếp theo ngày giảm dần
                 dt.DefaultView.Sort = "Ngày DESC";

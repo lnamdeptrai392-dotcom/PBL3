@@ -8,7 +8,6 @@
         Background="White">
 
     <Window.Resources>
-        <!-- Style nút menu thường -->
         <Style x:Key="MenuButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Foreground" Value="#BBCDE0"/>
@@ -35,14 +34,12 @@
             </Setter>
         </Style>
 
-        <!-- Style nút ACTIVE (đang chọn) -->
         <Style x:Key="MenuButtonActiveStyle" TargetType="Button" BasedOn="{StaticResource MenuButtonStyle}">
             <Setter Property="Background" Value="#1565C0"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
         </Style>
 
-        <!-- Style nút Đăng xuất -->
         <Style x:Key="LogoutButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Foreground" Value="#EF9A9A"/>
@@ -77,21 +74,15 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- ===== SIDEBAR ===== -->
         <Border Grid.Column="0" Background="#2C4E62">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
-                    <!-- Logo -->
                     <RowDefinition Height="Auto"/>
-                    <!-- Avatar/User -->
                     <RowDefinition Height="*"/>
-                    <!-- Menu -->
                     <RowDefinition Height="Auto"/>
-                    <!-- Logout -->
                 </Grid.RowDefinitions>
 
-                <!-- Logo -->
                 <Border Grid.Row="0" Background="#2C4E62" Height="70">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <TextBlock Text="🎓" FontSize="22" VerticalAlignment="Center" Margin="0,0,8,0"/>
@@ -100,10 +91,8 @@
                     </StackPanel>
                 </Border>
 
-                <!-- Avatar + Tên người dùng -->
                 <Border Grid.Row="1" Background="#0F2840" Margin="12,10" CornerRadius="10" Padding="12,10">
                     <StackPanel Orientation="Horizontal">
-                        <!-- Avatar tròn -->
                         <Border Width="42" Height="42" CornerRadius="21" Background="#1E88E5" Margin="0,0,10,0">
                             <TextBlock x:Name="tbAvatarChar" Text="A" FontSize="18" FontWeight="Bold"
                                        Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -116,58 +105,57 @@
                     </StackPanel>
                 </Border>
 
-                <!-- Menu Items -->
                 <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
                     <StackPanel Margin="0,5,0,5">
 
-                        <!-- Tổng quan -->
                         <Button x:Name="btnDashboard" Content="  🏠  Tổng quan"
                                 Style="{StaticResource MenuButtonActiveStyle}"
-                                Click="btnDashborad_Click"/>
+                                Click="BtnDashborad_Click"/>
 
-                        <!-- Separator label -->
                         <TextBlock Text="NGHIỆP VỤ" Foreground="#4A7FA5" FontSize="10"
                                    FontWeight="Bold" Margin="22,12,0,4" />
 
                         <Button x:Name="btnThuHP" Content="  💰  Thu học phí"
                                 Style="{StaticResource MenuButtonStyle}"
-                                Click="btnThuHP_Click"/>
+                                Click="BtnThuHP_Click"/>
+
                         <Button x:Name="btnLuong" Content="  💵  Chi trả lương"
                                 Style="{StaticResource MenuButtonStyle}"
-                                Click="btnLuong_Click"/>
+                                Click="BtnLuong_Click"/>
+
                         <Button x:Name="btnKhac" Content="  📋  Khoản chi khác"
                                 Style="{StaticResource MenuButtonStyle}"
-                                Click="btnKhac_Click"/>
+                                Click="BtnKhac_Click"/>
 
-                        <!-- Separator label -->
+                        <Button x:Name="btnThuKhac" Content="  📥  Khoản thu khác"
+                                Style="{StaticResource MenuButtonStyle}"
+                                Click="BtnThuKhac_Click"/>
+
                         <TextBlock Text="BÁO CÁO" Foreground="#4A7FA5" FontSize="10"
                                    FontWeight="Bold" Margin="22,12,0,4"/>
 
-                        <!-- Button Theo doi hoc phi -->
                         <Button x:Name="btnTheoDoiHP" Content="  🧾  Theo dõi học phí"
                                 Style="{StaticResource MenuButtonStyle}"
-                                Click="btnTheoDoiHP_Click"/>
-
+                                Click="BtnTheoDoiHP_Click"/>
 
                         <Button x:Name="btnThongKe" Content="  📊  Thống kê tài chính"
                                 Style="{StaticResource MenuButtonStyle}"
-                                Click="btnThongKe_Click"/>
+                                Click="BtnThongKe_Click"/>
+
                         <Button x:Name="btnProfit" Content="  📈  Báo cáo lợi nhuận"
                                 Style="{StaticResource MenuButtonStyle}"
-                                Click="btnProfit_Click"/>
+                                Click="BtnProfit_Click"/>
                     </StackPanel>
                 </ScrollViewer>
 
-                <!-- Đăng xuất -->
                 <Border Grid.Row="3" BorderThickness="0,1,0,0" BorderBrush="#1E3A5C" Margin="0,0,0,10">
                     <Button x:Name="btnExit" Content="  🚪  Đăng xuất"
                             Style="{StaticResource LogoutButtonStyle}"
-                            Click="btnExit_Click"/>
+                            Click="BtnExit_Click"/>
                 </Border>
             </Grid>
         </Border>
 
-        <!-- Nội dung chính -->
         <ContentControl x:Name="paDesktop" Grid.Column="1" Background="#F0F2F5"/>
     </Grid>
 </Window>
