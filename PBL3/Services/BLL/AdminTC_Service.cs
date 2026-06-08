@@ -385,17 +385,22 @@ namespace PBL3a.services.BLL
 
         public int GetClassCountByTeacher(string id, int month, int year)
         {
-            string query = @"SELECT COUNT(*) FROM Class WHERE teacherID=@id 
-                                AND MONTH(StartDate) <= @month      
-                                AND YEAR(StartDate) <= @year               
-                                AND (EndDate IS NULL OR (MONTH(EndDate) >= @month AND YEAR(EndDate) >= @year))";
+            DateTime startOfMonth = new DateTime(year, month, 1);
+
+            DateTime startOfNextMonth = startOfMonth.AddMonths(1);
+            string query = @"SELECT COUNT(*) FROM Class 
+                     WHERE teacherID = @id 
+                       AND start_date < @startOfNextMonth
+                       AND end_date >= @startOfMonth";
+
             using (SqlConnection conn = db.GetConnection())
             {
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@id", id);
-                    cmd.Parameters.AddWithValue("@month", month);
-                    cmd.Parameters.AddWithValue("@year", year);
+                    cmd.Parameters.AddWithValue("@startOfNextMonth", startOfNextMonth);
+                    cmd.Parameters.AddWithValue("@startOfMonth", startOfMonth);
+
                     conn.Open();
                     return (int)cmd.ExecuteScalar();
                 }

@@ -135,6 +135,9 @@
                         <Button x:Name="btnLuong" Content="  💵  Chi trả lương"
                                 Style="{StaticResource MenuButtonStyle}"
                                 Click="btnLuong_Click"/>
+                        <Button x:Name="btnThuKhac" Content="  📋  Khoản thu khác"
+                                Style="{StaticResource MenuButtonStyle}"
+                                Click="btnThuKhac_Click_1"/>
                         <Button x:Name="btnKhac" Content="  📋  Khoản chi khác"
                                 Style="{StaticResource MenuButtonStyle}"
                                 Click="btnKhac_Click"/>
