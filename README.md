@@ -2,14 +2,14 @@
   <img height="150" alt="Teaching Center Logo" src="https://github.com/user-attachments/assets/3f722f89-1613-4f6d-8f70-bf888f2b1039" />
 </p>
 
-<h1 align="center">PBL3: Hệ thống Quản lý Trung tâm Dạy học (TCMS)</h1>
+<h1 align="center">PBL3: Teaching Center Management System (TCMS)</h1>
 
 <p align="center">
-  <strong>✨ Số hóa quy trình - Nâng tầm giáo dục ✨</strong>
+  <strong>✨ Digitalizing Workflows - Elevating Education ✨</strong>
 </p>
 
 <p align="center">
-Quản lý toàn diện quy trình dạy học, xếp lớp, điểm danh và tài chính giữa Ban quản lý, Giáo viên và Học viên tại trung tâm.
+A comprehensive management system to streamline operations, scheduling, attendance, and finance among the Administration Board, Teachers, and Students.
 </p>
 
 <p align="center">
@@ -19,90 +19,114 @@ Quản lý toàn diện quy trình dạy học, xếp lớp, điểm danh và t�
   <img alt="Docker" src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" />
 </p>
 
-## 📸 Minh họa hệ thống (Một số chức năng nổi bật của hệ thống)
-</br>
-<img width="1920" height="1200" alt="z7805474846574_e340b13e874729b8143943ed78eb40c9" src="https://github.com/user-attachments/assets/a379cec0-26ad-4b85-9c56-10a94d25a7a7" />
-</br>
-<img width="1920" height="1200" alt="z7805474846569_111f61837a02b6b13e810acadb3d01ce" src="https://github.com/user-attachments/assets/3e0bd133-57b0-4392-89fe-93853aa18d27" />
-</br>
-<img width="2586" height="1480" alt="image" src="https://github.com/user-attachments/assets/dbb11618-581c-4d81-870b-6f813b56c1ca" />
-</br>
-<img width="1524" height="1067" alt="image" src="https://github.com/user-attachments/assets/1b3319c6-761d-44e2-affc-356eb83c9966" />
----
+## 📸 System UI & Core Modules
 
-## 🚀 Các tính năng nổi bật (Features)
+Below are some visual demonstrations of the system's core functionalities categorized by user roles.
 
-Hệ thống được thiết kế theo mô hình phân quyền chặt chẽ (Role-Based Access Control - RBAC) với các module chuyên biệt:
+### 👑 General Admin 
+**Admin Dashboard:** Comprehensive overview of classes, accounts, and system data.
+<img width="1919" height="1079" alt="1778906718707_7154354181070218536_g2971286853114616413_d6a0d8fd6acf8a56d364e79547ce426c" src="https://github.com/user-attachments/assets/cb69a77c-2d37-442a-bd82-cac0dd3055ef" />
 
-### 👑 Module Quản trị & Điều hành (Admin / General Panel)
-* **Quản lý cốt lõi (CRUD Operations):** Cung cấp giao diện trực quan để quản lý toàn diện danh mục Tài khoản, Khóa học, Lớp học và Nhân sự.
-* **Theo dõi Tài chính (Finance Management):** Số hóa quy trình thu học phí, lương giáo viên và thống kê thu nhập. Quản lý trạng thái đóng tiền của học viên và lương giáo viên theo từng tháng/năm một cách logic và minh bạch 
-* **Quản lý Điểm danh (Attendance Tracking):** Giám sát tình trạng đi học của học viên theo từng ngày. Dữ liệu điểm danh được liên kết chặt chẽ với lịch học để đảm bảo tính đồng bộ dữ liệu.
+<br/>
 
-### 👨‍🏫 Module Giáo Viên (Teacher Panel)
-* **Quản lý Lịch dạy (Dynamic Schedule):** Tự động hiển thị các lớp đang phụ trách dựa trên tính toán thời gian thực (`GETDATE()`), loại bỏ hoàn toàn việc lưu trữ trạng thái tĩnh dư thừa.
-* **Hệ thống Nhập điểm an toàn (Robust Grading System):** * Áp dụng **SQL Transaction** (`BeginTransaction`, `Commit`, `Rollback`) để đảm bảo tính toàn vẹn dữ liệu khi chấm điểm hàng loạt.
-  * Tích hợp xử lý đa ngôn ngữ (`CultureInfo.InvariantCulture`), loại bỏ lỗi Crash ứng dụng khi nhập số thập phân (dấu chấm/phẩy) trên các môi trường OS khác nhau.
-  * Xử lý triệt để vòng đời giao diện (WPF Lifecycle) với lệnh ép commit chỉnh sửa (`CommitEdit`) trên DataGrid.
+### 💰 Finance Admin
+**Finance Management:** Tracking system for student tuition fees and teacher salary payouts.
+<img width="2878" height="1799" alt="Screenshot 2026-07-08 235741" src="https://github.com/user-attachments/assets/11472859-f773-4485-bc1d-bc34624cbdd7" />
 
-### 👩‍🎓 Module Học Viên (Student Panel)
-* **Lịch học trực quan (Visual Calendar UI):** Chuyển đổi dữ liệu bảng khô khan thành giao diện tờ lịch tháng thông minh. Xử lý thành công bài toán tịnh tiến trục thời gian (Offset mapping) giữa hệ tọa độ của SQL và C#.
-* **Quản lý Học tập & Tra cứu:** * Sử dụng kỹ thuật `LEFT JOIN` và `ISNULL` để hiển thị minh bạch toàn bộ môn học (bao gồm các môn chưa có điểm).
-  * **Xuất Excel tốc độ cao:** Tích hợp thư viện **ClosedXML**, cho phép xuất báo cáo điểm số từ `DataView` ra định dạng `.xlsx` cực nhanh mà không yêu cầu cài đặt Microsoft Office.
+
+### 👨‍🏫 Teacher
+**Teacher Panel / Grading System:** A streamlined interface for teachers to manage their classes and input grades.
+<img width="1920" height="1200" alt="1778907366414_7640167550815314534_g2971286853114616413_6f467178388ccb1228345f225e13aeae" src="https://github.com/user-attachments/assets/505348f3-e3a0-4be9-b52b-f4fb444df29b" />
+
+<br/>
+
+### 👩‍🎓 Student
+**Student Calendar:** An intuitive, visual calendar mapping out study schedules and attendance records.
+<img width="1920" height="1200" alt="1778907366412_7640167550815314534_g2971286853114616413_fff278f900bed65bf2e05fc861f16e32" src="https://github.com/user-attachments/assets/d168acac-1cc2-4fc0-a074-f88bfdc62ef0" />
+
 
 ---
 
-## 🛠️ Công nghệ sử dụng (Tech Stack)
-* **Ngôn ngữ lập trình:** C#
-* **Framework giao diện:** .NET WPF (Windows Presentation Foundation)
-* **Cơ sở dữ liệu:** Microsoft SQL Server (T-SQL)
-* **Thư viện bên thứ 3:** `ClosedXML` (Thao tác file Excel chuẩn OpenXML).
-* **Kiến trúc:** Event-Driven, Data-Driven Design & 3NF Database Normalization.
+## 🚀 Key Features
+
+The system is designed with a strict Role-Based Access Control (RBAC) model, divided into specialized modules:
+
+### 👑 Admin / General Panel
+* **Core Operations (CRUD):** Intuitive interface to fully manage Accounts, Courses, Classes, and Personnel.
+* **Finance Management:** Digitalize tuition collection, teacher salary payouts, and revenue statistics.
+* **Attendance Tracking:** Monitor daily student attendance synchronized directly with the class schedule.
+
+### 👨‍🏫 Teacher Panel
+* **Dynamic Schedule:** Automatically displays current assigned classes based on real-time data.
+* **Grading System:** Secure and efficient interface for batch grade input and academic evaluation.
+
+### 👩‍🎓 Student Panel
+* **Visual Calendar UI:** Interactive monthly calendar view for class schedules.
+* **Academic Tracking:** Monitor enrolled courses, grades, and export academic transcripts easily.
 
 ---
 
-## ⚙️ Hướng dẫn cài đặt (Installation & Setup)
+## 🧠 Technical Highlights
 
-**Bước 1: Clone dự án**
+* **Data Integrity & Safety:** Implemented **SQL Transactions** (`BeginTransaction`, `Commit`, `Rollback`) to ensure complete data consistency when teachers perform batch grading operations.
+* **Cross-Platform Stability:** Handled globalization issues using `CultureInfo.InvariantCulture`, completely preventing app crashes when inputting decimal numbers (dot vs. comma) across different OS environments.
+* **Advanced UI Data Mapping:** Solved the time-axis offset mapping problem to convert flat SQL data tables into a dynamic, logical visual calendar UI in C#.
+* **WPF Lifecycle Optimization:** Managed the WPF UI lifecycle natively using explicit `CommitEdit` commands on DataGrids to prevent data-binding loss.
+* **High-Speed Reporting:** Integrated **ClosedXML** to allow blazing-fast `.xlsx` export directly from `DataView` structures, completely independent of Microsoft Office installations.
+* **Database Optimization:** Utilized `LEFT JOIN` and `ISNULL` techniques for transparent academic views, ensuring even ungraded subjects display logically. Normalized database up to 3NF.
+
+---
+
+## 🛠️ Tech Stack
+* **Programming Language:** C#
+* **UI Framework:** .NET WPF (Windows Presentation Foundation)
+* **Database:** Microsoft SQL Server (T-SQL)
+* **Third-party Libraries:** `ClosedXML` (For OpenXML Excel manipulation).
+* **Architecture:** Event-Driven, Data-Driven Design & 3NF Database Normalization.
+
+---
+
+## ⚙️ Installation & Setup
+
+**Step 1: Clone the repository**
 ```bash
 git clone https://github.com/lnamdeptrai392-dotcom/PBL3.git
 ```
+**Step 2: Database Setup**
+* Open **SQL Server Management Studio (SSMS)**.
+* Execute the provided SQL script in the repository to generate the Schema and load mock data.
+**Note:** The system relies on real-time logic (GETDATE()), so ensure the mock data dates align with your current testing timeline.
 
-**Bước 2: Thiết lập Cơ sở dữ liệu (Database Setup)**
-* Mở **SQL Server Management Studio (SSMS)**.
-* Chạy file script SQL đính kèm trong thư mục dự án để tạo cấu trúc bảng (Schema) và nạp dữ liệu mẫu.
-* *Lưu ý: Hệ thống sử dụng logic thời gian thực, hãy đảm bảo ngày tháng trong dữ liệu mẫu phù hợp với thời điểm test.*
+**Step 3: Configure Connection String**
+* Open the Solution in **Visual Studio 2022**.
+* Locate  `DatabaseHelper.cs` and modify the `Data Source` property to match your local SQL Server instance name.
 
-**Bước 3: Cấu hình chuỗi kết nối (Connection String)**
-* Mở Solution bằng **Visual Studio 2022**.
-* Tìm đến file `DatabaseHelper.cs`, thay đổi thuộc tính `Data Source` thành tên Server SQL trên máy của bạn.
+**Step 4: Restore Packages**
+* Right-click on the Solution -> Select **Restore NuGet Packages**.
+* Ensure `ClosedXML` is successfully installed.
 
-**Bước 4: Cài đặt thư viện**
-* Chuột phải vào Solution -> Chọn **Restore NuGet Packages**.
-* Đảm bảo gói `ClosedXML` đã được cài đặt thành công.
-
-**Bước 5: Khởi chạy (Run)**
-* Nhấn `F5` hoặc chọn `Start` để chạy ứng dụng.
+**Step 5: Run**
+Press `F5` or click `Start` to launch the application.
 
 ---
 
-## 🔑 Tài khoản Test
+## 🔑 Test Accounts
 
-| Vai trò | ID (Tên đăng nhập) | Mật khẩu |
+| Role | ID (UserName) | Password |
 | :--- | :--- | :--- |
-| **Admin chung** | `adminc` | `123456` |
-| **Admin tài chính** | `admintc` | `123456` |
-| **Giáo viên** | `T01` | `123456` |
-| **Học viên** | `10110001` | `123456` |
+| **General Admin** | `adminc` | `123456` |
+| **Finance Admin** | `admintc` | `123456` |
+| **Teacher** | `T01` | `123456` |
+| **Student** | `10110001` | `123456` |
 
 ---
 
-## Tác giả (Contributors)
+## Contributors
 
-* **Sinh viên thực hiện:**
+* **Developers**
     * Lê Xuân Nam
     * Phạm Thị Ngọc Khuê
     * Nguyễn Phương Uyên
     * Nguyễn Quang Trường Duy
-* **Học phần:** Đồ án PBL3
-* **Khoa:** Công nghệ Thông tin - Trường Đại học Bách khoa - Đại học Đà Nẵng (DUT)
+* **Course:** Project Based Learning 3 (PBL3)
+* **Faculty:** Faculty of Information Technology - Da Nang University of Science and Technology (DUT)
